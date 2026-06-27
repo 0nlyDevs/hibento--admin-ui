@@ -6,6 +6,9 @@
     "build": "vite build",
     "serve": "vite preview",
     "type-check": "tsc --noEmit",
+    "generate:admin": "openapi-ts -i ./docs/admin-spec.yaml -o ./src/lib/admin-client",
+    "generate:client": "openapi-ts -i ./docs/client-spec.yaml -o ./src/lib/client",
+    "generate": "npm run generate:admin && npm run generate:client",
     "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx ./src",
     "format": "prettier --write ./src"
   },
