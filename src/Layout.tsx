@@ -31,6 +31,9 @@ export const Layout = ({ children }: { children: React.ReactNode }) => (
         ".MuiDrawer-root .MuiList-root": {
           paddingTop: "32px !important",
         },
+        ".MuiDrawer-root .MuiDrawer-paper": {
+          background: "rgba(34, 34, 34, 0.9) !important",
+        },
       }}
     />
     <RALayout appBar={AppBar} menu={Menu}>

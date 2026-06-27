@@ -20,7 +20,7 @@ export function Dashboard() {
         position: "fixed",
         top: "50%",
         left: "50%",
-        transform: "translate(-50%, -50%) scale(2.5)",
+        transform: "translate(-50%, -50%) scale(1.2)",
         width: "100vw",
         height: "100vh",
         opacity: 0.08,

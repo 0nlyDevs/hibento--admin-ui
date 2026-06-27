@@ -385,6 +385,14 @@ const sharedComponents = {
       }),
     },
   },
+  RaMenuItemLink: {
+    styleOverrides: {
+      root: {
+        margin: "8px 12px",
+        borderRadius: 8,
+      },
+    },
+  },
 };
 
 export const lightTheme = createTheme({
