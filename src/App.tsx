@@ -39,14 +39,19 @@ import SessionIcon from "@mui/icons-material/PlayCircleOutline";
 import PeopleIcon from "@mui/icons-material/People";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
-        
+
 import { hibentoDataProvider } from "./providers";
 import { authProvider } from "./providers/authProvider";
 
 export const App = () => (
   <ThemeProvider theme={theme}>
-    <Admin dashboard={Dashboard} layout={Layout} dataProvider={hibentoDataProvider}
-    authProvider={authProvider} requireAuth>
+    <Admin
+      dashboard={Dashboard}
+      layout={Layout}
+      dataProvider={hibentoDataProvider}
+      authProvider={authProvider}
+      requireAuth
+    >
       <Resource
         name="events"
         list={EventList}
