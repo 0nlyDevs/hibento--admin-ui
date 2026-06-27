@@ -2,7 +2,7 @@ import { createTheme } from "@mui/material/styles";
 
 const sharedTypography = {
   fontFamily:
-    '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    '"Manrope", "Sora", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
   h4: { fontWeight: 600, fontSize: "1.75rem" },
   h5: { fontWeight: 600, fontSize: "1.25rem" },
   h6: { fontWeight: 600, fontSize: "1.1rem" },
