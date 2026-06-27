@@ -14,7 +14,6 @@ const sharedTypography = {
 const sharedShape = { borderRadius: 12 };
 
 const glassBg = "rgba(34, 34, 34, 0.85)";
-const cardBg = "#222";
 const glassBorder = "1px solid rgba(255, 255, 255, 0.1)";
 
 const sharedComponents = {
@@ -216,7 +215,7 @@ const sharedComponents = {
     styleOverrides: {
       paper: ({ theme }: any) => ({
         borderRight: "1px solid rgba(255,255,255,0.06)",
-        background: cardBg,
+        background: glassBg,
       }),
     },
   },
