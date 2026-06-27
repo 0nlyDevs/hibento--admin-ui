@@ -28,16 +28,12 @@ export const authProvider: AuthProvider = {
     if (user && !user.expired) {
       return Promise.resolve();
     }
-    // No valid token → redirect to Casdoor
-    await userManager.signinRedirect();
     return Promise.reject();
   },
 
   checkError: async (error) => {
     if (error?.status === 401 || error?.status === 403) {
-      // Token expired/invalid → redirect to Casdoor
       await userManager.removeUser();
-      await userManager.signinRedirect();
       return Promise.reject();
     }
     return Promise.resolve();
