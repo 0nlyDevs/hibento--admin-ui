@@ -1,21 +1,53 @@
+import { UserManager, WebStorageStateStore } from "oidc-client-ts";
 import type { AuthProvider } from "react-admin";
 
+const userManager = new UserManager({
+  authority: import.meta.env.VITE_CASDOOR_SERVER_URL,
+  client_id: import.meta.env.VITE_CASDOOR_CLIENT_ID,
+  redirect_uri: `${window.location.origin}/callback`,
+  scope: "openid profile email",
+  userStore: new WebStorageStateStore({ store: window.localStorage }),
+  automaticSilentRenew: true,
+  accessTokenExpiringNotificationTime: 60,
+});
+
+export { userManager };
+
 export const authProvider: AuthProvider = {
-  login: () => {
-    window.location.href = "http://localhost:8080/oauth2/authorization/casdoor";
+  login: async () => {
+    await userManager.signinRedirect();
+  },
+
+  logout: async () => {
+    await userManager.removeUser();
     return Promise.resolve();
   },
 
-  logout: () => {
-    window.location.href = "http://localhost:8080/logout";
+  checkAuth: async () => {
+    const user = await userManager.getUser();
+    if (user && !user.expired) {
+      return Promise.resolve();
+    }
+    return Promise.reject();
+  },
+
+  checkError: (error) => {
+    if (error?.status === 401 || error?.status === 403) {
+      return Promise.reject();
+    }
     return Promise.resolve();
   },
 
-  checkAuth: () => Promise.resolve(),
-
-  checkError: () => Promise.resolve(),
-
-  getIdentity: () => Promise.resolve({ id: "1", fullName: "Admin" }),
+  getIdentity: async () => {
+    const user = await userManager.getUser();
+    if (!user?.profile) throw new Error("Not authenticated");
+    return {
+      id: user.profile.sub!,
+      fullName: user.profile.name || user.profile.preferred_username || "",
+      email: user.profile.email!,
+      avatar: user.profile.picture,
+    };
+  },
 
   getPermissions: () => Promise.resolve([]),
 };
