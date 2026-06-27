@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { useLogin } from "react-admin";
-import { Box, Button, Card, Typography, useTheme } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { Box, Button, Typography } from "@mui/material";
 
 export const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const login = useLogin();
-  const theme = useTheme();
 
   const handleLogin = () => {
     setLoading(true);
@@ -20,41 +18,42 @@ export const LoginPage = () => {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
-        bgcolor: theme.palette.background.default,
+        backgroundImage: 'url("/background.jpg")',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        position: "relative",
       }}
     >
-      <Card
+      {/* Dark overlay for readability */}
+      <Box
         sx={{
-          p: 6,
+          position: "absolute",
+          inset: 0,
+          bgcolor: "rgba(0, 0, 0, 0.4)",
+        }}
+      />
+      <Box
+        sx={{
+          position: "relative",
+          zIndex: 1,
+          textAlign: "center",
           maxWidth: 420,
           width: "100%",
           mx: 2,
-          textAlign: "center",
         }}
       >
-        <Box
-          sx={{
-            width: 56,
-            height: 56,
-            borderRadius: "50%",
-            bgcolor: theme.palette.primary.main,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            mx: "auto",
-            mb: 3,
-          }}
-        >
-          <LockOutlinedIcon sx={{ color: "#fff", fontSize: 28 }} />
+        <Box sx={{ mb: 4, display: "flex", justifyContent: "center" }}>
+          <img
+            src="/logo-login.svg"
+            alt="Logo"
+            style={{ maxWidth: 200, height: "auto" }}
+          />
         </Box>
-
-        <Typography variant="h4" gutterBottom>
-          Ibento
-        </Typography>
 
         <Typography
           variant="body2"
-          sx={{ color: theme.palette.text.secondary, mb: 4 }}
+          sx={{ color: "rgba(255,255,255,0.8)", mb: 4, fontSize: "0.95rem" }}
         >
           Sign in to access the administration interface
         </Typography>
@@ -65,11 +64,19 @@ export const LoginPage = () => {
           fullWidth
           disabled={loading}
           onClick={handleLogin}
-          sx={{ py: 1.5, fontSize: "1rem" }}
+          sx={{
+            py: 1.5,
+            fontSize: "1rem",
+            bgcolor: "#DFDB2B",
+            color: "#0f172a",
+            "&:hover": {
+              bgcolor: "#c9c526",
+            },
+          }}
         >
           {loading ? "Redirecting..." : "Sign in with Casdoor"}
         </Button>
-      </Card>
+      </Box>
     </Box>
   );
 };
