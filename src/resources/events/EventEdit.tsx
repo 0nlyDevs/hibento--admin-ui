@@ -1,0 +1,62 @@
+import {
+  Edit,
+  SimpleForm,
+  TextInput,
+  DateTimeInput,
+  BooleanInput,
+  ReferenceInput,
+  AutocompleteInput,
+  required,
+  maxLength,
+  type EditProps,
+} from "react-admin";
+import { FormSection } from "../../components/forms/FormSection";
+
+export function EventEdit(props: EditProps) {
+  return (
+    <Edit {...props} redirect="show">
+      <SimpleForm>
+        <FormSection
+          title="Basic Information"
+          description="Core details about the event"
+        >
+          <TextInput
+            source="title"
+            label="Name"
+            fullWidth
+            validate={[required(), maxLength(255)]}
+          />
+          <TextInput
+            source="description"
+            label="Description"
+            fullWidth
+            multiline
+            rows={4}
+          />
+          <BooleanInput source="online" label="Online Event" />
+        </FormSection>
+
+        <FormSection title="Location">
+          <ReferenceInput source="venueId" reference="venues">
+            <AutocompleteInput label="Venue" fullWidth />
+          </ReferenceInput>
+        </FormSection>
+
+        <FormSection title="Schedule">
+          <DateTimeInput
+            source="startDate"
+            label="Start Date"
+            fullWidth
+            validate={required()}
+          />
+          <DateTimeInput
+            source="endDate"
+            label="End Date"
+            fullWidth
+            validate={required()}
+          />
+        </FormSection>
+      </SimpleForm>
+    </Edit>
+  );
+}
