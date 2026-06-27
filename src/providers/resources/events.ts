@@ -1,5 +1,6 @@
 import type {
   GetListParams,
+  GetManyReferenceParams,
   GetOneParams,
   CreateParams,
   UpdateParams,
@@ -17,6 +18,19 @@ export const eventsResource = {
       query: { page: pagination.page, limit: pagination.perPage },
     });
     return { data: data.data, total: data.pagination.total };
+  },
+
+  getManyReference: async ({ target, id }: GetManyReferenceParams) => {
+    if (target === "venueId") {
+      const { data } = await publicApi.getEvents({
+        query: { limit: 1000 },
+      });
+      const filtered = (data.data ?? []).filter(
+        (event: any) => event.venueId === id,
+      );
+      return { data: filtered, total: filtered.length };
+    }
+    return { data: [], total: 0 };
   },
 
   getOne: async ({ id }: GetOneParams) => {

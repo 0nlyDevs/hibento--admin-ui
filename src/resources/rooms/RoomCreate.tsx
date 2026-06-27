@@ -10,11 +10,15 @@ import {
   minValue,
   type CreateProps,
 } from "react-admin";
+import { useSearchParams } from "react-router-dom";
 import { FormSection } from "../../components/forms/FormSection";
 
 export function RoomCreate(props: CreateProps) {
+  const [searchParams] = useSearchParams();
+  const venueId = searchParams.get("venueId") || undefined;
+
   return (
-    <Create {...props} redirect="show">
+    <Create {...props} redirect="show" defaultValues={{ venueId }}>
       <SimpleForm>
         <FormSection title="Room Information">
           <TextInput

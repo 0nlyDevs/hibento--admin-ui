@@ -1,5 +1,6 @@
 import type {
   GetListParams,
+  GetManyReferenceParams,
   CreateParams,
   UpdateParams,
   DeleteParams,
@@ -15,6 +16,17 @@ export const roomsResource = {
       path: { eventId },
     });
     return { data: data.data, total: data.data.length };
+  },
+
+  getManyReference: async ({ target, id }: GetManyReferenceParams) => {
+    if (target === "venueId") {
+      const { data } = await publicApi.getVenuesByVenueId({
+        path: { venueId: String(id) },
+      });
+      const rooms = (data as any).rooms ?? [];
+      return { data: rooms, total: rooms.length };
+    }
+    return { data: [], total: 0 };
   },
 
   getOne: async () => {
