@@ -14,6 +14,7 @@ import { publicApi, adminApi } from "../api";
 export const sessionsResource = {
   getList: async ({ filter }: GetListParams) => {
     const eventId = (filter as Record<string, string>)?.eventId;
+    if (!eventId) return { data: [], total: 0 };
     const { data } = await publicApi.getEventsByEventIdEventSessions({
       path: { eventId },
     });

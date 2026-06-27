@@ -10,6 +10,7 @@ import { publicApi, adminApi } from "../api";
 export const roomsResource = {
   getList: async ({ filter }: GetListParams) => {
     const eventId = (filter as Record<string, string>)?.eventId;
+    if (!eventId) return { data: [], total: 0 };
     const { data } = await publicApi.getEventsByEventIdRooms({
       path: { eventId },
     });
