@@ -8,25 +8,10 @@ import {
   EditButton,
   TopToolbar,
   CreateButton,
-  useRecordContext,
+  FunctionField,
   type ListProps,
 } from "react-admin";
-import { Avatar, Box } from "@mui/material";
-import type { Speaker } from "../../types";
-
-function AvatarField() {
-  const record = useRecordContext<Speaker>();
-  if (!record) return null;
-  return (
-    <Avatar
-      src={record.avatarUrl || undefined}
-      alt={record.name}
-      sx={{ width: 36, height: 36 }}
-    >
-      {record.name?.charAt(0)?.toUpperCase()}
-    </Avatar>
-  );
-}
+import { Avatar } from "@mui/material";
 
 const speakerFilters = [
   <SearchInput source="q" alwaysOn key="search" />,
@@ -46,13 +31,22 @@ export function SpeakerList(props: ListProps) {
       }
     >
       <Datagrid rowClick="show">
-        <AvatarField label="" />
+        <FunctionField
+          label=""
+          render={(record) => (
+            <Avatar
+              src={record.avatarUrl || undefined}
+              alt={record.name}
+              sx={{ width: 36, height: 36 }}
+            >
+              {record.name?.charAt(0)?.toUpperCase()}
+            </Avatar>
+          )}
+        />
         <TextField source="name" sx={{ fontWeight: 600 }} />
         <TextField source="bio" label="Bio" />
-        <Box component="td" sx={{ textAlign: "right" }}>
-          <EditButton />
-          <ShowButton />
-        </Box>
+        <EditButton />
+        <ShowButton />
       </Datagrid>
     </List>
   );

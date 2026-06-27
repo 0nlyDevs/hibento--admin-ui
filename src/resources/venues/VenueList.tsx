@@ -11,8 +11,6 @@ import {
   CreateButton,
   type ListProps,
 } from "react-admin";
-import { Box } from "@mui/material";
-
 const venueFilters = [
   <SearchInput source="q" alwaysOn key="search" />,
   <TextInput source="name" label="Name" key="name" />,
@@ -36,10 +34,8 @@ export function VenueList(props: ListProps) {
         <TextField source="city" />
         <TextField source="neighborhood" label="Neighborhood" />
         <NumberField source="totalRooms" label="Rooms" />
-        <Box component="td" sx={{ textAlign: "right" }}>
-          <EditButton />
-          <ShowButton />
-        </Box>
+        <EditButton />
+        <ShowButton />
       </Datagrid>
     </List>
   );

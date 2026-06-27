@@ -11,25 +11,16 @@ import {
   EditButton,
   TopToolbar,
   CreateButton,
-  useRecordContext,
+  FunctionField,
   type ListProps,
 } from "react-admin";
-import { Box } from "@mui/material";
 import { LiveBadge } from "../../components/common/StatusBadge";
 import { isSessionLive } from "../../utils";
-import type { Session } from "../../types";
 
 const sessionFilters = [
   <SearchInput source="q" alwaysOn key="search" />,
   <TextInput source="title" label="Title" key="title" />,
 ];
-
-function LiveStatusField() {
-  const record = useRecordContext<Session>();
-  if (!record) return null;
-  const live = isSessionLive(record.startTime, record.endTime);
-  return <LiveBadge isLive={live} />;
-}
 
 export function SessionList(props: ListProps) {
   return (
@@ -56,12 +47,17 @@ export function SessionList(props: ListProps) {
         <TextField source="roomName" label="Room" />
         <DateField source="startTime" label="Start" showTime locales="en-US" />
         <DateField source="endTime" label="End" showTime locales="en-US" />
-        <LiveStatusField label="Status" />
+        <FunctionField
+          label="Status"
+          render={(record) => (
+            <LiveBadge
+              isLive={isSessionLive(record.startTime, record.endTime)}
+            />
+          )}
+        />
         <NumberField source="capacity" />
-        <Box component="td" sx={{ textAlign: "right" }}>
-          <EditButton />
-          <ShowButton />
-        </Box>
+        <EditButton />
+        <ShowButton />
       </Datagrid>
     </List>
   );

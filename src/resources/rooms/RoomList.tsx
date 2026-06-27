@@ -12,8 +12,6 @@ import {
   CreateButton,
   type ListProps,
 } from "react-admin";
-import { Box } from "@mui/material";
-
 const roomFilters = [
   <SearchInput source="q" alwaysOn key="search" />,
   <TextInput source="name" label="Name" key="name" />,
@@ -42,10 +40,8 @@ export function RoomList(props: ListProps) {
           <TextField source="name" />
         </ReferenceField>
         <NumberField source="capacity" />
-        <Box component="td" sx={{ textAlign: "right" }}>
-          <EditButton />
-          <ShowButton />
-        </Box>
+        <EditButton />
+        <ShowButton />
       </Datagrid>
     </List>
   );
