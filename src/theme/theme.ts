@@ -214,7 +214,7 @@ const sharedComponents = {
   MuiDrawer: {
     styleOverrides: {
       paper: ({ theme }: any) => ({
-        borderRight: "1px solid rgba(255,255,255,0.06)",
+        borderRight: "1px solid rgba(255,255,255,0.12)",
         background: "rgba(34, 34, 34, 0.9)",
       }),
     },
