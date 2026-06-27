@@ -215,7 +215,7 @@ const sharedComponents = {
     styleOverrides: {
       paper: ({ theme }: any) => ({
         borderRight: "1px solid rgba(255,255,255,0.06)",
-        background: glassBg,
+        background: "rgba(34, 34, 34, 0.9)",
       }),
     },
   },
