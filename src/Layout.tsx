@@ -9,7 +9,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => (
       styles={{
         ".RaLayout-content": {
           background: "transparent !important",
-          padding: "32px 24px !important",
+          padding: "48px 32px !important",
         },
         ".RaLayout-main": {
           background: "transparent !important",
@@ -29,12 +29,20 @@ export const Layout = ({ children }: { children: React.ReactNode }) => (
           marginTop: "8px",
         },
         ".MuiDrawer-root .MuiList-root": {
-          paddingTop: "32px !important",
+          paddingTop: "48px !important",
         },
         ".MuiDrawer-root .MuiDrawer-paper": {
           background: "rgba(34, 34, 34, 0.9) !important",
           borderRight: "1px solid rgba(255,255,255,0.12) !important",
           overflow: "hidden !important",
+          zIndex: 10,
+        },
+        ".MuiDrawer-root .MuiListItemIcon-root": {
+          minWidth: "40px !important",
+          justifyContent: "center",
+        },
+        ".MuiDrawer-root .MuiListItemText-root": {
+          marginLeft: "8px",
         },
       }}
     />

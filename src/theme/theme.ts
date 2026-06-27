@@ -388,8 +388,9 @@ const sharedComponents = {
   RaMenuItemLink: {
     styleOverrides: {
       root: {
-        margin: "8px 12px",
+        margin: "10px 14px",
         borderRadius: 8,
+        gap: 12,
       },
     },
   },

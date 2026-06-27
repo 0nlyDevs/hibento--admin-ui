@@ -3,12 +3,11 @@ import { Box } from "@mui/material";
 
 export const AppBar = () => (
   <RAAppBar>
-    <Box sx={{ flex: 1 }} />
     <Box
       sx={{
         display: "flex",
         alignItems: "center",
-        mr: 1,
+        ml: 1,
       }}
     >
       <img
@@ -17,5 +16,6 @@ export const AppBar = () => (
         style={{ height: 26, width: "auto" }}
       />
     </Box>
+    <Box sx={{ flex: 1 }} />
   </RAAppBar>
 );
