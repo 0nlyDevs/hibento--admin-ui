@@ -33,6 +33,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => (
         },
         ".MuiDrawer-root .MuiDrawer-paper": {
           background: "rgba(34, 34, 34, 0.9) !important",
+          borderRight: "1px solid rgba(255,255,255,0.12) !important",
         },
       }}
     />
