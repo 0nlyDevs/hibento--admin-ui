@@ -28,6 +28,9 @@ export const Layout = ({ children }: { children: React.ReactNode }) => (
         ".RaList-main": {
           marginTop: "8px",
         },
+        ".MuiDrawer-root .MuiList-root": {
+          paddingTop: "32px !important",
+        },
       }}
     />
     <RALayout appBar={AppBar} menu={Menu}>
