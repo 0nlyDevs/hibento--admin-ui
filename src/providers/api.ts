@@ -7,10 +7,14 @@ const adminClient = createClient({
   baseUrl: import.meta.env.VITE_ADMIN_API_URL,
 });
 
-adminClient.interceptors.request.add(async (request) => {
-  const user = await userManager.getUser();
-  if (user?.access_token) {
-    request.headers.set("Authorization", `Bearer ${user.access_token}`);
+adminClient.interceptors.request.use(async (request) => {
+  try {
+    const user = await userManager.getUser();
+    if (user?.access_token) {
+      request.headers.set("Authorization", `Bearer ${user.access_token}`);
+    }
+  } catch {
+    // not authenticated — no token to add
   }
   return request;
 });
