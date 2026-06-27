@@ -14,7 +14,7 @@ const sharedTypography = {
 const sharedShape = { borderRadius: 12 };
 
 const glassBg = "rgba(34, 34, 34, 0.85)";
-const cardBg = "rgba(34, 34, 34, 0.95)";
+const cardBg = "#222";
 const glassBorder = "1px solid rgba(255, 255, 255, 0.1)";
 
 const sharedComponents = {
