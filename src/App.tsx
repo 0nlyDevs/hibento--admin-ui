@@ -42,6 +42,7 @@ import LocationCityIcon from "@mui/icons-material/LocationCity";
 
 import { hibentoDataProvider } from "./providers";
 import { authProvider } from "./providers/authProvider";
+import { LoginPage } from "./pages/LoginPage";
 
 export const App = () => (
   <ThemeProvider theme={theme}>
@@ -50,6 +51,7 @@ export const App = () => (
       layout={Layout}
       dataProvider={hibentoDataProvider}
       authProvider={authProvider}
+      loginPage={LoginPage}
       requireAuth
     >
       <Resource
