@@ -12,7 +12,7 @@ export function PageHeader({ title, subtitle, actions }: PageHeaderProps) {
       display="flex"
       alignItems="flex-start"
       justifyContent="space-between"
-      mb={3}
+      mb={4}
       flexWrap="wrap"
       gap={2}
     >

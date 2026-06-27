@@ -20,13 +20,23 @@ const sharedComponents = {
   MuiCard: {
     styleOverrides: {
       root: ({ theme }: any) => ({
-        borderRadius: 12,
+        borderRadius: 16,
         border: glassBorder,
         boxShadow: "0 4px 30px rgba(0, 0, 0, 0.3)",
         background: glassBg,
         backdropFilter: "blur(12px)",
         backgroundImage: "none",
       }),
+    },
+  },
+  MuiCardContent: {
+    styleOverrides: {
+      root: {
+        padding: "28px !important",
+        "&:last-child": {
+          paddingBottom: "28px !important",
+        },
+      },
     },
   },
   MuiPaper: {

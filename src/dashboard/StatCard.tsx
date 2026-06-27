@@ -12,14 +12,15 @@ export function StatCard({ label, value, icon, loading }: StatCardProps) {
   return (
     <Card
       sx={{
-        transition: "box-shadow 0.2s, transform 0.2s",
+        transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
         "&:hover": {
-          boxShadow: "0 4px 12px 0 rgb(0 0 0 / 0.1)",
-          transform: "translateY(-2px)",
+          boxShadow: "0 8px 32px rgba(221, 217, 42, 0.15)",
+          transform: "translateY(-4px)",
+          borderColor: "rgba(221, 217, 42, 0.3)",
         },
       }}
     >
-      <CardContent sx={{ p: 3 }}>
+      <CardContent>
         <Box display="flex" alignItems="center" justifyContent="space-between">
           <Box>
             <Typography
