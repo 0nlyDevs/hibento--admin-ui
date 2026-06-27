@@ -14,6 +14,32 @@ import type { Event } from "../types";
 
 export function Dashboard() {
   const navigate = useNavigate();
+  const videoBg = (
+    <Box
+      sx={{
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%) scale(2.5)",
+        width: "100vw",
+        height: "100vh",
+        opacity: 0.08,
+        pointerEvents: "none",
+        zIndex: -1,
+        overflow: "hidden",
+      }}
+    >
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+      >
+        <source src="/home-tickets.mp4" type="video/mp4" />
+      </video>
+    </Box>
+  );
 
   const { total: eventTotal, isLoading: eventsLoading } = useGetList("events", {
     pagination: { page: 1, perPage: 1 },
@@ -61,7 +87,8 @@ export function Dashboard() {
   const recent = (recentEvents || []).slice(0, 3);
 
   return (
-    <Box>
+    <Box sx={{ position: "relative" }}>
+      {videoBg}
       <PageHeader
         title="Dashboard"
         subtitle="Overview of your HIBENTO platform"
