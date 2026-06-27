@@ -46,9 +46,8 @@ export function StatCard({ label, value, icon, loading }: StatCardProps) {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor: "secondary.main",
-              color: "white",
-              opacity: 0.9,
+              backgroundColor: "primary.main",
+              color: "primary.contrastText",
             }}
           >
             {icon}
