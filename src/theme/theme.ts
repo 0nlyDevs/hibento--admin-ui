@@ -14,6 +14,7 @@ const sharedTypography = {
 const sharedShape = { borderRadius: 12 };
 
 const glassBg = "rgba(34, 34, 34, 0.85)";
+const cardBg = "rgba(34, 34, 34, 0.95)";
 const glassBorder = "1px solid rgba(255, 255, 255, 0.1)";
 
 const sharedComponents = {
@@ -201,12 +202,21 @@ const sharedComponents = {
       }),
     },
   },
+  MuiToolbar: {
+    styleOverrides: {
+      root: {
+        minHeight: "64px !important",
+      },
+      regular: {
+        minHeight: "64px !important",
+      },
+    },
+  },
   MuiDrawer: {
     styleOverrides: {
       paper: ({ theme }: any) => ({
         borderRight: "1px solid rgba(255,255,255,0.06)",
-        background: glassBg,
-        backdropFilter: "blur(12px)",
+        background: cardBg,
       }),
     },
   },
@@ -368,7 +378,7 @@ const sharedComponents = {
         },
         "& .MuiMenuItem-root": {
           borderRadius: 8,
-          margin: "2px 8px",
+          margin: "6px 10px",
           "&:hover": {
             backgroundColor: "rgba(255, 255, 255, 0.04)",
           },
