@@ -1,4 +1,4 @@
-import { Box, Typography, Chip } from "@mui/material";
+import { Box, Typography, Chip, Card } from "@mui/material";
 import { Room, Business } from "@mui/icons-material";
 import { dotGridBg, glowChipSx } from "./constants";
 import type { Venue } from "../../types";
@@ -12,15 +12,12 @@ interface VenueCardProps {
 
 export function VenueCard({ venue, onClick }: VenueCardProps) {
   return (
-    <Box
+    <Card
       onClick={onClick}
       sx={{
-        borderRadius: "12px",
-        border: "1px solid",
-        borderColor: "rgba(255,255,255,0.06)",
-        overflow: "hidden",
         cursor: onClick ? "pointer" : "default",
-        bgcolor: "rgba(255, 255, 255, 0.05)",
+        background: "rgba(255, 255, 255, 0.05)",
+        overflow: "hidden",
         transition: "all 0.2s ease",
         "&:hover": onClick
           ? {
@@ -67,7 +64,12 @@ export function VenueCard({ venue, onClick }: VenueCardProps) {
       <Box sx={{ px: 2, py: 1.5 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.25 }}>
           <Business sx={{ fontSize: 14, color: "primary.main" }} />
-          <Typography variant="subtitle2" fontWeight={600} noWrap color="#FAFDF6">
+          <Typography
+            variant="subtitle2"
+            fontWeight={600}
+            noWrap
+            color="#FAFDF6"
+          >
             {venue.name}
           </Typography>
         </Box>
@@ -94,6 +96,6 @@ export function VenueCard({ venue, onClick }: VenueCardProps) {
           />
         </Box>
       </Box>
-    </Box>
+    </Card>
   );
 }

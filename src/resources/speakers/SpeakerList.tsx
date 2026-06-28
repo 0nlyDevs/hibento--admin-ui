@@ -4,7 +4,7 @@ import {
   useListContext,
   type ListProps,
 } from "react-admin";
-import { Box, Typography, InputAdornment, TextField } from "@mui/material";
+import { Box, Typography, InputAdornment, TextField, Card } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import type { Speaker } from "../../types";
@@ -39,14 +39,12 @@ function SpeakerCard({ speaker, onClick }: { speaker: Speaker; onClick: () => vo
   const links = speaker.externalLinks?.slice(0, 3) ?? [];
 
   return (
-    <Box
+    <Card
       onClick={onClick}
       sx={{
-        borderRadius: "12px",
-        border: "1px solid rgba(255,255,255,0.06)",
-        overflow: "hidden",
         cursor: "pointer",
-        bgcolor: "rgba(255, 255, 255, 0.05)",
+        background: "rgba(255, 255, 255, 0.05)",
+        overflow: "hidden",
         display: "flex",
         flexDirection: "column",
         height: "100%",
@@ -155,7 +153,7 @@ function SpeakerCard({ speaker, onClick }: { speaker: Speaker; onClick: () => vo
           </Box>
         )}
       </Box>
-    </Box>
+    </Card>
   );
 }
 
@@ -170,7 +168,7 @@ function SpeakerGrid() {
     <Box sx={{ p: 2 }}>
       <Box
         sx={{
-          backgroundColor: "#2D2A32",
+          backgroundColor: "rgba(255, 255, 255, 0.05)",
           borderRadius: "12px",
           p: "20px 24px",
           mb: 3,
@@ -219,7 +217,7 @@ function SpeakerGrid() {
           }}
           sx={{
             "& .MuiOutlinedInput-root": {
-              backgroundColor: "#38353E",
+              backgroundColor: "rgba(255, 255, 255, 0.06)",
               borderRadius: "8px",
               color: "#FAFDF6",
               fontSize: "0.9rem",

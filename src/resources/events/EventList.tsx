@@ -21,7 +21,7 @@ function EventGrid() {
     <Box sx={{ p: 2 }}>
       <Box
         sx={{
-          backgroundColor: "#2D2A32",
+          backgroundColor: "rgba(255, 255, 255, 0.05)",
           borderRadius: "12px",
           p: "20px 24px",
           mb: 3,
@@ -70,7 +70,7 @@ function EventGrid() {
           }}
           sx={{
             "& .MuiOutlinedInput-root": {
-              backgroundColor: "#38353E",
+              backgroundColor: "rgba(255, 255, 255, 0.06)",
               borderRadius: "8px",
               color: "#FAFDF6",
               fontSize: "0.9rem",

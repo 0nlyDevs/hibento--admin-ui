@@ -113,6 +113,7 @@ function EventHero() {
           alignItems: "center",
           justifyContent: "space-between",
           bgcolor: "rgba(255, 255, 255, 0.05)",
+          backdropFilter: "blur(12px)",
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
@@ -164,6 +165,7 @@ function DetailCards() {
           border: "1px solid",
           borderColor: "rgba(255,255,255,0.06)",
           bgcolor: "rgba(255, 255, 255, 0.05)",
+          backdropFilter: "blur(12px)",
           p: 3,
           mb: 3,
         }}
@@ -222,6 +224,7 @@ function DetailCards() {
             borderRadius: "12px",
             border: "1px solid rgba(255,255,255,0.06)",
             bgcolor: "rgba(255, 255, 255, 0.05)",
+          backdropFilter: "blur(12px)",
             p: 3,
           }}
         >
@@ -254,7 +257,7 @@ function SessionsTab() {
   if (isLoading) return <Loading />;
 
   return (
-    <Box sx={{ borderRadius: "12px", border: "1px solid rgba(255,255,255,0.06)", bgcolor: "rgba(255, 255, 255, 0.05)", overflow: "hidden" }}>
+    <Box sx={{ borderRadius: "12px", border: "1px solid rgba(255,255,255,0.06)", bgcolor: "rgba(255, 255, 255, 0.05)", backdropFilter: "blur(12px)", overflow: "hidden" }}>
       <Box sx={{ p: 3, pb: 0 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
           <Schedule sx={{ color: "primary.main", fontSize: 20 }} />
@@ -291,7 +294,7 @@ function RoomsTab() {
   if (isLoading) return <Loading />;
 
   return (
-    <Box sx={{ borderRadius: "12px", border: "1px solid rgba(255,255,255,0.06)", bgcolor: "rgba(255, 255, 255, 0.05)", overflow: "hidden" }}>
+    <Box sx={{ borderRadius: "12px", border: "1px solid rgba(255,255,255,0.06)", bgcolor: "rgba(255, 255, 255, 0.05)", backdropFilter: "blur(12px)", overflow: "hidden" }}>
       <Box sx={{ p: 3, pb: 0 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
           <EventIcon sx={{ color: "primary.main", fontSize: 20 }} />

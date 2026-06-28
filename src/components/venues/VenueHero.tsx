@@ -59,9 +59,7 @@ export function VenueHero({ venue, mapUrl }: VenueHeroProps) {
             right: "20%",
           }}
         />
-        <Box
-          sx={{ textAlign: "center", position: "relative", zIndex: 2 }}
-        >
+        <Box sx={{ textAlign: "center", position: "relative", zIndex: 2 }}>
           <Box
             sx={{
               ...glowChipSx,
@@ -121,6 +119,7 @@ export function VenueHero({ venue, mapUrl }: VenueHeroProps) {
           alignItems: "center",
           justifyContent: "space-between",
           bgcolor: "rgba(255, 255, 255, 0.05)",
+          backdropFilter: "blur(12px)",
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>

@@ -45,6 +45,7 @@ function SpeakerProfile() {
           border: "1px solid rgba(255,255,255,0.06)",
           overflow: "hidden",
           bgcolor: "rgba(255, 255, 255, 0.05)",
+          backdropFilter: "blur(12px)",
           mb: 3,
         }}
       >
@@ -145,6 +146,7 @@ function SpeakerProfile() {
             borderRadius: "12px",
             border: "1px solid rgba(255,255,255,0.06)",
             bgcolor: "rgba(255, 255, 255, 0.05)",
+          backdropFilter: "blur(12px)",
             p: 3,
           }}
         >
@@ -201,6 +203,7 @@ function SessionsTab() {
           borderRadius: "12px",
           border: "1px solid rgba(255,255,255,0.06)",
           bgcolor: "rgba(255, 255, 255, 0.05)",
+          backdropFilter: "blur(12px)",
           p: 4,
           textAlign: "center",
         }}

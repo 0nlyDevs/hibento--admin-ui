@@ -62,6 +62,7 @@ function DetailCards() {
           border: "1px solid",
           borderColor: "rgba(255,255,255,0.06)",
           bgcolor: "rgba(255, 255, 255, 0.05)",
+          backdropFilter: "blur(12px)",
           p: 3,
           mb: 3,
         }}

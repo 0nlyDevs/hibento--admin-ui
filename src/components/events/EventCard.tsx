@@ -1,4 +1,4 @@
-import { Box, Typography, Chip } from "@mui/material";
+import { Box, Typography, Chip, Card } from "@mui/material";
 import { Event, Schedule } from "@mui/icons-material";
 import { dotGridBg, glowChipSx } from "../venues/constants";
 import { StatusBadge } from "../common/StatusBadge";
@@ -16,15 +16,12 @@ export function EventCard({ event, onClick }: EventCardProps) {
   const status = getEventStatus(event.startDate, event.endDate);
 
   return (
-    <Box
+    <Card
       onClick={onClick}
       sx={{
-        borderRadius: "12px",
-        border: "1px solid",
-        borderColor: "rgba(255,255,255,0.06)",
-        overflow: "hidden",
         cursor: onClick ? "pointer" : "default",
-        bgcolor: "rgba(255, 255, 255, 0.05)",
+        background: "rgba(255, 255, 255, 0.05)",
+        overflow: "hidden",
         transition: "all 0.2s ease",
         "&:hover": onClick
           ? {
@@ -51,7 +48,10 @@ export function EventCard({ event, onClick }: EventCardProps) {
             <Event sx={{ fontSize: 16, color: "#2D2A32" }} />
           </Box>
           <Typography variant="body1" fontWeight={700} color="#FAFDF6">
-            {startDate.toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+            {startDate.toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+            })}
           </Typography>
           <Typography
             variant="caption"
@@ -63,7 +63,11 @@ export function EventCard({ event, onClick }: EventCardProps) {
               mt: 0.25,
             }}
           >
-            {endDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+            {endDate.toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            })}
           </Typography>
         </Box>
       </Box>
@@ -71,7 +75,12 @@ export function EventCard({ event, onClick }: EventCardProps) {
       <Box sx={{ px: 2, py: 1.5 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.25 }}>
           <Schedule sx={{ fontSize: 14, color: "primary.main" }} />
-          <Typography variant="subtitle2" fontWeight={600} noWrap color="#FAFDF6">
+          <Typography
+            variant="subtitle2"
+            fontWeight={600}
+            noWrap
+            color="#FAFDF6"
+          >
             {event.title}
           </Typography>
         </Box>
@@ -95,6 +104,6 @@ export function EventCard({ event, onClick }: EventCardProps) {
           )}
         </Box>
       </Box>
-    </Box>
+    </Card>
   );
 }
