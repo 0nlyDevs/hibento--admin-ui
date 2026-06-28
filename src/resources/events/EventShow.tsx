@@ -22,9 +22,10 @@ import {
   Chip,
   Button,
 } from "@mui/material";
-import { Schedule, Event as EventIcon, Language, Add, Public } from "@mui/icons-material";
+import { Schedule, Event as EventIcon, Language, Add, Public, People } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../../components/common/Loading";
+import { dotGridBg, glowChipSx } from "../../components/venues/constants";
 import { StatusBadge } from "../../components/common/StatusBadge";
 import { getEventStatus } from "../../utils";
 import { dotGridBg, glowChipSx } from "../../components/venues/constants";
@@ -344,6 +345,75 @@ function RoomsTab() {
   );
 }
 
+function SpeakersTab() {
+  const record = useRecordContext<Event>();
+  const navigate = useNavigate();
+  if (!record) return null;
+
+  const speakersMap = new Map<string, any>();
+  record.eventSessions?.forEach((s: any) =>
+    s.speakers?.forEach((sp: any) => {
+      if (!speakersMap.has(sp.id)) speakersMap.set(sp.id, sp);
+    }),
+  );
+  const speakers = Array.from(speakersMap.values());
+
+  if (speakers.length === 0) {
+    return (
+      <Box sx={{ borderRadius: "12px", border: 1, borderColor: "divider", bgcolor: "background.paper", p: 3 }}>
+        <Typography variant="body2" color="text.secondary" fontStyle="italic">
+          No speakers assigned to this event
+        </Typography>
+      </Box>
+    );
+  }
+
+  return (
+    <Box sx={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 2 }}>
+      {speakers.map((speaker) => {
+        const initials = speaker.name?.split(" ").map((n: string) => n[0]).join("").toUpperCase().slice(0, 2);
+        return (
+          <Box
+            key={speaker.id}
+            sx={{
+              borderRadius: "12px",
+              border: 1,
+              borderColor: "divider",
+              bgcolor: "background.paper",
+              overflow: "hidden",
+              cursor: "pointer",
+              "&:hover": { borderColor: "primary.main", boxShadow: 2 },
+            }}
+            onClick={() => navigate(`/speakers/${speaker.id}/show`)}
+          >
+            <Box sx={{ height: 100, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", bgcolor: "#1A1820", overflow: "hidden" }}>
+              <Box sx={dotGridBg()} />
+              <Box sx={{ ...glowChipSx, width: 56, height: 56, position: "relative", fontSize: 20, fontWeight: 700, color: "#2D2A32", overflow: "hidden" }}>
+                <Box sx={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  {initials}
+                </Box>
+                {speaker.avatar && (
+                  <Box component="img" src={speaker.avatar} alt={speaker.name} sx={{ width: "100%", height: "100%", objectFit: "cover", position: "relative", zIndex: 1 }} onError={(e: any) => { e.currentTarget.style.display = "none"; }} />
+                )}
+              </Box>
+            </Box>
+            <Box sx={{ p: 2 }}>
+              <Typography variant="body1" fontWeight={700} color="text.primary">
+                {speaker.name}
+              </Typography>
+              {speaker.bio && (
+                <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>
+                  {speaker.bio}
+                </Typography>
+              )}
+            </Box>
+          </Box>
+        );
+      })}
+    </Box>
+  );
+}
+
 export function EventShow(props: ShowProps) {
   return (
     <Show {...props}>
@@ -356,6 +426,9 @@ export function EventShow(props: ShowProps) {
         </Tab>
         <Tab label="Rooms" path="rooms">
           <RoomsTab />
+        </Tab>
+        <Tab label="Speakers" path="speakers">
+          <SpeakersTab />
         </Tab>
       </TabbedShowLayout>
     </Show>

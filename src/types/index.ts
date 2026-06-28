@@ -76,6 +76,7 @@ export interface Event {
   startDate: string;
   endDate: string;
   venueId?: string | null;
+  eventSessions?: SpeakerSession[];
   createdAt?: string;
   updatedAt?: string;
 }
