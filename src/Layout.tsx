@@ -1,10 +1,36 @@
 import { Layout as RALayout, CheckForApplicationUpdate } from "react-admin";
-import { GlobalStyles } from "@mui/material";
+import { GlobalStyles, Box } from "@mui/material";
 import { Menu } from "./components/layout/Menu";
 import { AppBar } from "./components/layout/AppBar";
 
+const videoBg = (
+  <Box
+    sx={{
+      position: "fixed",
+      inset: 0,
+      width: "100vw",
+      height: "100vh",
+      opacity: 0.12,
+      pointerEvents: "none",
+      zIndex: -1,
+      overflow: "hidden",
+    }}
+  >
+    <video
+      autoPlay
+      loop
+      muted
+      playsInline
+      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+    >
+      <source src="/home-tickets.mp4" type="video/mp4" />
+    </video>
+  </Box>
+);
+
 export const Layout = ({ children }: { children: React.ReactNode }) => (
   <>
+    {videoBg}
     <GlobalStyles
       styles={{
         ".RaLayout-content": {
