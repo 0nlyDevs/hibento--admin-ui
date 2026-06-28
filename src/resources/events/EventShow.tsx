@@ -266,12 +266,12 @@ function SessionsTab() {
   if (isLoading) return <Loading />;
 
   return (
-    <Box sx={{ borderRadius: "12px", border: "1px solid rgba(255,255,255,0.06)", bgcolor: "rgba(255, 255, 255, 0.05)", backdropFilter: "blur(12px)", overflow: "hidden" }}>
+    <Box sx={{ borderRadius: "12px", border: 1, borderColor: "divider", bgcolor: "background.paper", overflow: "hidden" }}>
       <Box sx={{ p: 3, pb: 0 }}>
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 2 }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
             <Schedule sx={{ color: "primary.main", fontSize: 20 }} />
-            <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+            <Typography variant="subtitle1" fontWeight={700} color="text.primary">
               Sessions ({data?.length ?? 0})
             </Typography>
           </Box>
@@ -284,12 +284,12 @@ function SessionsTab() {
             New Session
           </Button>
         </Box>
-        <Divider sx={{ mb: 2, borderColor: "rgba(255,255,255,0.06)" }} />
+        <Divider sx={{ mb: 2, borderColor: "divider" }} />
       </Box>
       <ListContextProvider value={listContext}>
-        <Datagrid rowClick="show" sx={{ "& .RaDatagrid-headerCell": { fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em" } }}>
+        <Datagrid rowClick={(id) => `/sessions/${id}/show`} sx={{ "& .RaDatagrid-headerCell": { fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em" } }}>
           <TextField source="title" sx={{ fontWeight: 600 }} />
-          <FunctionField label="Room" render={(r: any) => r.roomName || <Typography component="span" variant="body2" color="#6B6973">Online</Typography>} />
+          <FunctionField label="Room" render={(r: any) => r.roomName || <Typography component="span" variant="body2" color="text.secondary">Online</Typography>} />
           <DateField source="startTime" label="Start" showTime />
           <DateField source="endTime" label="End" showTime />
           <NumberField source="capacity" />
@@ -313,8 +313,8 @@ function RoomsTab() {
 
   if (!record.venueId) {
     return (
-      <Box sx={{ borderRadius: "12px", border: "1px solid rgba(255,255,255,0.06)", bgcolor: "rgba(255, 255, 255, 0.05)", backdropFilter: "blur(12px)", p: 3 }}>
-        <Typography variant="body2" color="#A9A7B0" fontStyle="italic">
+      <Box sx={{ borderRadius: "12px", border: 1, borderColor: "divider", bgcolor: "background.paper", p: 3 }}>
+        <Typography variant="body2" color="text.secondary" fontStyle="italic">
           Online event — no venue assigned
         </Typography>
       </Box>
@@ -324,15 +324,15 @@ function RoomsTab() {
   if (isLoading) return <Loading />;
 
   return (
-    <Box sx={{ borderRadius: "12px", border: "1px solid rgba(255,255,255,0.06)", bgcolor: "rgba(255, 255, 255, 0.05)", backdropFilter: "blur(12px)", overflow: "hidden" }}>
+    <Box sx={{ borderRadius: "12px", border: 1, borderColor: "divider", bgcolor: "background.paper", overflow: "hidden" }}>
       <Box sx={{ p: 3, pb: 0 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
           <EventIcon sx={{ color: "primary.main", fontSize: 20 }} />
-          <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+          <Typography variant="subtitle1" fontWeight={700} color="text.primary">
             Rooms ({data?.length ?? 0})
           </Typography>
         </Box>
-        <Divider sx={{ mb: 2, borderColor: "rgba(255,255,255,0.06)" }} />
+        <Divider sx={{ mb: 2, borderColor: "divider" }} />
       </Box>
       <ListContextProvider value={listContext}>
         <Datagrid sx={{ "& .RaDatagrid-headerCell": { fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em" } }}>
