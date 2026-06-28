@@ -240,6 +240,7 @@ function SessionsTab() {
       <Datagrid
         data={record.eventSessions}
         bulkActionButtons={false}
+        rowClick={(id) => `/sessions/${id}/show`}
         sx={{
           "& .RaDatagrid-headerCell": {
             fontWeight: 600,
