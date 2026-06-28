@@ -157,7 +157,7 @@ function SpeakerProfile() {
           <Divider sx={{ mb: 2, borderColor: "rgba(255,255,255,0.06)" }} />
           <Box sx={{ display: "flex", gap: 1.5, flexWrap: "wrap" }}>
             {record.externalLinks.map((link, i) => {
-              const cfg = LINK_CONFIG[link.type] || { label: link.type, color: "#6B6973", icon: <Link sx={{ fontSize: 16 }} /> };
+              const cfg = LINK_CONFIG[link.type.toLowerCase()] || { label: link.type, color: "#6B6973", icon: <Link sx={{ fontSize: 16 }} /> };
               return (
                 <Button
                   key={i}

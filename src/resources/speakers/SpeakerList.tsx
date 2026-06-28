@@ -127,7 +127,7 @@ function SpeakerCard({ speaker, onClick }: { speaker: Speaker; onClick: () => vo
         {links.length > 0 && (
           <Box sx={{ display: "flex", gap: 0.75, flexWrap: "wrap", mt: 1.5 }}>
             {links.map((link, i) => {
-              const cfg = LINK_CONFIG[link.type] || { label: link.type, color: "#6B6973", icon: <Link sx={{ fontSize: 13 }} /> };
+              const cfg = LINK_CONFIG[link.type.toLowerCase()] || { label: link.type, color: "#6B6973", icon: <Link sx={{ fontSize: 13 }} /> };
               return (
                 <Box
                   key={i}
