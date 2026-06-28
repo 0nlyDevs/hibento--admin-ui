@@ -2,6 +2,7 @@ import { Admin, Resource } from "react-admin";
 import { lightTheme } from "./theme/theme";
 import { Layout } from "./Layout";
 import { Dashboard } from "./dashboard/Dashboard";
+import { Loading } from "./components/common/Loading";
 
 /* Events */
 import { EventList } from "./resources/events/EventList";
@@ -33,6 +34,7 @@ export const App = () => (
     theme={lightTheme}
     dashboard={Dashboard}
     layout={Layout}
+    loading={Loading}
     dataProvider={hibentoDataProvider}
     authProvider={authProvider}
     loginPage={LoginPage}

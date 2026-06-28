@@ -112,7 +112,7 @@ export function Dashboard() {
 
       <Grid container spacing={4}>
         <Grid size={{ xs: 12, md: 6 }}>
-          <Card>
+          <Card sx={{ background: "rgba(255, 255, 255, 0.05)" }}>
             <CardContent sx={{ p: 3 }}>
               <Typography variant="h6" mb={2}>
                 Upcoming Events
@@ -174,7 +174,7 @@ export function Dashboard() {
         </Grid>
 
         <Grid size={{ xs: 12, md: 6 }}>
-          <Card>
+          <Card sx={{ background: "rgba(255, 255, 255, 0.05)" }}>
             <CardContent sx={{ p: 3 }}>
               <Typography variant="h6" mb={2}>
                 Recently Created

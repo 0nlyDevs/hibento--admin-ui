@@ -1,16 +1,20 @@
 import { Box, Typography, Chip } from "@mui/material";
-import { Room, Business } from "@mui/icons-material";
-import { dotGridBg, glowChipSx } from "./constants";
-import type { Venue } from "../../types";
+import { Event, Schedule } from "@mui/icons-material";
+import { dotGridBg, glowChipSx } from "../venues/constants";
+import { StatusBadge } from "../common/StatusBadge";
+import { getEventStatus } from "../../utils";
+import type { Event as EventType } from "../../types";
 
-const heroBg = "#1A1820";
-
-interface VenueCardProps {
-  venue: Venue;
+interface EventCardProps {
+  event: EventType;
   onClick?: () => void;
 }
 
-export function VenueCard({ venue, onClick }: VenueCardProps) {
+export function EventCard({ event, onClick }: EventCardProps) {
+  const startDate = new Date(event.startDate);
+  const endDate = new Date(event.endDate);
+  const status = getEventStatus(event.startDate, event.endDate);
+
   return (
     <Box
       onClick={onClick}
@@ -37,17 +41,17 @@ export function VenueCard({ venue, onClick }: VenueCardProps) {
           alignItems: "center",
           justifyContent: "center",
           position: "relative",
-          bgcolor: heroBg,
+          bgcolor: "#1A1820",
           overflow: "hidden",
         }}
       >
         <Box sx={dotGridBg()} />
         <Box sx={{ textAlign: "center", position: "relative", zIndex: 1 }}>
           <Box sx={{ ...glowChipSx, width: 38, height: 38, mx: "auto", mb: 1 }}>
-            <Room sx={{ fontSize: 16, color: "#2D2A32" }} />
+            <Event sx={{ fontSize: 16, color: "#2D2A32" }} />
           </Box>
           <Typography variant="body1" fontWeight={700} color="#FAFDF6">
-            {venue.city}
+            {startDate.toLocaleDateString("en-US", { month: "short", day: "numeric" })}
           </Typography>
           <Typography
             variant="caption"
@@ -59,39 +63,36 @@ export function VenueCard({ venue, onClick }: VenueCardProps) {
               mt: 0.25,
             }}
           >
-            {venue.neighborhood}
+            {endDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
           </Typography>
         </Box>
       </Box>
 
       <Box sx={{ px: 2, py: 1.5 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.25 }}>
-          <Business sx={{ fontSize: 14, color: "primary.main" }} />
+          <Schedule sx={{ fontSize: 14, color: "primary.main" }} />
           <Typography variant="subtitle2" fontWeight={600} noWrap color="#FAFDF6">
-            {venue.name}
+            {event.title}
           </Typography>
         </Box>
-        <Typography
-          variant="caption"
-          sx={{ display: "block", mt: 0.75, color: "#A9A7B0" }}
-        >
-          {venue.neighborhood}, {venue.city}
-        </Typography>
-        <Box sx={{ mt: 1.5 }}>
-          <Chip
-            label={`${venue.totalRooms} rooms`}
-            size="small"
-            variant="outlined"
-            sx={{
-              fontWeight: 600,
-              fontSize: "0.6rem",
-              letterSpacing: 0.5,
-              textTransform: "uppercase",
-              borderStyle: "dashed",
-              borderColor: "rgba(255,255,255,0.15)",
-              color: "#A9A7B0",
-            }}
-          />
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 0.75 }}>
+          <StatusBadge status={status} size="small" />
+          {event.online && (
+            <Chip
+              label="Online"
+              size="small"
+              variant="outlined"
+              sx={{
+                fontWeight: 600,
+                fontSize: "0.6rem",
+                letterSpacing: 0.5,
+                textTransform: "uppercase",
+                borderStyle: "dashed",
+                borderColor: "rgba(255,255,255,0.15)",
+                color: "#A9A7B0",
+              }}
+            />
+          )}
         </Box>
       </Box>
     </Box>

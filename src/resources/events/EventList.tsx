@@ -1,79 +1,115 @@
 import {
   List,
-  Datagrid,
-  TextField,
-  DateField,
-  ReferenceField,
-  SearchInput,
-  TextInput,
-  ShowButton,
-  EditButton,
-  TopToolbar,
   CreateButton,
-  FunctionField,
+  useListContext,
   type ListProps,
 } from "react-admin";
-import { StatusBadge } from "../../components/common/StatusBadge";
-import { getEventStatus } from "../../utils";
+import { Box, Typography, InputAdornment, TextField } from "@mui/material";
+import Search from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
+import { EventCard } from "../../components/events/EventCard";
+import type { Event } from "../../types";
 
-const eventFilters = [
-  <SearchInput source="q" alwaysOn key="search" />,
-  <TextInput source="title" label="Title" key="title" />,
-];
+function EventGrid() {
+  const { data, isLoading, total, filterValues, setFilters } =
+    useListContext<Event>();
+  const navigate = useNavigate();
+
+  if (isLoading) return null;
+
+  return (
+    <Box sx={{ p: 2 }}>
+      <Box
+        sx={{
+          backgroundColor: "#2D2A32",
+          borderRadius: "12px",
+          p: "20px 24px",
+          mb: 3,
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            mb: 2,
+          }}
+        >
+          <Box>
+            <Typography variant="h5" fontWeight={700} color="#FAFDF6">
+              Events
+            </Typography>
+            <Typography variant="body2" color="#A9A7B0">
+              {total} event{total !== 1 ? "s" : ""}
+            </Typography>
+          </Box>
+          <CreateButton
+            sx={{
+              backgroundColor: "#DDD92A",
+              color: "#2D2A32",
+              fontWeight: 600,
+              borderRadius: "8px",
+              "&:hover": { backgroundColor: "#C4C026" },
+            }}
+          />
+        </Box>
+        <TextField
+          value={filterValues?.q || ""}
+          onChange={(e) => setFilters({ q: e.target.value }, undefined, false)}
+          placeholder="Search events..."
+          variant="outlined"
+          fullWidth
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search sx={{ color: "#6B6973" }} />
+                </InputAdornment>
+              ),
+            },
+          }}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              backgroundColor: "#38353E",
+              borderRadius: "8px",
+              color: "#FAFDF6",
+              fontSize: "0.9rem",
+              "& fieldset": { borderColor: "#413E48" },
+              "&:hover fieldset": { borderColor: "#6B6973" },
+              "&.Mui-focused fieldset": { borderColor: "#DDD92A", borderWidth: "2px" },
+            },
+            "& .MuiInputBase-input::placeholder": { color: "#6B6973", opacity: 1 },
+          }}
+        />
+      </Box>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "1fr 1fr 1fr", lg: "1fr 1fr 1fr 1fr" },
+          gap: "20px",
+        }}
+      >
+        {data?.map((record) => (
+          <EventCard
+            key={record.id}
+            event={record}
+            onClick={() => navigate(`/events/${record.id}/show`)}
+          />
+        ))}
+      </Box>
+    </Box>
+  );
+}
 
 export function EventList(props: ListProps) {
   return (
     <List
       {...props}
-      filters={eventFilters}
       sort={{ field: "startDate", order: "DESC" }}
-      actions={
-        <TopToolbar>
-          <CreateButton />
-        </TopToolbar>
-      }
+      actions={false}
+      component="div"
     >
-      <Datagrid rowClick="show">
-        <TextField source="title" label="Name" sx={{ fontWeight: 600 }} />
-        <ReferenceField
-          source="venueId"
-          reference="venues"
-          label="Venue"
-          link={false}
-        >
-          <TextField source="name" />
-        </ReferenceField>
-        <ReferenceField
-          source="venueId"
-          reference="venues"
-          label="City"
-          link={false}
-        >
-          <TextField source="city" />
-        </ReferenceField>
-        <DateField
-          source="startDate"
-          label="Start Date"
-          showTime={false}
-          locales="en-US"
-        />
-        <DateField
-          source="endDate"
-          label="End Date"
-          showTime={false}
-          locales="en-US"
-        />
-        <FunctionField
-          label="Status"
-          render={(record) => (
-            <StatusBadge
-              status={getEventStatus(record.startDate, record.endDate)}
-            />
-          )}
-        />
-        <EditButton />
-        <ShowButton />
-      </Datagrid>
+      <EventGrid />
     </List>
   );
 }

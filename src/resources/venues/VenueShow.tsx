@@ -13,8 +13,8 @@ import {
   useList,
   type ShowProps,
   DateField,
-  Loading,
 } from "react-admin";
+import { Loading } from "../../components/common/Loading";
 import {
   Box,
   Typography,
@@ -61,7 +61,7 @@ function DetailCards() {
           borderRadius: "12px",
           border: "1px solid",
           borderColor: "rgba(255,255,255,0.06)",
-          bgcolor: "#2D2A32",
+          bgcolor: "rgba(255, 255, 255, 0.05)",
           p: 3,
           mb: 3,
         }}

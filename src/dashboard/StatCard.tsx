@@ -10,7 +10,7 @@ interface StatCardProps {
 
 export function StatCard({ label, value, icon, loading }: StatCardProps) {
   return (
-    <Card>
+    <Card sx={{ background: "rgba(255, 255, 255, 0.05)" }}>
       <CardContent>
         <Box display="flex" alignItems="center" justifyContent="space-between">
           <Box>

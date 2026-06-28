@@ -2,10 +2,9 @@ import {
   Show,
   TextField,
   DateField,
-  BooleanField,
-  ReferenceField,
   Datagrid,
   NumberField,
+  ReferenceField,
   TabbedShowLayout,
   Tab,
   useRecordContext,
@@ -13,26 +12,231 @@ import {
   useGetManyReference,
   ListContextProvider,
   useList,
-  Loading,
   type ShowProps,
 } from "react-admin";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Divider, Chip } from "@mui/material";
+import { Schedule, Event as EventIcon, Language } from "@mui/icons-material";
+import { Loading } from "../../components/common/Loading";
 import { StatusBadge } from "../../components/common/StatusBadge";
 import { getEventStatus } from "../../utils";
+import { dotGridBg, glowChipSx } from "../../components/venues/constants";
 import type { Event } from "../../types";
 
-function EventTitle() {
+function EventHero() {
   const record = useRecordContext<Event>();
   if (!record) return null;
+
+  const startDate = new Date(record.startDate);
+  const endDate = new Date(record.endDate);
+  const status = getEventStatus(record.startDate, record.endDate);
+
   return (
-    <Box display="flex" alignItems="center" gap={2}>
-      <Typography variant="h5" fontWeight={600}>
-        {record.title}
-      </Typography>
-      <StatusBadge
-        status={getEventStatus(record.startDate, record.endDate)}
-        size="medium"
-      />
+    <Box
+      sx={{
+        borderRadius: "12px",
+        border: "1px solid rgba(255,255,255,0.06)",
+        overflow: "hidden",
+        mb: 3,
+      }}
+    >
+      <Box
+        sx={{
+          height: 220,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "relative",
+          bgcolor: "#1A1820",
+          overflow: "hidden",
+        }}
+      >
+        <Box sx={dotGridBg()} />
+        <Box
+          sx={{
+            position: "absolute",
+            width: 200,
+            height: 200,
+            borderRadius: "50%",
+            filter: "blur(80px)",
+            opacity: 0.15,
+            background: "radial-gradient(circle, #DDD92A, transparent 70%)",
+            top: "10%",
+            left: "20%",
+          }}
+        />
+        <Box
+          sx={{
+            position: "absolute",
+            width: 160,
+            height: 160,
+            borderRadius: "50%",
+            filter: "blur(80px)",
+            opacity: 0.08,
+            background: "radial-gradient(circle, #6366F1, transparent 70%)",
+            bottom: "10%",
+            right: "20%",
+          }}
+        />
+        <Box sx={{ textAlign: "center", position: "relative", zIndex: 2 }}>
+          <Box sx={{ ...glowChipSx, width: 56, height: 56, mx: "auto", mb: 1.5 }}>
+            <EventIcon sx={{ fontSize: 24, color: "#2D2A32" }} />
+          </Box>
+          <Typography variant="h4" fontWeight={700} color="#FAFDF6">
+            {record.title}
+          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 1, mt: 1 }}>
+            <StatusBadge status={status} size="medium" />
+            {record.online && (
+              <Chip
+                label="Online"
+                size="small"
+                variant="outlined"
+                sx={{
+                  fontWeight: 600,
+                  fontSize: "0.65rem",
+                  letterSpacing: 0.5,
+                  textTransform: "uppercase",
+                  borderStyle: "dashed",
+                  borderColor: "rgba(255,255,255,0.12)",
+                  color: "#A9A7B0",
+                }}
+              />
+            )}
+          </Box>
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          px: 3,
+          py: 2,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          bgcolor: "rgba(255, 255, 255, 0.05)",
+        }}
+      >
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+          <Schedule sx={{ fontSize: 16, color: "primary.main" }} />
+          <Box>
+            <Typography variant="h6" fontWeight={700} color="#FAFDF6">
+              {startDate.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}
+            </Typography>
+            <Typography variant="body2" color="#A9A7B0">
+              {startDate.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })} — {endDate.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}
+            </Typography>
+          </Box>
+        </Box>
+        {record.venueId && (
+          <Chip
+            label="View Venue"
+            component="a"
+            href={`#/venues/${record.venueId}/show`}
+            clickable
+            variant="outlined"
+            sx={{
+              fontWeight: 600,
+              fontSize: "0.65rem",
+              letterSpacing: 0.5,
+              textTransform: "uppercase",
+              borderStyle: "dashed",
+              borderColor: "rgba(255,255,255,0.12)",
+              color: "#A9A7B0",
+              "&:hover": { color: "primary.main", borderColor: "primary.main" },
+            }}
+          />
+        )}
+      </Box>
+    </Box>
+  );
+}
+
+function DetailCards() {
+  const record = useRecordContext<Event>();
+  if (!record) return null;
+
+  return (
+    <Box>
+      <EventHero />
+
+      <Box
+        sx={{
+          borderRadius: "12px",
+          border: "1px solid",
+          borderColor: "rgba(255,255,255,0.06)",
+          bgcolor: "rgba(255, 255, 255, 0.05)",
+          p: 3,
+          mb: 3,
+        }}
+      >
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
+          <Language sx={{ color: "primary.main", fontSize: 20 }} />
+          <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+            Event Details
+          </Typography>
+        </Box>
+        <Divider sx={{ mb: 2, borderColor: "rgba(255,255,255,0.06)" }} />
+        <Box sx={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
+          <Box>
+            <Typography variant="caption" sx={{ fontSize: "0.65rem", letterSpacing: 0.8, textTransform: "uppercase", display: "block", mb: 0.5, color: "#6B6973" }}>
+              Start Date
+            </Typography>
+            <DateField source="startDate" showTime />
+          </Box>
+          <Box>
+            <Typography variant="caption" sx={{ fontSize: "0.65rem", letterSpacing: 0.8, textTransform: "uppercase", display: "block", mb: 0.5, color: "#6B6973" }}>
+              End Date
+            </Typography>
+            <DateField source="endDate" showTime />
+          </Box>
+          <Box>
+            <Typography variant="caption" sx={{ fontSize: "0.65rem", letterSpacing: 0.8, textTransform: "uppercase", display: "block", mb: 0.5, color: "#6B6973" }}>
+              Online
+            </Typography>
+            <Chip
+              label={record.online ? "Yes" : "No"}
+              size="small"
+              variant="outlined"
+              sx={{ fontWeight: 600, fontSize: "0.7rem", borderStyle: "dashed", borderColor: "rgba(255,255,255,0.12)", color: "#A9A7B0" }}
+            />
+          </Box>
+          {record.venueId && (
+            <Box>
+              <Typography variant="caption" sx={{ fontSize: "0.65rem", letterSpacing: 0.8, textTransform: "uppercase", display: "block", mb: 0.5, color: "#6B6973" }}>
+                Venue
+              </Typography>
+              <Box
+                component="a"
+                href={`#/venues/${record.venueId}/show`}
+                sx={{ color: "primary.main", textDecoration: "none", fontWeight: 600, "&:hover": { textDecoration: "underline" } }}
+              >
+                <ReferenceField source="venueId" reference="venues"><TextField source="name" /></ReferenceField>
+              </Box>
+            </Box>
+          )}
+        </Box>
+      </Box>
+
+      {record.description && (
+        <Box
+          sx={{
+            borderRadius: "12px",
+            border: "1px solid rgba(255,255,255,0.06)",
+            bgcolor: "rgba(255, 255, 255, 0.05)",
+            p: 3,
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
+            <Language sx={{ color: "primary.main", fontSize: 20 }} />
+            <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+              Description
+            </Typography>
+          </Box>
+          <Divider sx={{ mb: 2, borderColor: "rgba(255,255,255,0.06)" }} />
+          <Typography variant="body2" color="#A9A7B0" sx={{ lineHeight: 1.8 }}>
+            {record.description}
+          </Typography>
+        </Box>
+      )}
     </Box>
   );
 }
@@ -50,15 +254,26 @@ function SessionsTab() {
   if (isLoading) return <Loading />;
 
   return (
-    <ListContextProvider value={listContext}>
-      <Datagrid>
-        <TextField source="title" />
-        <TextField source="roomName" label="Room" />
-        <DateField source="startTime" label="Start" showTime />
-        <DateField source="endTime" label="End" showTime />
-        <NumberField source="capacity" />
-      </Datagrid>
-    </ListContextProvider>
+    <Box sx={{ borderRadius: "12px", border: "1px solid rgba(255,255,255,0.06)", bgcolor: "rgba(255, 255, 255, 0.05)", overflow: "hidden" }}>
+      <Box sx={{ p: 3, pb: 0 }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
+          <Schedule sx={{ color: "primary.main", fontSize: 20 }} />
+          <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+            Sessions ({data?.length ?? 0})
+          </Typography>
+        </Box>
+        <Divider sx={{ mb: 2, borderColor: "rgba(255,255,255,0.06)" }} />
+      </Box>
+      <ListContextProvider value={listContext}>
+        <Datagrid sx={{ "& .RaDatagrid-headerCell": { fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em" } }}>
+          <TextField source="title" sx={{ fontWeight: 600 }} />
+          <TextField source="roomName" label="Room" />
+          <DateField source="startTime" label="Start" showTime />
+          <DateField source="endTime" label="End" showTime />
+          <NumberField source="capacity" />
+        </Datagrid>
+      </ListContextProvider>
+    </Box>
   );
 }
 
@@ -76,80 +291,36 @@ function RoomsTab() {
   if (isLoading) return <Loading />;
 
   return (
-    <ListContextProvider value={listContext}>
-      <Datagrid>
-        <TextField source="name" />
-        <NumberField source="capacity" />
-      </Datagrid>
-    </ListContextProvider>
+    <Box sx={{ borderRadius: "12px", border: "1px solid rgba(255,255,255,0.06)", bgcolor: "rgba(255, 255, 255, 0.05)", overflow: "hidden" }}>
+      <Box sx={{ p: 3, pb: 0 }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
+          <EventIcon sx={{ color: "primary.main", fontSize: 20 }} />
+          <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+            Rooms ({data?.length ?? 0})
+          </Typography>
+        </Box>
+        <Divider sx={{ mb: 2, borderColor: "rgba(255,255,255,0.06)" }} />
+      </Box>
+      <ListContextProvider value={listContext}>
+        <Datagrid sx={{ "& .RaDatagrid-headerCell": { fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em" } }}>
+          <TextField source="name" />
+          <NumberField source="capacity" />
+        </Datagrid>
+      </ListContextProvider>
+    </Box>
   );
 }
 
 export function EventShow(props: ShowProps) {
   return (
-    <Show {...props} title={<EventTitle />}>
+    <Show {...props}>
       <TabbedShowLayout>
         <Tab label="Details">
-          <Box display="flex" gap={2} flexWrap="wrap">
-            <Box flex={1} minWidth={280}>
-              <Typography
-                variant="subtitle2"
-                color="text.secondary"
-                gutterBottom
-              >
-                Description
-              </Typography>
-              <TextField source="description" />
-            </Box>
-          </Box>
-
-          <Box display="flex" gap={4} mt={3} flexWrap="wrap">
-            <Box>
-              <Typography
-                variant="subtitle2"
-                color="text.secondary"
-                gutterBottom
-              >
-                Start Date
-              </Typography>
-              <DateField source="startDate" showTime />
-            </Box>
-            <Box>
-              <Typography
-                variant="subtitle2"
-                color="text.secondary"
-                gutterBottom
-              >
-                End Date
-              </Typography>
-              <DateField source="endDate" showTime />
-            </Box>
-            <Box>
-              <Typography
-                variant="subtitle2"
-                color="text.secondary"
-                gutterBottom
-              >
-                Online
-              </Typography>
-              <BooleanField source="online" />
-            </Box>
-          </Box>
-
-          <Box mt={3}>
-            <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-              Venue
-            </Typography>
-            <ReferenceField source="venueId" reference="venues" link="show">
-              <TextField source="name" />
-            </ReferenceField>
-          </Box>
+          <DetailCards />
         </Tab>
-
         <Tab label="Sessions" path="sessions">
           <SessionsTab />
         </Tab>
-
         <Tab label="Rooms" path="rooms">
           <RoomsTab />
         </Tab>

@@ -46,7 +46,7 @@ function SpeakerCard({ speaker, onClick }: { speaker: Speaker; onClick: () => vo
         border: "1px solid rgba(255,255,255,0.06)",
         overflow: "hidden",
         cursor: "pointer",
-        bgcolor: "#2D2A32",
+        bgcolor: "rgba(255, 255, 255, 0.05)",
         display: "flex",
         flexDirection: "column",
         height: "100%",

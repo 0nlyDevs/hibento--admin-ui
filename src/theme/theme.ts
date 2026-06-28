@@ -13,8 +13,8 @@ const sharedTypography = {
 
 const sharedShape = { borderRadius: 12 };
 
-const glassBg = "rgba(34, 34, 34, 0.85)";
-const glassBorder = "1px solid rgba(255, 255, 255, 0.1)";
+const glassBg = "rgba(34, 34, 34, 0.9)";
+const glassBorder = "1px dashed rgba(255, 255, 255, 0.18)";
 
 const sharedSidebar = {
   closedWidth: 76,
@@ -198,7 +198,8 @@ const sharedComponents = {
     styleOverrides: {
       root: ({ theme }: any) => ({
         boxShadow: "none",
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
+        border: "none",
+        borderBottom: "1px dashed rgba(255,255,255,0.18)",
         background: "rgba(34, 34, 34, 0.9)",
         backdropFilter: "blur(16px)",
         color: theme.palette.text.primary,
@@ -218,7 +219,7 @@ const sharedComponents = {
   MuiDrawer: {
     styleOverrides: {
       paper: ({ theme }: any) => ({
-        borderRight: "1px solid rgba(255,255,255,0.12)",
+        borderRight: "1px dashed rgba(255,255,255,0.18)",
         background: "rgba(34, 34, 34, 0.9)",
       }),
     },

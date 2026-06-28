@@ -3,7 +3,6 @@ import { Room, Business, Language } from "@mui/icons-material";
 import { dotGridBg, glowChipSx } from "./constants";
 import type { Venue } from "../../types";
 
-const cardBg = "#2D2A32";
 const heroBg = "#1A1820";
 
 interface VenueHeroProps {
@@ -121,7 +120,7 @@ export function VenueHero({ venue, mapUrl }: VenueHeroProps) {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          bgcolor: cardBg,
+          bgcolor: "rgba(255, 255, 255, 0.05)",
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>

@@ -53,8 +53,8 @@ export const Layout = ({ children }: { children: React.ReactNode }) => (
         ".RaDatagrid-paper": {
           boxShadow: "0 4px 30px rgba(0, 0, 0, 0.3)",
           borderRadius: "12px",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
-          background: "rgba(34, 34, 34, 0.85) !important",
+          border: "1px dashed rgba(255, 255, 255, 0.18)",
+          background: "rgba(34, 34, 34, 0.9) !important",
           backdropFilter: "blur(12px)",
           overflow: "hidden",
         },
@@ -66,7 +66,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => (
         },
         ".MuiDrawer-root .MuiDrawer-paper": {
           background: "rgba(34, 34, 34, 0.9) !important",
-          borderRight: "1px solid rgba(255,255,255,0.12) !important",
+          borderRight: "1px dashed rgba(255,255,255,0.18) !important",
           overflow: "hidden !important",
           zIndex: 10,
         },
