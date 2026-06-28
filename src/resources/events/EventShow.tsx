@@ -13,6 +13,8 @@ import {
   useGetManyReference,
   ListContextProvider,
   useList,
+  EditButton,
+  DeleteButton,
   type ShowProps,
 } from "react-admin";
 import {
@@ -85,6 +87,30 @@ function EventHero() {
             right: "20%",
           }}
         />
+        <Box sx={{ position: "absolute", top: 16, right: 16, zIndex: 3, display: "flex", gap: 1 }}>
+          <EditButton
+            sx={{
+              color: "#FAFDF6",
+              bgcolor: "rgba(255,255,255,0.1)",
+              "&:hover": { bgcolor: "rgba(255,255,255,0.2)" },
+              backdropFilter: "blur(4px)",
+              borderRadius: "8px",
+              textTransform: "none",
+              fontWeight: 600,
+            }}
+          />
+          <DeleteButton
+            sx={{
+              color: "#FAFDF6",
+              bgcolor: "rgba(255,255,255,0.1)",
+              "&:hover": { bgcolor: "rgba(255,255,255,0.2)" },
+              backdropFilter: "blur(4px)",
+              borderRadius: "8px",
+              textTransform: "none",
+              fontWeight: 600,
+            }}
+          />
+        </Box>
         <Box sx={{ textAlign: "center", position: "relative", zIndex: 2 }}>
           <Box sx={{ ...glowChipSx, width: 56, height: 56, mx: "auto", mb: 1.5 }}>
             <EventIcon sx={{ fontSize: 24, color: "#2D2A32" }} />
@@ -421,7 +447,7 @@ function SpeakersTab() {
 
 export function EventShow(props: ShowProps) {
   return (
-    <Show {...props}>
+    <Show {...props} actions={false}>
       <TabbedShowLayout>
         <Tab label="Details">
           <DetailCards />
