@@ -10,6 +10,7 @@ import {
   Tab,
   useRecordContext,
   useGetList,
+  useGetManyReference,
   ListContextProvider,
   useList,
   type ShowProps,
