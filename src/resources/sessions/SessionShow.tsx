@@ -42,6 +42,7 @@ function SessionHero() {
 
 function DetailCards() {
   const record = useRecordContext<Session>();
+  const navigate = useNavigate();
   if (!record) return null;
 
   return (
@@ -117,9 +118,14 @@ function DetailCards() {
             </Typography>
           </Box>
           <Divider sx={{ mb: 2, borderColor: "divider" }} />
-          <ReferenceField source="eventId" reference="events" link="show">
-            <TextField source="title" />
-          </ReferenceField>
+          <Typography
+            variant="body2"
+            color="primary"
+            sx={{ cursor: "pointer", "&:hover": { textDecoration: "underline" } }}
+            onClick={() => navigate(`/events/${record.eventId}/show`)}
+          >
+            {record.eventId}
+          </Typography>
         </Box>
       )}
 
