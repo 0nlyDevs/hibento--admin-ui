@@ -17,6 +17,7 @@ function normalizeSession(raw: Record<string, unknown>) {
     roomId: (raw.room as Record<string, unknown>)?.id ?? raw.roomId,
     roomName: (raw.room as Record<string, unknown>)?.name ?? raw.roomName,
     speakerIds: (raw.speakers as Array<Record<string, unknown>>)?.map((s) => s.id) ?? raw.speakerIds,
+    venueId: (raw.venue as Record<string, unknown>)?.id ?? raw.venueId,
   };
 }
 

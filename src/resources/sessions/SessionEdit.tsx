@@ -46,13 +46,12 @@ function EditHeader() {
 
 function RoomInput() {
   const record = useRecordContext<any>();
-  const { data: eventData } = useGetOne("events", { id: record?.eventId }, { enabled: !!record?.eventId });
   const { data: rooms } = useGetManyReference("rooms", {
     target: "venueId",
-    id: eventData?.venueId,
+    id: record?.venueId,
     pagination: { page: 1, perPage: 50 },
     sort: { field: "name", order: "ASC" },
-  }, { enabled: !!eventData?.venueId });
+  }, { enabled: !!record?.venueId });
 
   return (
     <SelectInput

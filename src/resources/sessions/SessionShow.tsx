@@ -1,8 +1,6 @@
 import {
   Show,
-  TextField,
   DateField,
-  ReferenceField,
   NumberField,
   useRecordContext,
   useGetList,
@@ -92,10 +90,10 @@ function DetailCards() {
             <Typography variant="caption" sx={{ fontSize: "0.65rem", letterSpacing: 0.8, textTransform: "uppercase", display: "block", mb: 0.5, color: "text.secondary" }}>
               Room
             </Typography>
-            {record.roomId ? (
-              <ReferenceField source="roomId" reference="rooms">
-                <TextField source="name" />
-              </ReferenceField>
+            {record.roomName ? (
+              <Typography variant="body2" color="text.secondary">
+                {record.roomName}
+              </Typography>
             ) : (
               <Typography variant="body2" color="text.secondary" fontStyle="italic">Online</Typography>
             )}
