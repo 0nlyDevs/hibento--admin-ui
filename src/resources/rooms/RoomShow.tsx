@@ -68,7 +68,7 @@ export function RoomShow(props: ShowProps) {
             target="roomId"
             label="Sessions"
           >
-            <Datagrid rowClick="show">
+            <Datagrid rowClick="show" bulkActionButtons={false}>
               <TextField source="title" />
               <DateField source="startTime" label="Start" showTime />
               <DateField source="endTime" label="End" showTime />

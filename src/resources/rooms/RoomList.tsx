@@ -29,7 +29,7 @@ export function RoomList(props: ListProps) {
         </TopToolbar>
       }
     >
-      <Datagrid rowClick="show">
+      <Datagrid rowClick="show" bulkActionButtons={false}>
         <TextField source="name" sx={{ fontWeight: 600 }} />
         <ReferenceField
           source="venueId"

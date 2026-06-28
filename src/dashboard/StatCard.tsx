@@ -10,16 +10,8 @@ interface StatCardProps {
 
 export function StatCard({ label, value, icon, loading }: StatCardProps) {
   return (
-    <Card
-      sx={{
-        transition: "box-shadow 0.2s, transform 0.2s",
-        "&:hover": {
-          boxShadow: "0 4px 12px 0 rgb(0 0 0 / 0.1)",
-          transform: "translateY(-2px)",
-        },
-      }}
-    >
-      <CardContent sx={{ p: 3 }}>
+    <Card sx={{ background: "rgba(255, 255, 255, 0.05)" }}>
+      <CardContent>
         <Box display="flex" alignItems="center" justifyContent="space-between">
           <Box>
             <Typography
@@ -46,9 +38,8 @@ export function StatCard({ label, value, icon, loading }: StatCardProps) {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor: "secondary.main",
-              color: "white",
-              opacity: 0.9,
+              backgroundColor: "primary.main",
+              color: "primary.contrastText",
             }}
           >
             {icon}

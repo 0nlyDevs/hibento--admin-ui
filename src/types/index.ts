@@ -40,8 +40,23 @@ export interface Speaker {
   avatarUrl?: string | null;
   bio?: string;
   externalLinks?: ExternalLink[];
+  eventSessions?: SpeakerSession[];
   createdAt?: string;
   updatedAt?: string;
+}
+
+export interface SpeakerSession {
+  id: string;
+  eventId: string;
+  title: string;
+  description?: string | null;
+  eventName?: string;
+  startTime?: string;
+  endTime?: string;
+  room?: string;
+  neighborhood?: string | null;
+  isLive?: boolean;
+  speakers?: Array<{ id?: string; name?: string }>;
 }
 
 export interface CreateSpeaker {
@@ -61,6 +76,7 @@ export interface Event {
   startDate: string;
   endDate: string;
   venueId?: string | null;
+  eventSessions?: SpeakerSession[];
   createdAt?: string;
   updatedAt?: string;
 }
@@ -76,6 +92,13 @@ export interface CreateEvent {
 
 export type UpdateEvent = CreateEvent;
 
+export interface SpeakerRef {
+  id: string;
+  name: string;
+  avatar?: string | null;
+  bio?: string | null;
+}
+
 export interface Session {
   id: string;
   eventId: string;
@@ -87,6 +110,7 @@ export interface Session {
   roomName?: string;
   capacity?: number;
   speakerIds?: string[];
+  speakers?: SpeakerRef[];
   createdAt?: string;
   updatedAt?: string;
 }

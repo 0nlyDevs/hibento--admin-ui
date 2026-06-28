@@ -34,7 +34,7 @@ export function SessionList(props: ListProps) {
         </TopToolbar>
       }
     >
-      <Datagrid rowClick="show">
+      <Datagrid rowClick="show" bulkActionButtons={false}>
         <TextField source="title" label="Title" sx={{ fontWeight: 600 }} />
         <ReferenceField
           source="eventId"
