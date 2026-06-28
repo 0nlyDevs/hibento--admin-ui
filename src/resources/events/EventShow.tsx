@@ -4,12 +4,14 @@ import {
   DateField,
   BooleanField,
   ReferenceField,
-  ReferenceManyField,
   Datagrid,
   NumberField,
   TabbedShowLayout,
   Tab,
   useRecordContext,
+  useGetList,
+  useGetManyReference,
+  Loading,
   type ShowProps,
 } from "react-admin";
 import { Box, Typography } from "@mui/material";
@@ -30,6 +32,48 @@ function EventTitle() {
         size="medium"
       />
     </Box>
+  );
+}
+
+function SessionsTab() {
+  const record = useRecordContext<Event>();
+  const { data, isLoading } = useGetList("sessions", {
+    filter: { eventId: record?.id },
+    pagination: { page: 1, perPage: 100 },
+    sort: { field: "startTime", order: "ASC" },
+  });
+
+  if (!record) return null;
+  if (isLoading) return <Loading />;
+
+  return (
+    <Datagrid data={data}>
+      <TextField source="title" />
+      <TextField source="roomName" label="Room" />
+      <DateField source="startTime" label="Start" showTime />
+      <DateField source="endTime" label="End" showTime />
+      <NumberField source="capacity" />
+    </Datagrid>
+  );
+}
+
+function RoomsTab() {
+  const record = useRecordContext<Event>();
+  const { data, isLoading } = useGetManyReference("rooms", {
+    target: "venueId",
+    id: record?.venueId,
+    pagination: { page: 1, perPage: 50 },
+    sort: { field: "name", order: "ASC" },
+  });
+
+  if (!record) return null;
+  if (isLoading) return <Loading />;
+
+  return (
+    <Datagrid data={data}>
+      <TextField source="name" />
+      <NumberField source="capacity" />
+    </Datagrid>
   );
 }
 
@@ -95,34 +139,11 @@ export function EventShow(props: ShowProps) {
         </Tab>
 
         <Tab label="Sessions" path="sessions">
-          <ReferenceManyField
-            reference="sessions"
-            target="eventId"
-            label="Sessions"
-          >
-            <Datagrid rowClick="show">
-              <TextField source="title" />
-              <TextField source="roomName" label="Room" />
-              <DateField source="startTime" label="Start" showTime />
-              <DateField source="endTime" label="End" showTime />
-              <NumberField source="capacity" />
-            </Datagrid>
-          </ReferenceManyField>
+          <SessionsTab />
         </Tab>
 
         <Tab label="Rooms" path="rooms">
-          <ReferenceField source="venueId" reference="venues" link={false}>
-            <ReferenceManyField
-              reference="rooms"
-              target="venueId"
-              label="Rooms"
-            >
-              <Datagrid>
-                <TextField source="name" />
-                <NumberField source="capacity" />
-              </Datagrid>
-            </ReferenceManyField>
-          </ReferenceField>
+          <RoomsTab />
         </Tab>
       </TabbedShowLayout>
     </Show>
