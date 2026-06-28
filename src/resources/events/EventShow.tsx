@@ -4,6 +4,7 @@ import {
   DateField,
   Datagrid,
   NumberField,
+  FunctionField,
   ReferenceField,
   TabbedShowLayout,
   Tab,
@@ -20,7 +21,7 @@ import {
   Chip,
   Button,
 } from "@mui/material";
-import { Schedule, Event as EventIcon, Language, Add } from "@mui/icons-material";
+import { Schedule, Event as EventIcon, Language, Add, Public } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../../components/common/Loading";
 import { StatusBadge } from "../../components/common/StatusBadge";
@@ -287,7 +288,7 @@ function SessionsTab() {
       <ListContextProvider value={listContext}>
         <Datagrid rowClick="show" sx={{ "& .RaDatagrid-headerCell": { fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em" } }}>
           <TextField source="title" sx={{ fontWeight: 600 }} />
-          <TextField source="roomName" label="Room" />
+          <FunctionField label="Room" render={(r: any) => r.roomName || <Typography component="span" variant="body2" color="#6B6973">Online</Typography>} />
           <DateField source="startTime" label="Start" showTime />
           <DateField source="endTime" label="End" showTime />
           <NumberField source="capacity" />
@@ -304,10 +305,21 @@ function RoomsTab() {
     id: record?.venueId,
     pagination: { page: 1, perPage: 50 },
     sort: { field: "name", order: "ASC" },
-  });
-  const listContext = useList({ data, isLoading: false, total: data?.length });
+  }, { enabled: !!record?.venueId });
+  const listContext = useList({ data: data ?? [], isLoading: false, total: data?.length ?? 0 });
 
   if (!record) return null;
+
+  if (!record.venueId) {
+    return (
+      <Box sx={{ borderRadius: "12px", border: "1px solid rgba(255,255,255,0.06)", bgcolor: "rgba(255, 255, 255, 0.05)", backdropFilter: "blur(12px)", p: 3 }}>
+        <Typography variant="body2" color="#A9A7B0" fontStyle="italic">
+          Online event — no venue assigned
+        </Typography>
+      </Box>
+    );
+  }
+
   if (isLoading) return <Loading />;
 
   return (
