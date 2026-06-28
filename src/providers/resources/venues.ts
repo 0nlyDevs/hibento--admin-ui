@@ -12,10 +12,19 @@ import type {
 import { publicApi, adminApi } from "../api";
 
 export const venuesResource = {
-  getList: async (_params: GetListParams) => {
+  getList: async ({ filter }: GetListParams) => {
     const { data } = await publicApi.getVenues();
     const items = data.data;
-    return { data: items, total: items.length };
+    const q = (filter?.q as string)?.toLowerCase();
+    const filtered = q
+      ? items.filter(
+          (v) =>
+            v.name?.toLowerCase().includes(q) ||
+            v.city?.toLowerCase().includes(q) ||
+            v.neighborhood?.toLowerCase().includes(q),
+        )
+      : items;
+    return { data: filtered, total: filtered.length };
   },
 
   getOne: async ({ id }: GetOneParams) => {
