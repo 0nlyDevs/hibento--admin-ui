@@ -390,7 +390,22 @@ const sharedComponents = {
       root: {
         margin: "10px 14px",
         borderRadius: 8,
-        gap: 12,
+      },
+    },
+  },
+  MuiListItemIcon: {
+    styleOverrides: {
+      root: {
+        minWidth: 0,
+        justifyContent: "center",
+      },
+    },
+  },
+  MuiListItemText: {
+    styleOverrides: {
+      root: {
+        marginLeft: 12,
+        flex: "none",
       },
     },
   },
@@ -412,7 +427,7 @@ export const lightTheme = createTheme({
       contrastText: "#fafdf6",
     },
     background: {
-      default: "transparent",
+      default: "#2d2a32",
       paper: "rgba(34, 34, 34, 0.85)",
     },
     text: {
@@ -470,7 +485,7 @@ export const darkTheme = createTheme({
       contrastText: "#2d2a32",
     },
     background: {
-      default: "transparent",
+      default: "#2d2a32",
       paper: "rgba(34, 34, 34, 0.85)",
     },
     text: {
