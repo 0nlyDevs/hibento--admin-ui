@@ -10,12 +10,26 @@ import {
   useRecordContext,
   useGetList,
   useGetManyReference,
+  useCreate,
   ListContextProvider,
   useList,
   type ShowProps,
 } from "react-admin";
-import { Box, Typography, Divider, Chip } from "@mui/material";
-import { Schedule, Event as EventIcon, Language } from "@mui/icons-material";
+import {
+  Box,
+  Typography,
+  Divider,
+  Chip,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField as MuiTextField,
+  MenuItem,
+} from "@mui/material";
+import { Schedule, Event as EventIcon, Language, Add } from "@mui/icons-material";
+import { useState } from "react";
 import { Loading } from "../../components/common/Loading";
 import { StatusBadge } from "../../components/common/StatusBadge";
 import { getEventStatus } from "../../utils";
@@ -246,12 +260,45 @@ function DetailCards() {
 
 function SessionsTab() {
   const record = useRecordContext<Event>();
-  const { data, isLoading } = useGetList("sessions", {
+  const [open, setOpen] = useState(false);
+  const [form, setForm] = useState({ title: "", description: "", startTime: "", endTime: "", roomId: "", capacity: "" });
+  const [create, { isLoading: isCreating }] = useCreate();
+  const { data, isLoading, refetch } = useGetList("sessions", {
     filter: { eventId: record?.id },
     pagination: { page: 1, perPage: 100 },
     sort: { field: "startTime", order: "ASC" },
   });
+  const { data: rooms } = useGetManyReference("rooms", {
+    target: "venueId",
+    id: record?.venueId,
+    pagination: { page: 1, perPage: 50 },
+    sort: { field: "name", order: "ASC" },
+  });
   const listContext = useList({ data, isLoading, total: data?.length });
+
+  const set = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) =>
+    setForm((prev) => ({ ...prev, [field]: e.target.value }));
+
+  const handleCreate = async () => {
+    await create("sessions", {
+      data: {
+        eventId: record?.id,
+        title: form.title,
+        description: form.description || undefined,
+        startTime: new Date(form.startTime).toISOString(),
+        endTime: new Date(form.endTime).toISOString(),
+        roomId: form.roomId,
+        capacity: form.capacity ? Number(form.capacity) : undefined,
+        speakerIds: [],
+      },
+    }, {
+      onSuccess: () => {
+        setOpen(false);
+        setForm({ title: "", description: "", startTime: "", endTime: "", roomId: "", capacity: "" });
+        refetch();
+      },
+    });
+  };
 
   if (!record) return null;
   if (isLoading) return <Loading />;
@@ -259,11 +306,16 @@ function SessionsTab() {
   return (
     <Box sx={{ borderRadius: "12px", border: "1px solid rgba(255,255,255,0.06)", bgcolor: "rgba(255, 255, 255, 0.05)", backdropFilter: "blur(12px)", overflow: "hidden" }}>
       <Box sx={{ p: 3, pb: 0 }}>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
-          <Schedule sx={{ color: "primary.main", fontSize: 20 }} />
-          <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
-            Sessions ({data?.length ?? 0})
-          </Typography>
+        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 2 }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+            <Schedule sx={{ color: "primary.main", fontSize: 20 }} />
+            <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+              Sessions ({data?.length ?? 0})
+            </Typography>
+          </Box>
+          <Button variant="contained" size="small" startIcon={<Add />} onClick={() => setOpen(true)}>
+            New Session
+          </Button>
         </Box>
         <Divider sx={{ mb: 2, borderColor: "rgba(255,255,255,0.06)" }} />
       </Box>
@@ -276,6 +328,27 @@ function SessionsTab() {
           <NumberField source="capacity" />
         </Datagrid>
       </ListContextProvider>
+      <Dialog open={open} onClose={() => setOpen(false)} maxWidth="sm" fullWidth>
+        <DialogTitle>New Session</DialogTitle>
+        <DialogContent>
+          <MuiTextField label="Title" fullWidth value={form.title} onChange={set("title")} sx={{ mb: 2, mt: 1 }} />
+          <MuiTextField label="Description" fullWidth multiline rows={3} value={form.description} onChange={set("description")} sx={{ mb: 2 }} />
+          <MuiTextField label="Start Time" type="datetime-local" fullWidth value={form.startTime} onChange={set("startTime")} InputLabelProps={{ shrink: true }} sx={{ mb: 2 }} />
+          <MuiTextField label="End Time" type="datetime-local" fullWidth value={form.endTime} onChange={set("endTime")} InputLabelProps={{ shrink: true }} sx={{ mb: 2 }} />
+          <MuiTextField label="Room" select fullWidth value={form.roomId} onChange={set("roomId")} sx={{ mb: 2 }}>
+            {rooms?.map((r: any) => (
+              <MenuItem key={r.id} value={r.id}>{r.name}</MenuItem>
+            ))}
+          </MuiTextField>
+          <MuiTextField label="Capacity" type="number" fullWidth value={form.capacity} onChange={set("capacity")} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)}>Cancel</Button>
+          <Button variant="contained" onClick={handleCreate} disabled={!form.title || !form.startTime || !form.endTime || !form.roomId || isCreating}>
+            Create
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
