@@ -4,6 +4,7 @@ import {
   NumberField,
   useRecordContext,
   useGetList,
+  useGetOne,
   type ShowProps,
 } from "react-admin";
 import { Box, Typography, Divider, Chip } from "@mui/material";
@@ -109,30 +110,36 @@ function DetailCards() {
       </Box>
 
       {/* Event card */}
-      {record.eventId && (
-        <Box sx={{ borderRadius: "12px", border: 1, borderColor: "divider", bgcolor: "background.paper", p: 3, mb: 3 }}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
-            <Event sx={{ color: "primary.main", fontSize: 20 }} />
-            <Typography variant="subtitle1" fontWeight={700} color="text.primary">
-              Event
-            </Typography>
-          </Box>
-          <Divider sx={{ mb: 2, borderColor: "divider" }} />
-          <Typography
-            variant="body2"
-            color="primary"
-            sx={{ cursor: "pointer", "&:hover": { textDecoration: "underline" } }}
-            onClick={() => navigate(`/events/${record.eventId}/show`)}
-          >
-            {record.eventId}
-          </Typography>
-        </Box>
-      )}
+      {record.eventId && <EventCard eventId={record.eventId} />}
 
       {/* Speakers card */}
       {(record.speakers?.length > 0 || record.speakerIds?.length > 0) && (
         <SpeakersCard speakers={record.speakers} speakerIds={record.speakerIds} />
       )}
+    </Box>
+  );
+}
+
+function EventCard({ eventId }: { eventId: string }) {
+  const navigate = useNavigate();
+  const { data: eventData } = useGetOne("events", { id: eventId }, { enabled: !!eventId });
+  return (
+    <Box sx={{ borderRadius: "12px", border: 1, borderColor: "divider", bgcolor: "background.paper", p: 3, mb: 3 }}>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
+        <Event sx={{ color: "primary.main", fontSize: 20 }} />
+        <Typography variant="subtitle1" fontWeight={700} color="text.primary">
+          Event
+        </Typography>
+      </Box>
+      <Divider sx={{ mb: 2, borderColor: "divider" }} />
+      <Typography
+        variant="body2"
+        color="primary"
+        sx={{ cursor: "pointer", "&:hover": { textDecoration: "underline" } }}
+        onClick={() => navigate(`/events/${eventId}/show`)}
+      >
+        {eventData?.title || eventId}
+      </Typography>
     </Box>
   );
 }
