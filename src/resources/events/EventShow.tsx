@@ -28,7 +28,6 @@ import { Loading } from "../../components/common/Loading";
 import { dotGridBg, glowChipSx } from "../../components/venues/constants";
 import { StatusBadge } from "../../components/common/StatusBadge";
 import { getEventStatus } from "../../utils";
-import { dotGridBg, glowChipSx } from "../../components/venues/constants";
 import type { Event } from "../../types";
 
 function EventHero() {
@@ -350,8 +349,14 @@ function SpeakersTab() {
   const navigate = useNavigate();
   if (!record) return null;
 
+  const { data: sessions } = useGetList("sessions", {
+    filter: { eventId: record.id },
+    pagination: { page: 1, perPage: 100 },
+    sort: { field: "startTime", order: "ASC" },
+  });
+
   const speakersMap = new Map<string, any>();
-  record.eventSessions?.forEach((s: any) =>
+  (record.eventSessions ?? sessions ?? []).forEach((s: any) =>
     s.speakers?.forEach((sp: any) => {
       if (!speakersMap.has(sp.id)) speakersMap.set(sp.id, sp);
     }),
