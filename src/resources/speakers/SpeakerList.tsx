@@ -226,12 +226,11 @@ function SpeakerGrid() {
         }}
       >
         {data?.map((record) => (
-          <Box key={record.id} sx={{ display: "flex", minWidth: 0 }}>
-            <SpeakerCard
-              speaker={record}
-              onClick={() => navigate(`/speakers/${record.id}/show`)}
-            />
-          </Box>
+          <SpeakerCard
+            key={record.id}
+            speaker={record}
+            onClick={() => navigate(`/speakers/${record.id}/show`)}
+          />
         ))}
       </Box>
     </Box>
