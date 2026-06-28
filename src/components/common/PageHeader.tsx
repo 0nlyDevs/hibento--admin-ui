@@ -12,7 +12,7 @@ export function PageHeader({ title, subtitle, actions }: PageHeaderProps) {
       display="flex"
       alignItems="flex-start"
       justifyContent="space-between"
-      mb={3}
+      mb={5}
       flexWrap="wrap"
       gap={2}
     >
@@ -21,7 +21,7 @@ export function PageHeader({ title, subtitle, actions }: PageHeaderProps) {
           {title}
         </Typography>
         {subtitle && (
-          <Typography variant="body2" color="text.secondary" mt={0.5}>
+          <Typography variant="body2" color="text.secondary" mt={1}>
             {subtitle}
           </Typography>
         )}

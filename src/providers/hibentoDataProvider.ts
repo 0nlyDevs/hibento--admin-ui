@@ -52,8 +52,13 @@ export const hibentoDataProvider: DataProvider = {
     return { data: results.map((r) => r.data) };
   },
 
-  getManyReference: async () => {
-    throw new Error("getManyReference not implemented");
+  getManyReference: async (resource, params) => {
+    const provider = resourceMap[resource];
+    if (!provider) throw new Error(`Unknown resource: ${resource}`);
+    if (!provider.getManyReference) {
+      throw new Error(`getManyReference not implemented for resource: ${resource}`);
+    }
+    return provider.getManyReference(params);
   },
 
   updateMany: async (resource, params) => {

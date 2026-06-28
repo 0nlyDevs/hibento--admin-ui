@@ -11,19 +11,30 @@ import type {
 } from "../../lib/admin-client/types.gen";
 import { publicApi, adminApi } from "../api";
 
+function normalizeSpeaker(s: Record<string, unknown>) {
+  const externalLinks = (s.externalLinks as Array<Record<string, unknown>> | undefined)?.map(
+    (link: Record<string, unknown>) => ({
+      ...link,
+      type: typeof link.type === "string" ? link.type.toLowerCase() : link.type,
+    }),
+  );
+  return { ...s, avatarUrl: s.avatar, externalLinks };
+}
+
 export const speakersResource = {
   getList: async ({ pagination }: GetListParams) => {
     const { data } = await publicApi.getSpeakers({
       query: { page: pagination.page, limit: pagination.perPage },
     });
-    return { data: data.data, total: data.pagination.total };
+    const items = data.data.map(normalizeSpeaker);
+    return { data: items, total: data.pagination.total };
   },
 
   getOne: async ({ id }: GetOneParams) => {
     const { data } = await publicApi.getSpeakersBySpeakerId({
       path: { speakerId: String(id) },
     });
-    return { data };
+    return { data: normalizeSpeaker(data as unknown as Record<string, unknown>) as never };
   },
 
   create: async ({ data: body }: CreateParams) => {
