@@ -3,7 +3,7 @@ import {
   SimpleForm,
   TextInput,
   DateTimeInput,
-  ReferenceInput,
+  ReferenceArrayInput,
   AutocompleteInput,
   NumberInput,
   required,
@@ -22,12 +22,7 @@ import { FormSection } from "../../components/forms/FormSection";
 function EditHeader() {
   const record = useRecordContext<any>();
   const { data: eventData } = useGetOne("events", { id: record?.eventId }, { enabled: !!record?.eventId });
-  const { data: rooms } = useGetManyReference("rooms", {
-    target: "venueId",
-    id: eventData?.venueId,
-    pagination: { page: 1, perPage: 50 },
-    sort: { field: "name", order: "ASC" },
-  }, { enabled: !!eventData?.venueId });
+  const { data: venueData } = useGetOne("venues", { id: eventData?.venueId }, { enabled: !!eventData?.venueId });
 
   if (!record?.eventId) return null;
 
@@ -38,11 +33,11 @@ function EditHeader() {
         <Typography variant="body2" color="text.secondary">Event:</Typography>
         <Chip label={eventData?.title || record.eventId} size="small" variant="outlined" sx={{ fontWeight: 600 }} />
       </Box>
-      {eventData?.venueId && (
+      {venueData && (
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <Room sx={{ fontSize: 18, color: "primary.main" }} />
           <Typography variant="body2" color="text.secondary">Venue:</Typography>
-          <Chip label={eventData?.venueId} size="small" variant="outlined" sx={{ fontWeight: 600 }} />
+          <Chip label={venueData.name} size="small" variant="outlined" sx={{ fontWeight: 600 }} />
         </Box>
       )}
     </Box>
@@ -80,14 +75,14 @@ export function SessionEdit(props: EditProps) {
           <TextInput source="description" label="Description" fullWidth multiline rows={4} />
         </FormSection>
         <FormSection title="Scheduling">
-          <DateTimeInput source="startTime" label="Start Time" fullWidth validate={required()} />
-          <DateTimeInput source="endTime" label="End Time" fullWidth validate={required()} />
+          <DateTimeInput source="startTime" label="Start Time" fullWidth validate={required()} parse={(v: string) => v ? new Date(v).toISOString() : v} />
+          <DateTimeInput source="endTime" label="End Time" fullWidth validate={required()} parse={(v: string) => v ? new Date(v).toISOString() : v} />
           <RoomInput />
         </FormSection>
         <FormSection title="Speakers">
-          <ReferenceInput source="speakerIds" reference="speakers" label="Speakers">
+          <ReferenceArrayInput source="speakerIds" reference="speakers" label="Speakers">
             <AutocompleteInput label="Assign Speakers" fullWidth multiple optionText="name" />
-          </ReferenceInput>
+          </ReferenceArrayInput>
           <NumberInput source="capacity" label="Capacity" fullWidth validate={minValue(0)} helperText="Maximum number of attendees" />
         </FormSection>
       </SimpleForm>
