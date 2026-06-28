@@ -4,7 +4,13 @@ import {
   useListContext,
   type ListProps,
 } from "react-admin";
-import { Box, Typography, InputAdornment, TextField, Card } from "@mui/material";
+import {
+  Box,
+  Typography,
+  InputAdornment,
+  TextField,
+  Card,
+} from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import type { Speaker } from "../../types";
@@ -18,17 +24,50 @@ import Instagram from "@mui/icons-material/Instagram";
 import Link from "@mui/icons-material/Link";
 import type { ReactNode } from "react";
 
-const LINK_CONFIG: Record<string, { label: string; color: string; icon: ReactNode }> = {
-  website: { label: "Website", color: "#6B6973", icon: <Public sx={{ fontSize: 13 }} /> },
-  github: { label: "GitHub", color: "#333", icon: <GitHub sx={{ fontSize: 13 }} /> },
+const LINK_CONFIG: Record<
+  string,
+  { label: string; color: string; icon: ReactNode }
+> = {
+  website: {
+    label: "Website",
+    color: "#6B6973",
+    icon: <Public sx={{ fontSize: 13 }} />,
+  },
+  github: {
+    label: "GitHub",
+    color: "#333",
+    icon: <GitHub sx={{ fontSize: 13 }} />,
+  },
   x: { label: "X", color: "#1DA1F2", icon: <X sx={{ fontSize: 13 }} /> },
-  linkedin: { label: "LinkedIn", color: "#0A66C2", icon: <LinkedIn sx={{ fontSize: 13 }} /> },
-  facebook: { label: "Facebook", color: "#1877F2", icon: <Facebook sx={{ fontSize: 13 }} /> },
-  instagram: { label: "Instagram", color: "#E4405F", icon: <Instagram sx={{ fontSize: 13 }} /> },
-  other: { label: "Other", color: "#6B6973", icon: <Link sx={{ fontSize: 13 }} /> },
+  linkedin: {
+    label: "LinkedIn",
+    color: "#0A66C2",
+    icon: <LinkedIn sx={{ fontSize: 13 }} />,
+  },
+  facebook: {
+    label: "Facebook",
+    color: "#1877F2",
+    icon: <Facebook sx={{ fontSize: 13 }} />,
+  },
+  instagram: {
+    label: "Instagram",
+    color: "#E4405F",
+    icon: <Instagram sx={{ fontSize: 13 }} />,
+  },
+  other: {
+    label: "Other",
+    color: "#6B6973",
+    icon: <Link sx={{ fontSize: 13 }} />,
+  },
 };
 
-function SpeakerCard({ speaker, onClick }: { speaker: Speaker; onClick: () => void }) {
+function SpeakerCard({
+  speaker,
+  onClick,
+}: {
+  speaker: Speaker;
+  onClick: () => void;
+}) {
   const initials = speaker.name
     ?.split(" ")
     .map((n) => n[0])
@@ -83,7 +122,15 @@ function SpeakerCard({ speaker, onClick }: { speaker: Speaker; onClick: () => vo
               position: "relative",
             }}
           >
-            <Box sx={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Box
+              sx={{
+                position: "absolute",
+                inset: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               {initials}
             </Box>
             {speaker.avatarUrl && (
@@ -91,7 +138,13 @@ function SpeakerCard({ speaker, onClick }: { speaker: Speaker; onClick: () => vo
                 component="img"
                 src={speaker.avatarUrl}
                 alt={speaker.name}
-                sx={{ width: "100%", height: "100%", objectFit: "cover", position: "relative", zIndex: 1 }}
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  position: "relative",
+                  zIndex: 1,
+                }}
                 onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                   e.currentTarget.style.display = "none";
                 }}
@@ -104,7 +157,15 @@ function SpeakerCard({ speaker, onClick }: { speaker: Speaker; onClick: () => vo
         </Box>
       </Box>
 
-      <Box sx={{ px: 2, py: 1.5, flex: 1, display: "flex", flexDirection: "column" }}>
+      <Box
+        sx={{
+          px: 2,
+          py: 1.5,
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         {speaker.bio && (
           <Typography
             variant="caption"
@@ -125,7 +186,11 @@ function SpeakerCard({ speaker, onClick }: { speaker: Speaker; onClick: () => vo
         {links.length > 0 && (
           <Box sx={{ display: "flex", gap: 0.75, flexWrap: "wrap", mt: 1.5 }}>
             {links.map((link, i) => {
-              const cfg = LINK_CONFIG[link.type.toLowerCase()] || { label: link.type, color: "#6B6973", icon: <Link sx={{ fontSize: 13 }} /> };
+              const cfg = LINK_CONFIG[link.type.toLowerCase()] || {
+                label: link.type,
+                color: "#6B6973",
+                icon: <Link sx={{ fontSize: 13 }} />,
+              };
               return (
                 <Box
                   key={i}
@@ -166,12 +231,11 @@ function SpeakerGrid() {
 
   return (
     <Box sx={{ p: 2 }}>
-      <Box
+      <Card
         sx={{
-          backgroundColor: "rgba(255, 255, 255, 0.05)",
-          borderRadius: "12px",
           p: "20px 24px",
           mb: 3,
+          background: "rgba(255, 255, 255, 0.05)",
         }}
       >
         <Box
@@ -223,16 +287,27 @@ function SpeakerGrid() {
               fontSize: "0.9rem",
               "& fieldset": { borderColor: "#413E48" },
               "&:hover fieldset": { borderColor: "#6B6973" },
-              "&.Mui-focused fieldset": { borderColor: "#DDD92A", borderWidth: "2px" },
+              "&.Mui-focused fieldset": {
+                borderColor: "#DDD92A",
+                borderWidth: "2px",
+              },
             },
-            "& .MuiInputBase-input::placeholder": { color: "#6B6973", opacity: 1 },
+            "& .MuiInputBase-input::placeholder": {
+              color: "#6B6973",
+              opacity: 1,
+            },
           }}
         />
-      </Box>
+      </Card>
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "1fr 1fr 1fr", lg: "1fr 1fr 1fr 1fr" },
+          gridTemplateColumns: {
+            xs: "1fr",
+            sm: "1fr 1fr",
+            md: "1fr 1fr 1fr",
+            lg: "1fr 1fr 1fr 1fr",
+          },
           gap: "20px",
         }}
       >

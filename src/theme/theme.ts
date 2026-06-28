@@ -421,6 +421,34 @@ const sharedComponents = {
       },
     },
   },
+  RaCreate: {
+    styleOverrides: {
+      root: {
+        backgroundColor: "transparent",
+      },
+    },
+  },
+  RaEdit: {
+    styleOverrides: {
+      root: {
+        backgroundColor: "transparent",
+      },
+    },
+  },
+  RaList: {
+    styleOverrides: {
+      root: {
+        backgroundColor: "transparent",
+      },
+    },
+  },
+  RaShow: {
+    styleOverrides: {
+      root: {
+        backgroundColor: "transparent",
+      },
+    },
+  },
 };
 
 export const lightTheme = createTheme({

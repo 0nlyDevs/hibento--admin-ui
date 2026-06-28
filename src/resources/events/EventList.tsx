@@ -4,7 +4,7 @@ import {
   useListContext,
   type ListProps,
 } from "react-admin";
-import { Box, Typography, InputAdornment, TextField } from "@mui/material";
+import { Box, Typography, InputAdornment, TextField, Card } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import { EventCard } from "../../components/events/EventCard";
@@ -19,12 +19,11 @@ function EventGrid() {
 
   return (
     <Box sx={{ p: 2 }}>
-      <Box
+      <Card
         sx={{
-          backgroundColor: "rgba(255, 255, 255, 0.05)",
-          borderRadius: "12px",
           p: "20px 24px",
           mb: 3,
+          background: "rgba(255, 255, 255, 0.05)",
         }}
       >
         <Box
@@ -81,7 +80,7 @@ function EventGrid() {
             "& .MuiInputBase-input::placeholder": { color: "#6B6973", opacity: 1 },
           }}
         />
-      </Box>
+      </Card>
       <Box
         sx={{
           display: "grid",
