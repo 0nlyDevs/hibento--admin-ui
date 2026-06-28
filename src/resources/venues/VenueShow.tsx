@@ -118,7 +118,7 @@ function RoomsTab() {
   const handleCreate = async () => {
     await create(
       "rooms",
-      { data: { name: roomName, capacity: roomCapacity ? Number(roomCapacity) : undefined } },
+      { data: { name: roomName, capacity: roomCapacity ? Number(roomCapacity) : undefined, venueId: venue?.id } },
       { onSuccess: () => { setOpen(false); setRoomName(""); setRoomCapacity(""); refetch(); } },
     );
   };
