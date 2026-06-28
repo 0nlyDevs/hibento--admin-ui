@@ -1,62 +1,150 @@
 import {
   Show,
-  ArrayField,
-  ChipField,
-  SingleFieldList,
-  TabbedShowLayout,
-  Tab,
   useRecordContext,
   type ShowProps,
 } from "react-admin";
-import { Box, Typography, Avatar, Chip } from "@mui/material";
-import type { Speaker, ExternalLink } from "../../types";
+import { Box, Typography, Button } from "@mui/material";
+import type { Speaker } from "../../types";
+
+const LINK_CONFIG: Record<string, { label: string; color: string }> = {
+  github: { label: "GitHub", color: "#333" },
+  x: { label: "X", color: "#1DA1F2" },
+  linkedin: { label: "LinkedIn", color: "#0A66C2" },
+  facebook: { label: "Facebook", color: "#1877F2" },
+  instagram: { label: "Instagram", color: "#E4405F" },
+  website: { label: "Website", color: "#6B6973" },
+};
 
 function SpeakerLayout() {
   const record = useRecordContext<Speaker>();
   if (!record) return null;
 
+  const initials = record.name
+    ?.split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+
   return (
-    <Box display="flex" gap={4} flexWrap="wrap">
-      <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
-        <Avatar
-          src={record.avatarUrl || undefined}
-          alt={record.name}
-          sx={{ width: 96, height: 96, fontSize: 36 }}
-        >
-          {record.name?.charAt(0)?.toUpperCase()}
-        </Avatar>
-        <Typography variant="h5" fontWeight={600}>
-          {record.name}
-        </Typography>
-      </Box>
-
-      <Box flex={1} minWidth={280}>
-        <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-          Bio
-        </Typography>
-        <Typography variant="body1" color="text.primary">
-          {record.bio || "No bio provided"}
-        </Typography>
-
-        {record.externalLinks && record.externalLinks.length > 0 && (
-          <Box mt={3}>
-            <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-              Social Links
-            </Typography>
-            <Box display="flex" gap={1} flexWrap="wrap">
-              {record.externalLinks.map((link: ExternalLink, index: number) => (
-                <Chip
-                  key={index}
-                  label={`${link.type}: ${link.url}`}
-                  size="small"
-                  variant="outlined"
-                  onClick={() => window.open(link.url, "_blank")}
-                  sx={{ cursor: "pointer" }}
-                />
-              ))}
-            </Box>
+    <Box sx={{ p: 2 }}>
+      <Box
+        sx={{
+          backgroundColor: "#2D2A32",
+          borderRadius: "12px",
+          border: "1px solid #413E48",
+          p: "32px",
+          display: "flex",
+          gap: "32px",
+          alignItems: "flex-start",
+          flexWrap: { xs: "wrap", md: "nowrap" },
+        }}
+      >
+        <Box sx={{ textAlign: "center", minWidth: 120 }}>
+          <Box
+            sx={{
+              width: 96,
+              height: 96,
+              borderRadius: "50%",
+              backgroundColor: "#38353E",
+              mx: "auto",
+              mb: 1.5,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 36,
+              fontWeight: 700,
+              color: "#A9A7B0",
+              border: "3px solid #DDD92A",
+              backgroundImage: record.avatarUrl
+                ? `url(${record.avatarUrl})`
+                : undefined,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            {!record.avatarUrl && initials}
           </Box>
-        )}
+          <Typography variant="h5" fontWeight={700} color="#FAFDF6">
+            {record.name}
+          </Typography>
+        </Box>
+
+        <Box sx={{ flex: 1, minWidth: 0 }}>
+          <Box sx={{ mb: 2 }}>
+            <Typography
+              variant="caption"
+              color="#A9A7B0"
+              sx={{
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+                mb: 1,
+                display: "block",
+              }}
+            >
+              Bio
+            </Typography>
+            <Typography variant="body2" color="#FAFDF6" sx={{ lineHeight: 1.7 }}>
+              {record.bio || (
+                <Typography component="span" fontStyle="italic" color="#6B6973">
+                  No bio provided
+                </Typography>
+              )}
+            </Typography>
+          </Box>
+
+          {record.externalLinks && record.externalLinks.length > 0 && (
+            <Box>
+              <Typography
+                variant="caption"
+                color="#A9A7B0"
+                sx={{
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                  mb: 1,
+                  display: "block",
+                }}
+              >
+                Social Links
+              </Typography>
+              <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+                {record.externalLinks.map((link, i) => {
+                  const config = LINK_CONFIG[link.type] || {
+                    label: link.type,
+                    color: "#6B6973",
+                  };
+                  return (
+                    <Button
+                      key={i}
+                      variant="contained"
+                      size="small"
+                      onClick={() => window.open(link.url, "_blank")}
+                      sx={{
+                        backgroundColor: config.color,
+                        color: "#fff",
+                        borderRadius: "6px",
+                        textTransform: "capitalize",
+                        fontWeight: 500,
+                        fontSize: "0.8rem",
+                        px: "12px",
+                        py: "4px",
+                        minWidth: 0,
+                        "&:hover": {
+                          backgroundColor: config.color,
+                          filter: "brightness(1.15)",
+                        },
+                      }}
+                    >
+                      {config.label}
+                    </Button>
+                  );
+                })}
+              </Box>
+            </Box>
+          )}
+        </Box>
       </Box>
     </Box>
   );
@@ -65,28 +153,7 @@ function SpeakerLayout() {
 export function SpeakerShow(props: ShowProps) {
   return (
     <Show {...props}>
-      <TabbedShowLayout>
-        <Tab label="Profile">
-          <SpeakerLayout />
-        </Tab>
-
-        <Tab label="Sessions" path="sessions">
-          <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-            Sessions
-          </Typography>
-          <ArrayField source="speakerIds">
-            <SingleFieldList>
-              <ChipField source="id" />
-            </SingleFieldList>
-          </ArrayField>
-          <Box mt={2}>
-            <Typography variant="body2" color="text.secondary">
-              Sessions assigned to this speaker are managed from the Session
-              editor.
-            </Typography>
-          </Box>
-        </Tab>
-      </TabbedShowLayout>
+      <SpeakerLayout />
     </Show>
   );
 }
