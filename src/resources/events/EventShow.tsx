@@ -313,7 +313,7 @@ function SessionsTab() {
         <Divider sx={{ mb: 2, borderColor: "divider" }} />
       </Box>
       <ListContextProvider value={listContext}>
-        <Datagrid rowClick={(id) => `/sessions/${id}/show`} sx={{ "& .RaDatagrid-headerCell": { fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em" } }}>
+        <Datagrid rowClick={(id) => `/sessions/${id}/show`} bulkActionButtons={false} sx={{ "& .RaDatagrid-headerCell": { fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em" } }}>
           <TextField source="title" sx={{ fontWeight: 600 }} />
           <FunctionField label="Room" render={(r: any) => r.roomName || <Typography component="span" variant="body2" color="text.secondary">Online</Typography>} />
           <DateField source="startTime" label="Start" showTime />
@@ -361,7 +361,7 @@ function RoomsTab() {
         <Divider sx={{ mb: 2, borderColor: "divider" }} />
       </Box>
       <ListContextProvider value={listContext}>
-        <Datagrid sx={{ "& .RaDatagrid-headerCell": { fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em" } }}>
+        <Datagrid bulkActionButtons={false} sx={{ "& .RaDatagrid-headerCell": { fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em" } }}>
           <TextField source="name" />
           <NumberField source="capacity" />
         </Datagrid>

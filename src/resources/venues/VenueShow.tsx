@@ -138,7 +138,7 @@ function RoomsTab() {
       </Box>
       {isLoading ? <Loading /> : (
         <ListContextProvider value={listContext}>
-          <Datagrid sx={{ "& .RaDatagrid-rowCell": { py: 1.5 } }}>
+          <Datagrid bulkActionButtons={false} sx={{ "& .RaDatagrid-rowCell": { py: 1.5 } }}>
             <TextField source="name" sx={{ fontWeight: 600 }} />
             <NumberField source="capacity" />
           </Datagrid>
@@ -213,6 +213,7 @@ export function VenueShow(props: ShowProps) {
           <ReferenceManyField reference="events" target="venueId">
             <Datagrid
               rowClick="show"
+              bulkActionButtons={false}
               sx={{ "& .RaDatagrid-rowCell": { py: 1.5 } }}
             >
               <TextField source="title" sx={{ fontWeight: 600 }} />
