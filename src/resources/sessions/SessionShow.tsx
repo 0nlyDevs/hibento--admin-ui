@@ -14,7 +14,7 @@ import { LiveBadge } from "../../components/common/StatusBadge";
 import { isSessionLive } from "../../utils";
 import { dotGridBg, glowChipSx } from "../../components/venues/constants";
 import { useNavigate } from "react-router-dom";
-import type { Session } from "../../types";
+import type { Session, SpeakerRef } from "../../types";
 
 function SessionHero() {
   const record = useRecordContext<Session>();
@@ -126,20 +126,20 @@ function DetailCards() {
       )}
 
       {/* Speakers card */}
-      {record.speakerIds && record.speakerIds.length > 0 && (
-        <SpeakersCard speakerIds={record.speakerIds} />
+      {(record.speakers?.length > 0 || record.speakerIds?.length > 0) && (
+        <SpeakersCard speakers={record.speakers} speakerIds={record.speakerIds} />
       )}
     </Box>
   );
 }
 
-function SpeakersCard({ speakerIds }: { speakerIds: string[] }) {
-  const { data: speakers } = useGetList("speakers", {
+function SpeakersCard({ speakers: inlineSpeakers, speakerIds }: { speakers?: SpeakerRef[]; speakerIds?: string[] }) {
+  const { data: fetchedSpeakers } = useGetList("speakers", {
     pagination: { page: 1, perPage: 200 },
     sort: { field: "name", order: "ASC" },
   });
   const navigate = useNavigate();
-  const sessionSpeakers = speakers?.filter((s: any) => speakerIds.includes(s.id));
+  const sessionSpeakers = inlineSpeakers ?? fetchedSpeakers?.filter((s: any) => speakerIds?.includes(s.id));
 
   return (
     <Box sx={{ borderRadius: "12px", border: 1, borderColor: "divider", bgcolor: "background.paper", p: 3, mb: 3 }}>

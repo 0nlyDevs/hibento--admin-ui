@@ -92,6 +92,13 @@ export interface CreateEvent {
 
 export type UpdateEvent = CreateEvent;
 
+export interface SpeakerRef {
+  id: string;
+  name: string;
+  avatar?: string | null;
+  bio?: string | null;
+}
+
 export interface Session {
   id: string;
   eventId: string;
@@ -103,6 +110,7 @@ export interface Session {
   roomName?: string;
   capacity?: number;
   speakerIds?: string[];
+  speakers?: SpeakerRef[];
   createdAt?: string;
   updatedAt?: string;
 }
