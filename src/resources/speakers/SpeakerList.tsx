@@ -10,9 +10,9 @@ import { useNavigate } from "react-router-dom";
 import type { Speaker } from "../../types";
 import { dotGridBg, glowChipSx } from "../../components/venues/constants";
 import Public from "@mui/icons-material/Public";
-import Code from "@mui/icons-material/Code";
-import AlternateEmail from "@mui/icons-material/AlternateEmail";
-import Business from "@mui/icons-material/Business";
+import GitHub from "@mui/icons-material/GitHub";
+import X from "@mui/icons-material/X";
+import LinkedIn from "@mui/icons-material/LinkedIn";
 import Facebook from "@mui/icons-material/Facebook";
 import Instagram from "@mui/icons-material/Instagram";
 import Link from "@mui/icons-material/Link";
@@ -20,9 +20,9 @@ import type { ReactNode } from "react";
 
 const LINK_CONFIG: Record<string, { label: string; color: string; icon: ReactNode }> = {
   website: { label: "Website", color: "#6B6973", icon: <Public sx={{ fontSize: 13 }} /> },
-  github: { label: "GitHub", color: "#333", icon: <Code sx={{ fontSize: 13 }} /> },
-  x: { label: "X", color: "#1DA1F2", icon: <AlternateEmail sx={{ fontSize: 13 }} /> },
-  linkedin: { label: "LinkedIn", color: "#0A66C2", icon: <Business sx={{ fontSize: 13 }} /> },
+  github: { label: "GitHub", color: "#333", icon: <GitHub sx={{ fontSize: 13 }} /> },
+  x: { label: "X", color: "#1DA1F2", icon: <X sx={{ fontSize: 13 }} /> },
+  linkedin: { label: "LinkedIn", color: "#0A66C2", icon: <LinkedIn sx={{ fontSize: 13 }} /> },
   facebook: { label: "Facebook", color: "#1877F2", icon: <Facebook sx={{ fontSize: 13 }} /> },
   instagram: { label: "Instagram", color: "#E4405F", icon: <Instagram sx={{ fontSize: 13 }} /> },
   other: { label: "Other", color: "#6B6973", icon: <Link sx={{ fontSize: 13 }} /> },

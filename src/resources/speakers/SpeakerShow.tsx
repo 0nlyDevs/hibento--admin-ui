@@ -10,16 +10,16 @@ import {
   FunctionField,
 } from "react-admin";
 import { Box, Typography, Divider, Button, Chip } from "@mui/material";
-import { Language, Schedule, Public, Code, AlternateEmail, Business, Facebook, Instagram, Link } from "@mui/icons-material";
+import { Language, Schedule, Public, GitHub, X, LinkedIn, Facebook, Instagram, Link } from "@mui/icons-material";
 import type { Speaker } from "../../types";
 import { dotGridBg, glowChipSx } from "../../components/venues/constants";
 import type { ReactNode } from "react";
 
 const LINK_CONFIG: Record<string, { label: string; color: string; icon: ReactNode }> = {
   website: { label: "Website", color: "#6B6973", icon: <Public sx={{ fontSize: 16 }} /> },
-  github: { label: "GitHub", color: "#333", icon: <Code sx={{ fontSize: 16 }} /> },
-  x: { label: "X", color: "#1DA1F2", icon: <AlternateEmail sx={{ fontSize: 16 }} /> },
-  linkedin: { label: "LinkedIn", color: "#0A66C2", icon: <Business sx={{ fontSize: 16 }} /> },
+  github: { label: "GitHub", color: "#333", icon: <GitHub sx={{ fontSize: 16 }} /> },
+  x: { label: "X", color: "#1DA1F2", icon: <X sx={{ fontSize: 16 }} /> },
+  linkedin: { label: "LinkedIn", color: "#0A66C2", icon: <LinkedIn sx={{ fontSize: 16 }} /> },
   facebook: { label: "Facebook", color: "#1877F2", icon: <Facebook sx={{ fontSize: 16 }} /> },
   instagram: { label: "Instagram", color: "#E4405F", icon: <Instagram sx={{ fontSize: 16 }} /> },
   other: { label: "Other", color: "#6B6973", icon: <Link sx={{ fontSize: 16 }} /> },
