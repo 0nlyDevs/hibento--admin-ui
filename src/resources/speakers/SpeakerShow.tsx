@@ -56,14 +56,24 @@ function SpeakerLayout() {
               fontWeight: 700,
               color: "#A9A7B0",
               border: "3px solid #DDD92A",
-              backgroundImage: record.avatarUrl
-                ? `url(${record.avatarUrl})`
-                : undefined,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
+              overflow: "hidden",
+              position: "relative",
             }}
           >
-            {!record.avatarUrl && initials}
+            <Box sx={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              {initials}
+            </Box>
+            {record.avatarUrl && (
+              <Box
+                component="img"
+                src={record.avatarUrl}
+                alt={record.name}
+                sx={{ width: "100%", height: "100%", objectFit: "cover", position: "relative", zIndex: 1 }}
+                onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                  e.currentTarget.style.display = "none";
+                }}
+              />
+            )}
           </Box>
           <Typography variant="h5" fontWeight={700} color="#FAFDF6">
             {record.name}

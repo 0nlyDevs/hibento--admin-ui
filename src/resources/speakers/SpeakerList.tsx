@@ -59,14 +59,24 @@ function SpeakerCard({ speaker, onClick }: { speaker: Speaker; onClick: () => vo
           fontWeight: 600,
           color: "#A9A7B0",
           border: "2px solid #413E48",
-          backgroundImage: speaker.avatarUrl
-            ? `url(${speaker.avatarUrl})`
-            : undefined,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          overflow: "hidden",
+          position: "relative",
         }}
       >
-        {!speaker.avatarUrl && initials}
+        <Box sx={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          {initials}
+        </Box>
+        {speaker.avatarUrl && (
+          <Box
+            component="img"
+            src={speaker.avatarUrl}
+            alt={speaker.name}
+            sx={{ width: "100%", height: "100%", objectFit: "cover", position: "relative", zIndex: 1 }}
+            onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+              e.currentTarget.style.display = "none";
+            }}
+          />
+        )}
       </Box>
       <Typography
         variant="subtitle1"
