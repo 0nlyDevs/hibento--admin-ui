@@ -10,16 +10,8 @@ interface StatCardProps {
 
 export function StatCard({ label, value, icon, loading }: StatCardProps) {
   return (
-    <Card
-      sx={{
-        transition: "box-shadow 0.2s, transform 0.2s",
-        "&:hover": {
-          boxShadow: "0 4px 12px 0 rgb(0 0 0 / 0.1)",
-          transform: "translateY(-2px)",
-        },
-      }}
-    >
-      <CardContent sx={{ p: 3 }}>
+    <Card>
+      <CardContent>
         <Box display="flex" alignItems="center" justifyContent="space-between">
           <Box>
             <Typography

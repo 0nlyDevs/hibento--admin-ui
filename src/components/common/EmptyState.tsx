@@ -1,46 +1,43 @@
-import { Box, Typography, Button } from "@mui/material";
-import InboxIcon from "@mui/icons-material/Inbox";
-import { Link } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
 
 interface EmptyStateProps {
   message: string;
-  actionLabel?: string;
-  actionPath?: string;
-  icon?: React.ReactNode;
+  action?: React.ReactNode;
 }
 
-export function EmptyState({
-  message,
-  actionLabel,
-  actionPath,
-  icon,
-}: EmptyStateProps) {
+export function EmptyState({ message, action }: EmptyStateProps) {
   return (
     <Box
       display="flex"
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
-      py={8}
+      py={6}
       px={4}
       textAlign="center"
     >
-      <Box color="action.disabled" mb={2}>
-        {icon || <InboxIcon sx={{ fontSize: 56 }} />}
-      </Box>
-      <Typography variant="h6" color="text.secondary" mb={1}>
+      <Typography
+        sx={{
+          fontFamily: '"Geist", "Manrope", monospace',
+          fontSize: "0.7rem",
+          letterSpacing: "0.12em",
+          textTransform: "uppercase",
+          fontWeight: 500,
+          color: "#ddd92a",
+          mb: 1.5,
+        }}
+      >
+        § EMPTY
+      </Typography>
+      <Typography
+        variant="h6"
+        color="text.secondary"
+        fontWeight={400}
+        sx={{ opacity: 0.7 }}
+      >
         {message}
       </Typography>
-      {actionLabel && actionPath && (
-        <Button
-          component={Link}
-          to={actionPath}
-          variant="contained"
-          size="small"
-        >
-          {actionLabel}
-        </Button>
-      )}
+      {action && <Box mt={2}>{action}</Box>}
     </Box>
   );
 }

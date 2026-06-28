@@ -1,5 +1,5 @@
 import { Admin, Resource } from "react-admin";
-import { lightTheme, darkTheme } from "./theme/theme";
+import { lightTheme } from "./theme/theme";
 import { Layout } from "./Layout";
 import { Dashboard } from "./dashboard/Dashboard";
 
@@ -31,7 +31,6 @@ import { LoginPage } from "./pages/LoginPage";
 export const App = () => (
   <Admin
     theme={lightTheme}
-    darkTheme={darkTheme}
     dashboard={Dashboard}
     layout={Layout}
     dataProvider={hibentoDataProvider}

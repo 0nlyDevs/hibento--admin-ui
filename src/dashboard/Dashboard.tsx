@@ -67,7 +67,7 @@ export function Dashboard() {
         subtitle="Overview of your HIBENTO platform"
       />
 
-      <Grid container spacing={2.5} mb={4}>
+      <Grid container spacing={3} mb={4}>
         <Grid size={{ xs: 12, sm: 6, md: 4, lg: 2.4 }}>
           <StatCard
             label="Total Events"
@@ -110,7 +110,7 @@ export function Dashboard() {
         </Grid>
       </Grid>
 
-      <Grid container spacing={3}>
+      <Grid container spacing={4}>
         <Grid size={{ xs: 12, md: 6 }}>
           <Card>
             <CardContent sx={{ p: 3 }}>

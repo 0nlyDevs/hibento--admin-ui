@@ -3,34 +3,53 @@ import { createTheme } from "@mui/material/styles";
 const sharedTypography = {
   fontFamily:
     '"Manrope", "Sora", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-  h4: { fontWeight: 600, fontSize: "1.75rem" },
-  h5: { fontWeight: 600, fontSize: "1.25rem" },
-  h6: { fontWeight: 600, fontSize: "1.1rem" },
+  h4: { fontWeight: 700, fontSize: "1.75rem", fontFamily: '"Sora", serif' },
+  h5: { fontWeight: 700, fontSize: "1.25rem", fontFamily: '"Sora", serif' },
+  h6: { fontWeight: 600, fontSize: "1.1rem", fontFamily: '"Sora", serif' },
   subtitle1: { fontWeight: 500, fontSize: "0.95rem" },
   body2: { fontSize: "0.875rem" },
   caption: { fontSize: "0.75rem" },
 };
 
-const sharedShape = { borderRadius: 10 };
+const sharedShape = { borderRadius: 12 };
+
+const glassBg = "rgba(34, 34, 34, 0.85)";
+const glassBorder = "1px solid rgba(255, 255, 255, 0.1)";
+
+const sharedSidebar = {
+  closedWidth: 76,
+};
 
 const sharedComponents = {
   MuiCard: {
     styleOverrides: {
       root: ({ theme }: any) => ({
-        borderRadius: 12,
-        border: `1px solid ${theme.palette.divider}`,
-        boxShadow:
-          theme.palette.mode === "light"
-            ? "0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04)"
-            : "0 1px 3px 0 rgb(0 0 0 / 0.3)",
+        borderRadius: 16,
+        border: glassBorder,
+        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.3)",
+        background: glassBg,
+        backdropFilter: "blur(12px)",
         backgroundImage: "none",
       }),
+    },
+  },
+  MuiCardContent: {
+    styleOverrides: {
+      root: {
+        padding: "28px !important",
+        "&:last-child": {
+          paddingBottom: "28px !important",
+        },
+      },
     },
   },
   MuiPaper: {
     styleOverrides: {
       root: {
         backgroundImage: "none",
+        background: glassBg,
+        backdropFilter: "blur(12px)",
+        border: glassBorder,
       },
     },
   },
@@ -52,20 +71,14 @@ const sharedComponents = {
         borderColor: theme.palette.primary.main,
         color: theme.palette.primary.main,
         "&:hover": {
-          backgroundColor:
-            theme.palette.mode === "light"
-              ? "rgba(221, 217, 42, 0.08)"
-              : "rgba(221, 217, 42, 0.12)",
+          backgroundColor: "rgba(221, 217, 42, 0.12)",
           borderColor: theme.palette.primary.main,
         },
       }),
       textPrimary: ({ theme }: any) => ({
         color: theme.palette.primary.main,
         "&:hover": {
-          backgroundColor:
-            theme.palette.mode === "light"
-              ? "rgba(221, 217, 42, 0.08)"
-              : "rgba(221, 217, 42, 0.12)",
+          backgroundColor: "rgba(221, 217, 42, 0.12)",
         },
       }),
     },
@@ -75,14 +88,11 @@ const sharedComponents = {
       root: ({ theme }: any) => ({
         "& .RaDatagrid-headerCell": {
           fontWeight: 600,
-          fontSize: "0.8rem",
+          fontSize: "0.75rem",
           textTransform: "uppercase",
-          letterSpacing: "0.05em",
+          letterSpacing: "0.08em",
           color: theme.palette.text.secondary,
-          backgroundColor:
-            theme.palette.mode === "light"
-              ? "rgba(45, 42, 50, 0.03)"
-              : "rgba(250, 253, 246, 0.03)",
+          backgroundColor: "transparent",
         },
       }),
     },
@@ -91,18 +101,17 @@ const sharedComponents = {
     styleOverrides: {
       head: ({ theme }: any) => ({
         fontWeight: 600,
-        fontSize: "0.8rem",
+        fontSize: "0.75rem",
         textTransform: "uppercase",
-        letterSpacing: "0.05em",
+        letterSpacing: "0.08em",
         color: theme.palette.text.secondary,
-        backgroundColor:
-          theme.palette.mode === "light"
-            ? "rgba(45, 42, 50, 0.03)"
-            : "rgba(250, 253, 246, 0.03)",
+        backgroundColor: "transparent",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
       }),
       root: ({ theme }: any) => ({
         padding: "12px 16px",
-        borderBottomColor: theme.palette.divider,
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        color: theme.palette.text.primary,
       }),
     },
   },
@@ -110,16 +119,10 @@ const sharedComponents = {
     styleOverrides: {
       root: ({ theme }: any) => ({
         "&:hover": {
-          backgroundColor:
-            theme.palette.mode === "light"
-              ? "rgba(45, 42, 50, 0.03)"
-              : "rgba(250, 253, 246, 0.03)",
+          backgroundColor: "rgba(255, 255, 255, 0.03)",
         },
         "&.RaDatagrid-rowEven": {
-          backgroundColor:
-            theme.palette.mode === "light"
-              ? "rgba(45, 42, 50, 0.02)"
-              : "rgba(250, 253, 246, 0.02)",
+          backgroundColor: "rgba(255, 255, 255, 0.02)",
         },
       }),
     },
@@ -131,36 +134,28 @@ const sharedComponents = {
         fontSize: "0.75rem",
       },
       filledSuccess: ({ theme }: any) => ({
-        backgroundColor:
-          theme.palette.mode === "light"
-            ? "rgba(16, 185, 129, 0.12)"
-            : "rgba(16, 185, 129, 0.2)",
-        color: theme.palette.success.dark,
+        backgroundColor: "rgba(16, 185, 129, 0.15)",
+        color: "#34d399",
         fontWeight: 600,
+        border: "1px solid rgba(16, 185, 129, 0.2)",
       }),
       filledWarning: ({ theme }: any) => ({
-        backgroundColor:
-          theme.palette.mode === "light"
-            ? "rgba(245, 158, 11, 0.12)"
-            : "rgba(245, 158, 11, 0.2)",
-        color: theme.palette.warning.dark,
+        backgroundColor: "rgba(245, 158, 11, 0.15)",
+        color: "#fbbf24",
         fontWeight: 600,
+        border: "1px solid rgba(245, 158, 11, 0.2)",
       }),
       filledError: ({ theme }: any) => ({
-        backgroundColor:
-          theme.palette.mode === "light"
-            ? "rgba(239, 68, 68, 0.12)"
-            : "rgba(239, 68, 68, 0.2)",
-        color: theme.palette.error.dark,
+        backgroundColor: "rgba(239, 68, 68, 0.15)",
+        color: "#f87171",
         fontWeight: 600,
+        border: "1px solid rgba(239, 68, 68, 0.2)",
       }),
       filledDefault: ({ theme }: any) => ({
-        backgroundColor:
-          theme.palette.mode === "light"
-            ? "rgba(45, 42, 50, 0.08)"
-            : "rgba(250, 253, 246, 0.08)",
+        backgroundColor: "rgba(255, 255, 255, 0.06)",
         color: theme.palette.text.secondary,
         fontWeight: 600,
+        border: "1px solid rgba(255, 255, 255, 0.08)",
       }),
     },
   },
@@ -169,6 +164,7 @@ const sharedComponents = {
       root: {
         "& .MuiOutlinedInput-root": {
           borderRadius: 8,
+          backgroundColor: "rgba(255,255,255,0.04)",
         },
       },
     },
@@ -184,30 +180,46 @@ const sharedComponents = {
     styleOverrides: {
       root: {
         borderRadius: 8,
+        backgroundColor: "rgba(255,255,255,0.04)",
         "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
           borderWidth: 2,
+          borderColor: "#ddd92a",
         },
+        "&:hover .MuiOutlinedInput-notchedOutline": {
+          borderColor: "rgba(255,255,255,0.2)",
+        },
+      },
+      notchedOutline: {
+        borderColor: "rgba(255,255,255,0.12)",
       },
     },
   },
   MuiAppBar: {
     styleOverrides: {
       root: ({ theme }: any) => ({
-        boxShadow:
-          theme.palette.mode === "light"
-            ? "0 1px 3px 0 rgb(0 0 0 / 0.06)"
-            : "0 1px 3px 0 rgb(0 0 0 / 0.3)",
-        borderBottom: `1px solid ${theme.palette.divider}`,
-        backgroundColor: theme.palette.background.paper,
+        boxShadow: "none",
+        borderBottom: "1px solid rgba(255,255,255,0.08)",
+        background: "rgba(34, 34, 34, 0.9)",
+        backdropFilter: "blur(16px)",
         color: theme.palette.text.primary,
       }),
+    },
+  },
+  MuiToolbar: {
+    styleOverrides: {
+      root: {
+        minHeight: "64px !important",
+      },
+      regular: {
+        minHeight: "64px !important",
+      },
     },
   },
   MuiDrawer: {
     styleOverrides: {
       paper: ({ theme }: any) => ({
-        borderRight: `1px solid ${theme.palette.divider}`,
-        backgroundColor: theme.palette.background.paper,
+        borderRight: "1px solid rgba(255,255,255,0.12)",
+        background: "rgba(34, 34, 34, 0.9)",
       }),
     },
   },
@@ -236,30 +248,24 @@ const sharedComponents = {
   MuiLinearProgress: {
     styleOverrides: {
       root: ({ theme }: any) => ({
-        backgroundColor:
-          theme.palette.mode === "light"
-            ? "rgba(221, 217, 42, 0.15)"
-            : "rgba(221, 217, 42, 0.25)",
+        backgroundColor: "rgba(221, 217, 42, 0.15)",
       }),
       bar: {
-        backgroundColor: "#DDD92A",
+        backgroundColor: "#ddd92a",
       },
     },
   },
   MuiSkeleton: {
     styleOverrides: {
       root: ({ theme }: any) => ({
-        backgroundColor:
-          theme.palette.mode === "light"
-            ? "rgba(45, 42, 50, 0.08)"
-            : "rgba(250, 253, 246, 0.08)",
+        backgroundColor: "rgba(255, 255, 255, 0.06)",
       }),
     },
   },
   MuiDivider: {
     styleOverrides: {
       root: ({ theme }: any) => ({
-        borderColor: theme.palette.divider,
+        borderColor: "rgba(255,255,255,0.08)",
       }),
     },
   },
@@ -267,34 +273,23 @@ const sharedComponents = {
     styleOverrides: {
       root: ({ theme }: any) => ({
         borderRadius: 10,
+        border: "1px solid rgba(255,255,255,0.08)",
       }),
       standardSuccess: ({ theme }: any) => ({
-        backgroundColor:
-          theme.palette.mode === "light"
-            ? "rgba(16, 185, 129, 0.08)"
-            : "rgba(16, 185, 129, 0.15)",
-        color: theme.palette.success.dark,
+        backgroundColor: "rgba(16, 185, 129, 0.1)",
+        color: "#34d399",
       }),
       standardWarning: ({ theme }: any) => ({
-        backgroundColor:
-          theme.palette.mode === "light"
-            ? "rgba(245, 158, 11, 0.08)"
-            : "rgba(245, 158, 11, 0.15)",
-        color: theme.palette.warning.dark,
+        backgroundColor: "rgba(245, 158, 11, 0.1)",
+        color: "#fbbf24",
       }),
       standardError: ({ theme }: any) => ({
-        backgroundColor:
-          theme.palette.mode === "light"
-            ? "rgba(239, 68, 68, 0.08)"
-            : "rgba(239, 68, 68, 0.15)",
-        color: theme.palette.error.dark,
+        backgroundColor: "rgba(239, 68, 68, 0.1)",
+        color: "#f87171",
       }),
       standardInfo: ({ theme }: any) => ({
-        backgroundColor:
-          theme.palette.mode === "light"
-            ? "rgba(99, 102, 241, 0.08)"
-            : "rgba(99, 102, 241, 0.15)",
-        color: theme.palette.info.dark,
+        backgroundColor: "rgba(99, 102, 241, 0.1)",
+        color: "#818cf8",
       }),
     },
   },
@@ -344,23 +339,18 @@ const sharedComponents = {
   MuiBreadcrumbs: {
     styleOverrides: {
       separator: ({ theme }: any) => ({
-        color: theme.palette.text.disabled,
+        color: "rgba(255,255,255,0.2)",
       }),
     },
   },
   MuiTooltip: {
     styleOverrides: {
       tooltip: ({ theme }: any) => ({
-        backgroundColor:
-          theme.palette.mode === "light"
-            ? theme.palette.text.primary
-            : theme.palette.background.paper,
-        color:
-          theme.palette.mode === "light"
-            ? theme.palette.background.paper
-            : theme.palette.text.primary,
+        backgroundColor: "#2d2a32",
+        color: "#fafdf6",
         borderRadius: 6,
         fontSize: "0.8rem",
+        border: "1px solid rgba(255,255,255,0.1)",
       }),
     },
   },
@@ -377,10 +367,7 @@ const sharedComponents = {
     styleOverrides: {
       list: ({ theme }: any) => ({
         "& .MuiMenuItem-root.Mui-selected": {
-          backgroundColor:
-            theme.palette.mode === "light"
-              ? "rgba(221, 217, 42, 0.12)"
-              : "rgba(221, 217, 42, 0.2)",
+          backgroundColor: "rgba(221, 217, 42, 0.15)",
           "& .MuiListItemIcon-root": {
             color: theme.palette.primary.main,
           },
@@ -389,78 +376,104 @@ const sharedComponents = {
             fontWeight: 600,
           },
           "&:hover": {
-            backgroundColor:
-              theme.palette.mode === "light"
-                ? "rgba(221, 217, 42, 0.18)"
-                : "rgba(221, 217, 42, 0.28)",
+            backgroundColor: "rgba(221, 217, 42, 0.2)",
           },
         },
         "& .MuiMenuItem-root": {
           borderRadius: 8,
-          margin: "2px 8px",
+          margin: "6px 10px",
           "&:hover": {
-            backgroundColor:
-              theme.palette.mode === "light"
-                ? "rgba(45, 42, 50, 0.04)"
-                : "rgba(250, 253, 246, 0.06)",
+            backgroundColor: "rgba(255, 255, 255, 0.04)",
           },
         },
       }),
     },
   },
+  RaMenuItemLink: {
+    styleOverrides: {
+      root: {
+        margin: "10px 14px",
+        borderRadius: 8,
+      },
+    },
+  },
+  MuiListItemIcon: {
+    styleOverrides: {
+      root: {
+        minWidth: 0,
+        justifyContent: "center",
+      },
+    },
+  },
+  MuiListItemText: {
+    styleOverrides: {
+      root: {
+        marginLeft: 20,
+        flex: "none",
+      },
+    },
+  },
+  RaLayout: {
+    styleOverrides: {
+      root: {
+        backgroundColor: "transparent !important",
+      },
+    },
+  },
 };
 
 export const lightTheme = createTheme({
+  sidebar: sharedSidebar,
   palette: {
     mode: "light",
     primary: {
-      main: "#DDD92A",
-      light: "#EAE151",
-      dark: "#C4C026",
-      contrastText: "#2D2A32",
+      main: "#ddd92a",
+      light: "#eae151",
+      dark: "#c4c026",
+      contrastText: "#2d2a32",
     },
     secondary: {
-      main: "#2D2A32",
-      light: "#4A4752",
-      dark: "#1A1820",
-      contrastText: "#FAFDF6",
+      main: "#2d2a32",
+      light: "#4a4752",
+      dark: "#1a1820",
+      contrastText: "#fafdf6",
     },
     background: {
-      default: "#FAFDF6",
-      paper: "#FFFFFF",
+      default: "#2d2a32",
+      paper: "rgba(34, 34, 34, 0.85)",
     },
     text: {
-      primary: "#2D2A32",
-      secondary: "#6B6973",
-      disabled: "#9E9CA5",
+      primary: "#fafdf6",
+      secondary: "#a9a7b0",
+      disabled: "#6b6973",
     },
-    divider: "#E8E7EB",
+    divider: "rgba(255,255,255,0.08)",
     action: {
-      active: "#2D2A32",
-      hover: "rgba(45, 42, 50, 0.04)",
-      selected: "rgba(221, 217, 42, 0.12)",
-      disabled: "rgba(45, 42, 50, 0.26)",
-      disabledBackground: "rgba(45, 42, 50, 0.08)",
+      active: "#fafdf6",
+      hover: "rgba(255, 255, 255, 0.04)",
+      selected: "rgba(221, 217, 42, 0.15)",
+      disabled: "rgba(255, 255, 255, 0.3)",
+      disabledBackground: "rgba(255, 255, 255, 0.06)",
     },
     info: {
-      main: "#6366F1",
-      light: "#818CF8",
-      dark: "#4F46E5",
+      main: "#6366f1",
+      light: "#818cf8",
+      dark: "#4f46e5",
     },
     success: {
-      main: "#10B981",
-      light: "#34D399",
+      main: "#10b981",
+      light: "#34d399",
       dark: "#059669",
     },
     warning: {
-      main: "#F59E0B",
-      light: "#FBBF24",
-      dark: "#D97706",
+      main: "#f59e0b",
+      light: "#fbbf24",
+      dark: "#d97706",
     },
     error: {
-      main: "#EF4444",
-      light: "#F87171",
-      dark: "#DC2626",
+      main: "#ef4444",
+      light: "#f87171",
+      dark: "#dc2626",
     },
   },
   typography: sharedTypography,
@@ -469,56 +482,57 @@ export const lightTheme = createTheme({
 });
 
 export const darkTheme = createTheme({
+  sidebar: sharedSidebar,
   palette: {
     mode: "dark",
     primary: {
-      main: "#DDD92A",
-      light: "#EAE151",
-      dark: "#C4C026",
-      contrastText: "#2D2A32",
+      main: "#ddd92a",
+      light: "#eae151",
+      dark: "#c4c026",
+      contrastText: "#2d2a32",
     },
     secondary: {
-      main: "#FAFDF6",
-      light: "#FFFFFF",
-      dark: "#D4D8CE",
-      contrastText: "#2D2A32",
+      main: "#fafdf6",
+      light: "#ffffff",
+      dark: "#d4d8ce",
+      contrastText: "#2d2a32",
     },
     background: {
-      default: "#2D2A32",
-      paper: "#38353E",
+      default: "#2d2a32",
+      paper: "rgba(34, 34, 34, 0.85)",
     },
     text: {
-      primary: "#FAFDF6",
-      secondary: "#A9A7B0",
-      disabled: "#6B6973",
+      primary: "#fafdf6",
+      secondary: "#a9a7b0",
+      disabled: "#6b6973",
     },
-    divider: "#413E48",
+    divider: "rgba(255,255,255,0.08)",
     action: {
-      active: "#FAFDF6",
-      hover: "rgba(250, 253, 246, 0.06)",
-      selected: "rgba(221, 217, 42, 0.2)",
-      disabled: "rgba(250, 253, 246, 0.3)",
-      disabledBackground: "rgba(250, 253, 246, 0.08)",
+      active: "#fafdf6",
+      hover: "rgba(255, 255, 255, 0.04)",
+      selected: "rgba(221, 217, 42, 0.15)",
+      disabled: "rgba(255, 255, 255, 0.3)",
+      disabledBackground: "rgba(255, 255, 255, 0.06)",
     },
     info: {
-      main: "#6366F1",
-      light: "#818CF8",
-      dark: "#4F46E5",
+      main: "#6366f1",
+      light: "#818cf8",
+      dark: "#4f46e5",
     },
     success: {
-      main: "#10B981",
-      light: "#34D399",
+      main: "#10b981",
+      light: "#34d399",
       dark: "#059669",
     },
     warning: {
-      main: "#F59E0B",
-      light: "#FBBF24",
-      dark: "#D97706",
+      main: "#f59e0b",
+      light: "#fbbf24",
+      dark: "#d97706",
     },
     error: {
-      main: "#EF4444",
-      light: "#F87171",
-      dark: "#DC2626",
+      main: "#ef4444",
+      light: "#f87171",
+      dark: "#dc2626",
     },
   },
   typography: sharedTypography,
