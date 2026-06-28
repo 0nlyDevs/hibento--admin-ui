@@ -56,6 +56,8 @@ export const App = () => (
       show={SpeakerShow}
       icon={PeopleIcon}
     />
+    <Resource name="rooms" />
+    <Resource name="sessions" />
     <Resource
       name="venues"
       list={VenueList}
