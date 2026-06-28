@@ -266,7 +266,7 @@ function SessionsTab() {
   if (isLoading) return <Loading />;
 
   return (
-    <Box sx={{ borderRadius: "12px", border: 1, borderColor: "divider", bgcolor: "background.paper", overflow: "hidden" }}>
+    <>
       <Box sx={{ p: 3, pb: 0 }}>
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 2 }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
@@ -295,7 +295,7 @@ function SessionsTab() {
           <NumberField source="capacity" />
         </Datagrid>
       </ListContextProvider>
-    </Box>
+    </>
   );
 }
 
@@ -324,7 +324,7 @@ function RoomsTab() {
   if (isLoading) return <Loading />;
 
   return (
-    <Box sx={{ borderRadius: "12px", border: 1, borderColor: "divider", bgcolor: "background.paper", overflow: "hidden" }}>
+    <>
       <Box sx={{ p: 3, pb: 0 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
           <EventIcon sx={{ color: "primary.main", fontSize: 20 }} />
@@ -340,7 +340,7 @@ function RoomsTab() {
           <NumberField source="capacity" />
         </Datagrid>
       </ListContextProvider>
-    </Box>
+    </>
   );
 }
 
