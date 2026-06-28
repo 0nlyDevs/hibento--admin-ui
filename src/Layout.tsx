@@ -77,6 +77,14 @@ export const Layout = ({ children }: { children: React.ReactNode }) => (
         ".MuiDrawer-root .MuiListItemText-root": {
           marginLeft: "8px",
         },
+        ".MuiDrawer-root.RaSidebar-closed .MuiListItemButton-root": {
+          justifyContent: "center !important",
+          paddingLeft: "8px !important",
+          paddingRight: "8px !important",
+        },
+        ".MuiDrawer-root.RaSidebar-closed .MuiListItemIcon-root": {
+          minWidth: "0 !important",
+        },
       }}
     />
     <RALayout appBar={AppBar} menu={Menu}>

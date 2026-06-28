@@ -16,6 +16,10 @@ const sharedShape = { borderRadius: 12 };
 const glassBg = "rgba(34, 34, 34, 0.85)";
 const glassBorder = "1px solid rgba(255, 255, 255, 0.1)";
 
+const sharedSidebar = {
+  closedWidth: 76,
+};
+
 const sharedComponents = {
   MuiCard: {
     styleOverrides: {
@@ -404,30 +408,22 @@ const sharedComponents = {
   MuiListItemText: {
     styleOverrides: {
       root: {
-        marginLeft: 12,
+        marginLeft: 20,
         flex: "none",
       },
     },
   },
-  RaSidebar: {
+  RaLayout: {
     styleOverrides: {
       root: {
-        "&.RaSidebar-closed": {
-          "& .MuiListItemButton-root": {
-            justifyContent: "center",
-            paddingLeft: "8px",
-            paddingRight: "8px",
-          },
-          "& .MuiListItemIcon-root": {
-            minWidth: "0 !important",
-          },
-        },
+        backgroundColor: "transparent !important",
       },
     },
   },
 };
 
 export const lightTheme = createTheme({
+  sidebar: sharedSidebar,
   palette: {
     mode: "light",
     primary: {
@@ -486,6 +482,7 @@ export const lightTheme = createTheme({
 });
 
 export const darkTheme = createTheme({
+  sidebar: sharedSidebar,
   palette: {
     mode: "dark",
     primary: {
