@@ -12,7 +12,7 @@ const videoBg = (
       height: "100vh",
       opacity: 0.12,
       pointerEvents: "none",
-      zIndex: -1,
+      zIndex: 0,
       overflow: "hidden",
     }}
   >
@@ -33,6 +33,13 @@ export const Layout = ({ children }: { children: React.ReactNode }) => (
     {videoBg}
     <GlobalStyles
       styles={{
+        body: {
+          backgroundColor: "transparent !important",
+          backgroundImage: "url('/background.webp') !important",
+          backgroundSize: "cover !important",
+          backgroundPosition: "center !important",
+          backgroundAttachment: "fixed !important",
+        },
         ".RaLayout-content": {
           background: "transparent !important",
           padding: "48px 32px !important",
@@ -69,15 +76,6 @@ export const Layout = ({ children }: { children: React.ReactNode }) => (
         },
         ".MuiDrawer-root .MuiListItemText-root": {
           marginLeft: "8px",
-        },
-        ".RaSidebar-closed .MuiListItemButton-root": {
-          justifyContent: "center !important",
-          paddingLeft: "8px !important",
-          paddingRight: "8px !important",
-        },
-        ".RaSidebar-closed .MuiListItemIcon-root": {
-          minWidth: "0 !important",
-          justifyContent: "center",
         },
       }}
     />

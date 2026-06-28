@@ -409,6 +409,22 @@ const sharedComponents = {
       },
     },
   },
+  RaSidebar: {
+    styleOverrides: {
+      root: {
+        "&.RaSidebar-closed": {
+          "& .MuiListItemButton-root": {
+            justifyContent: "center",
+            paddingLeft: "8px",
+            paddingRight: "8px",
+          },
+          "& .MuiListItemIcon-root": {
+            minWidth: "0 !important",
+          },
+        },
+      },
+    },
+  },
 };
 
 export const lightTheme = createTheme({
