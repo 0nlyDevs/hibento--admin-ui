@@ -9,14 +9,23 @@ import Search from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import type { Speaker } from "../../types";
 import { dotGridBg, glowChipSx } from "../../components/venues/constants";
+import Public from "@mui/icons-material/Public";
+import Code from "@mui/icons-material/Code";
+import AlternateEmail from "@mui/icons-material/AlternateEmail";
+import Business from "@mui/icons-material/Business";
+import Facebook from "@mui/icons-material/Facebook";
+import Instagram from "@mui/icons-material/Instagram";
+import Link from "@mui/icons-material/Link";
+import type { ReactNode } from "react";
 
-const LINK_CONFIG: Record<string, { label: string; color: string }> = {
-  github: { label: "GitHub", color: "#333" },
-  x: { label: "X", color: "#1DA1F2" },
-  linkedin: { label: "LinkedIn", color: "#0A66C2" },
-  facebook: { label: "Facebook", color: "#1877F2" },
-  instagram: { label: "Instagram", color: "#E4405F" },
-  website: { label: "Website", color: "#6B6973" },
+const LINK_CONFIG: Record<string, { label: string; color: string; icon: ReactNode }> = {
+  website: { label: "Website", color: "#6B6973", icon: <Public sx={{ fontSize: 13 }} /> },
+  github: { label: "GitHub", color: "#333", icon: <Code sx={{ fontSize: 13 }} /> },
+  x: { label: "X", color: "#1DA1F2", icon: <AlternateEmail sx={{ fontSize: 13 }} /> },
+  linkedin: { label: "LinkedIn", color: "#0A66C2", icon: <Business sx={{ fontSize: 13 }} /> },
+  facebook: { label: "Facebook", color: "#1877F2", icon: <Facebook sx={{ fontSize: 13 }} /> },
+  instagram: { label: "Instagram", color: "#E4405F", icon: <Instagram sx={{ fontSize: 13 }} /> },
+  other: { label: "Other", color: "#6B6973", icon: <Link sx={{ fontSize: 13 }} /> },
 };
 
 function SpeakerCard({ speaker, onClick }: { speaker: Speaker; onClick: () => void }) {
@@ -118,12 +127,15 @@ function SpeakerCard({ speaker, onClick }: { speaker: Speaker; onClick: () => vo
         {links.length > 0 && (
           <Box sx={{ display: "flex", gap: 0.75, flexWrap: "wrap", mt: 1.5 }}>
             {links.map((link, i) => {
-              const cfg = LINK_CONFIG[link.type] || { label: link.type, color: "#6B6973" };
+              const cfg = LINK_CONFIG[link.type] || { label: link.type, color: "#6B6973", icon: <Link sx={{ fontSize: 13 }} /> };
               return (
-                <Typography
+                <Box
                   key={i}
                   component="span"
                   sx={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "4px",
                     fontWeight: 600,
                     fontSize: "0.6rem",
                     letterSpacing: 0.5,
@@ -135,8 +147,9 @@ function SpeakerCard({ speaker, onClick }: { speaker: Speaker; onClick: () => vo
                     py: "2px",
                   }}
                 >
+                  {cfg.icon}
                   {cfg.label}
-                </Typography>
+                </Box>
               );
             })}
           </Box>

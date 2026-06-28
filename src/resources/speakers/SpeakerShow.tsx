@@ -10,17 +10,19 @@ import {
   FunctionField,
 } from "react-admin";
 import { Box, Typography, Divider, Button, Chip } from "@mui/material";
-import { Language, Schedule } from "@mui/icons-material";
+import { Language, Schedule, Public, Code, AlternateEmail, Business, Facebook, Instagram, Link } from "@mui/icons-material";
 import type { Speaker } from "../../types";
 import { dotGridBg, glowChipSx } from "../../components/venues/constants";
+import type { ReactNode } from "react";
 
-const LINK_CONFIG: Record<string, { label: string; color: string }> = {
-  github: { label: "GitHub", color: "#333" },
-  x: { label: "X", color: "#1DA1F2" },
-  linkedin: { label: "LinkedIn", color: "#0A66C2" },
-  facebook: { label: "Facebook", color: "#1877F2" },
-  instagram: { label: "Instagram", color: "#E4405F" },
-  website: { label: "Website", color: "#6B6973" },
+const LINK_CONFIG: Record<string, { label: string; color: string; icon: ReactNode }> = {
+  website: { label: "Website", color: "#6B6973", icon: <Public sx={{ fontSize: 16 }} /> },
+  github: { label: "GitHub", color: "#333", icon: <Code sx={{ fontSize: 16 }} /> },
+  x: { label: "X", color: "#1DA1F2", icon: <AlternateEmail sx={{ fontSize: 16 }} /> },
+  linkedin: { label: "LinkedIn", color: "#0A66C2", icon: <Business sx={{ fontSize: 16 }} /> },
+  facebook: { label: "Facebook", color: "#1877F2", icon: <Facebook sx={{ fontSize: 16 }} /> },
+  instagram: { label: "Instagram", color: "#E4405F", icon: <Instagram sx={{ fontSize: 16 }} /> },
+  other: { label: "Other", color: "#6B6973", icon: <Link sx={{ fontSize: 16 }} /> },
 };
 
 function SpeakerProfile() {
@@ -155,12 +157,13 @@ function SpeakerProfile() {
           <Divider sx={{ mb: 2, borderColor: "rgba(255,255,255,0.06)" }} />
           <Box sx={{ display: "flex", gap: 1.5, flexWrap: "wrap" }}>
             {record.externalLinks.map((link, i) => {
-              const cfg = LINK_CONFIG[link.type] || { label: link.type, color: "#6B6973" };
+              const cfg = LINK_CONFIG[link.type] || { label: link.type, color: "#6B6973", icon: <Link sx={{ fontSize: 16 }} /> };
               return (
                 <Button
                   key={i}
                   variant="contained"
                   size="small"
+                  startIcon={cfg.icon}
                   onClick={() => window.open(link.url, "_blank")}
                   sx={{
                     backgroundColor: cfg.color,
