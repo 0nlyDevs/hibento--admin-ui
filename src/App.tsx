@@ -10,6 +10,11 @@ import { EventCreate } from "./resources/events/EventCreate";
 import { EventEdit } from "./resources/events/EventEdit";
 import { EventShow } from "./resources/events/EventShow";
 
+/* Sessions */
+import { SessionCreate } from "./resources/sessions/SessionCreate";
+import { SessionEdit } from "./resources/sessions/SessionEdit";
+import { SessionShow } from "./resources/sessions/SessionShow";
+
 /* Speakers */
 import { SpeakerList } from "./resources/speakers/SpeakerList";
 import { SpeakerCreate } from "./resources/speakers/SpeakerCreate";
@@ -57,7 +62,7 @@ export const App = () => (
       icon={PeopleIcon}
     />
     <Resource name="rooms" />
-    <Resource name="sessions" />
+    <Resource name="sessions" create={SessionCreate} edit={SessionEdit} show={SessionShow} />
     <Resource
       name="venues"
       list={VenueList}
