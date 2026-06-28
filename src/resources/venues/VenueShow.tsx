@@ -2,17 +2,29 @@ import {
   Show,
   TextField,
   NumberField,
-  ReferenceManyField,
   Datagrid,
   TabbedShowLayout,
   Tab,
   useRecordContext,
+  useGetManyReference,
+  useCreate,
   type ShowProps,
   DateField,
+  Loading,
 } from "react-admin";
-import { Box, Typography, Divider, Button } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Divider,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField as MuiTextField,
+} from "@mui/material";
 import { Room, Business, Add } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { VenueHero } from "../../components/venues/VenueHero";
 import { VenueInfoBadge } from "../../components/venues/VenueInfoBadge";
 import { buildMapQueryUrl } from "../../components/venues/constants";
@@ -88,8 +100,25 @@ function DetailCards() {
 
 function RoomsTab() {
   const venue = useRecordContext<Venue>();
-  const navigate = useNavigate();
-  const to = `/rooms/create?venueId=${encodeURIComponent(venue?.id ?? "")}`;
+  const [open, setOpen] = useState(false);
+  const [roomName, setRoomName] = useState("");
+  const [roomCapacity, setRoomCapacity] = useState("");
+  const [create, { isLoading: isCreating }] = useCreate();
+  const { data: rooms, isLoading, refetch } = useGetManyReference("rooms", {
+    target: "venueId",
+    id: venue?.id,
+    pagination: { page: 1, perPage: 50 },
+    sort: { field: "name", order: "ASC" },
+  });
+
+  const handleCreate = async () => {
+    await create(
+      "rooms",
+      { data: { name: roomName, capacity: roomCapacity ? Number(roomCapacity) : undefined } },
+      { onSuccess: () => { setOpen(false); setRoomName(""); setRoomCapacity(""); refetch(); } },
+    );
+  };
+
   return (
     <Box>
       <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
@@ -97,20 +126,47 @@ function RoomsTab() {
           variant="contained"
           size="small"
           startIcon={<Add />}
-          onClick={() => navigate(to)}
+          onClick={() => setOpen(true)}
         >
           New Room
         </Button>
       </Box>
-      <ReferenceManyField reference="rooms" target="venueId">
-        <Datagrid
-          rowClick="show"
-          sx={{ "& .RaDatagrid-rowCell": { py: 1.5 } }}
-        >
+      {isLoading ? <Loading /> : (
+        <Datagrid data={rooms} sx={{ "& .RaDatagrid-rowCell": { py: 1.5 } }}>
           <TextField source="name" sx={{ fontWeight: 600 }} />
           <NumberField source="capacity" />
         </Datagrid>
-      </ReferenceManyField>
+      )}
+      <Dialog open={open} onClose={() => setOpen(false)} maxWidth="sm" fullWidth>
+        <DialogTitle>New Room</DialogTitle>
+        <DialogContent>
+          <MuiTextField
+            autoFocus
+            label="Room Name"
+            fullWidth
+            value={roomName}
+            onChange={(e) => setRoomName(e.target.value)}
+            sx={{ mb: 2, mt: 1 }}
+          />
+          <MuiTextField
+            label="Capacity"
+            type="number"
+            fullWidth
+            value={roomCapacity}
+            onChange={(e) => setRoomCapacity(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)}>Cancel</Button>
+          <Button
+            variant="contained"
+            onClick={handleCreate}
+            disabled={!roomName || isCreating}
+          >
+            Create
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
