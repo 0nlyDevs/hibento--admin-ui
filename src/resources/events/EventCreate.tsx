@@ -49,12 +49,14 @@ export function EventCreate(props: CreateProps) {
             fullWidth
             validate={required()}
             defaultValue={new Date().toISOString()}
+            parse={(value: string) => (value ? new Date(value).toISOString() : value)}
           />
           <DateTimeInput
             source="endDate"
             label="End Date"
             fullWidth
             validate={required()}
+            parse={(value: string) => (value ? new Date(value).toISOString() : value)}
           />
         </FormSection>
       </SimpleForm>

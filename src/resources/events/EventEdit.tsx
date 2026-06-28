@@ -48,12 +48,14 @@ export function EventEdit(props: EditProps) {
             label="Start Date"
             fullWidth
             validate={required()}
+            parse={(value: string) => (value ? new Date(value).toISOString() : value)}
           />
           <DateTimeInput
             source="endDate"
             label="End Date"
             fullWidth
             validate={required()}
+            parse={(value: string) => (value ? new Date(value).toISOString() : value)}
           />
         </FormSection>
       </SimpleForm>

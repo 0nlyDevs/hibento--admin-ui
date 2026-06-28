@@ -680,6 +680,7 @@ components:
         - startTime
         - endTime
         - roomId
+        - speakerIds
       properties:
         title:
           type: string
@@ -697,7 +698,6 @@ components:
           format: uuid
         capacity:
           type: integer
-          minimum: 0
         speakerIds:
           type: array
           items:
@@ -711,6 +711,7 @@ components:
         - startTime
         - endTime
         - roomId
+        - speakerIds
       properties:
         title:
           type: string
@@ -728,7 +729,6 @@ components:
           format: uuid
         capacity:
           type: integer
-          minimum: 0
         speakerIds:
           type: array
           items:
