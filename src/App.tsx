@@ -1,5 +1,6 @@
 import { Admin, Resource } from "react-admin";
-import { lightTheme, darkTheme } from "./theme/theme";
+import { ThemeProvider } from "@mui/material/styles";
+import { lightTheme } from "./theme/theme";
 import { Layout } from "./Layout";
 import { Dashboard } from "./dashboard/Dashboard";
 
@@ -38,60 +39,62 @@ import SessionIcon from "@mui/icons-material/PlayCircleOutline";
 import PeopleIcon from "@mui/icons-material/People";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
-        
+
 import { hibentoDataProvider } from "./providers";
 import { authProvider } from "./providers/authProvider";
+import { LoginPage } from "./pages/LoginPage";
 
+const theme = lightTheme;
 export const App = () => (
-  <Admin
-    dashboard={Dashboard}
-    layout={Layout}
-    theme={lightTheme}
-    darkTheme={darkTheme}
-    defaultTheme="light"
-    dataProvider={hibentoDataProvider}
-    authProvider={authProvider}
-    requireAuth
-  >
-    <Resource
-      name="events"
-      list={EventList}
-      create={EventCreate}
-      edit={EventEdit}
-      show={EventShow}
-      icon={EventIcon}
-    />
-    <Resource
-      name="sessions"
-      list={SessionList}
-      create={SessionCreate}
-      edit={SessionEdit}
-      show={SessionShow}
-      icon={SessionIcon}
-    />
-    <Resource
-      name="speakers"
-      list={SpeakerList}
-      create={SpeakerCreate}
-      edit={SpeakerEdit}
-      show={SpeakerShow}
-      icon={PeopleIcon}
-    />
-    <Resource
-      name="rooms"
-      list={RoomList}
-      create={RoomCreate}
-      edit={RoomEdit}
-      show={RoomShow}
-      icon={MeetingRoomIcon}
-    />
-    <Resource
-      name="venues"
-      list={VenueList}
-      create={VenueCreate}
-      edit={VenueEdit}
-      show={VenueShow}
-      icon={LocationCityIcon}
-    />
-  </Admin>
+  <ThemeProvider theme={theme}>
+    <Admin
+      dashboard={Dashboard}
+      layout={Layout}
+      dataProvider={hibentoDataProvider}
+      authProvider={authProvider}
+      loginPage={LoginPage}
+      requireAuth
+    >
+      <Resource
+        name="events"
+        list={EventList}
+        create={EventCreate}
+        edit={EventEdit}
+        show={EventShow}
+        icon={EventIcon}
+      />
+      <Resource
+        name="sessions"
+        list={SessionList}
+        create={SessionCreate}
+        edit={SessionEdit}
+        show={SessionShow}
+        icon={SessionIcon}
+      />
+      <Resource
+        name="speakers"
+        list={SpeakerList}
+        create={SpeakerCreate}
+        edit={SpeakerEdit}
+        show={SpeakerShow}
+        icon={PeopleIcon}
+      />
+      <Resource
+        name="rooms"
+        list={RoomList}
+        create={RoomCreate}
+        edit={RoomEdit}
+        show={RoomShow}
+        icon={MeetingRoomIcon}
+      />
+      <Resource
+        name="venues"
+        list={VenueList}
+        create={VenueCreate}
+        edit={VenueEdit}
+        show={VenueShow}
+        icon={LocationCityIcon}
+      />
+    </Admin>
+  </ThemeProvider>
 );
