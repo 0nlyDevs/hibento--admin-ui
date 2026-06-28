@@ -3,20 +3,20 @@ import {
   CreateButton,
   useListContext,
   type ListProps,
-  type RaRecord,
 } from "react-admin";
 import { Box, Grid, Typography, InputAdornment, TextField } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import type { Speaker } from "../../types";
+import { dotGridBg, glowChipSx } from "../../components/venues/constants";
 
-const LINK_COLORS: Record<string, string> = {
-  github: "#333",
-  x: "#1DA1F2",
-  linkedin: "#0A66C2",
-  facebook: "#1877F2",
-  instagram: "#E4405F",
-  website: "#6B6973",
+const LINK_CONFIG: Record<string, { label: string; color: string }> = {
+  github: { label: "GitHub", color: "#333" },
+  x: { label: "X", color: "#1DA1F2" },
+  linkedin: { label: "LinkedIn", color: "#0A66C2" },
+  facebook: { label: "Facebook", color: "#1877F2" },
+  instagram: { label: "Instagram", color: "#E4405F" },
+  website: { label: "Website", color: "#6B6973" },
 };
 
 function SpeakerCard({ speaker, onClick }: { speaker: Speaker; onClick: () => void }) {
@@ -27,111 +27,129 @@ function SpeakerCard({ speaker, onClick }: { speaker: Speaker; onClick: () => vo
     .toUpperCase()
     .slice(0, 2);
 
+  const links = speaker.externalLinks?.slice(0, 3) ?? [];
+
   return (
     <Box
       onClick={onClick}
       sx={{
-        backgroundColor: "#2D2A32",
         borderRadius: "12px",
-        border: "1px solid #413E48",
-        p: "24px",
-        textAlign: "center",
+        border: "1px solid rgba(255,255,255,0.06)",
+        overflow: "hidden",
         cursor: "pointer",
-        transition: "border-color 0.2s, box-shadow 0.2s",
+        bgcolor: "#2D2A32",
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        transition: "all 0.2s ease",
         "&:hover": {
-          borderColor: "#DDD92A",
-          boxShadow: "0 0 0 1px rgba(221, 217, 42, 0.15)",
+          borderColor: "primary.main",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
         },
       }}
     >
       <Box
         sx={{
-          width: 72,
-          height: 72,
-          borderRadius: "50%",
-          backgroundColor: "#38353E",
-          mx: "auto",
-          mb: 1.5,
+          height: 140,
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          fontSize: 28,
-          fontWeight: 600,
-          color: "#A9A7B0",
-          border: "2px solid #413E48",
-          overflow: "hidden",
           position: "relative",
+          bgcolor: "#1A1820",
+          overflow: "hidden",
         }}
       >
-        <Box sx={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          {initials}
-        </Box>
-        {speaker.avatarUrl && (
+        <Box sx={dotGridBg()} />
+        <Box sx={{ position: "relative", zIndex: 1, textAlign: "center" }}>
           <Box
-            component="img"
-            src={speaker.avatarUrl}
-            alt={speaker.name}
-            sx={{ width: "100%", height: "100%", objectFit: "cover", position: "relative", zIndex: 1 }}
-            onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
-              e.currentTarget.style.display = "none";
+            sx={{
+              ...glowChipSx,
+              width: 64,
+              height: 64,
+              mx: "auto",
+              mb: 1,
+              fontSize: 24,
+              fontWeight: 700,
+              color: "#2D2A32",
+              overflow: "hidden",
+              position: "relative",
             }}
-          />
+          >
+            <Box sx={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              {initials}
+            </Box>
+            {speaker.avatarUrl && (
+              <Box
+                component="img"
+                src={speaker.avatarUrl}
+                alt={speaker.name}
+                sx={{ width: "100%", height: "100%", objectFit: "cover", position: "relative", zIndex: 1 }}
+                onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                  e.currentTarget.style.display = "none";
+                }}
+              />
+            )}
+          </Box>
+          <Typography variant="body1" fontWeight={700} color="#FAFDF6">
+            {speaker.name}
+          </Typography>
+        </Box>
+      </Box>
+
+      <Box sx={{ px: 2, py: 1.5, flex: 1, display: "flex", flexDirection: "column" }}>
+        {speaker.bio && (
+          <Typography
+            variant="caption"
+            sx={{
+              color: "#A9A7B0",
+              lineHeight: 1.6,
+              display: "-webkit-box",
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              mb: 1.5,
+              flex: 1,
+            }}
+          >
+            {speaker.bio}
+          </Typography>
+        )}
+
+        {links.length > 0 && (
+          <Box sx={{ display: "flex", gap: 0.75, flexWrap: "wrap", mt: "auto" }}>
+            {links.map((link, i) => {
+              const cfg = LINK_CONFIG[link.type] || { label: link.type, color: "#6B6973" };
+              return (
+                <Typography
+                  key={i}
+                  component="span"
+                  sx={{
+                    fontWeight: 600,
+                    fontSize: "0.6rem",
+                    letterSpacing: 0.5,
+                    textTransform: "uppercase",
+                    border: "1px dashed rgba(255,255,255,0.15)",
+                    color: cfg.color,
+                    borderRadius: "4px",
+                    px: "6px",
+                    py: "2px",
+                  }}
+                >
+                  {cfg.label}
+                </Typography>
+              );
+            })}
+          </Box>
         )}
       </Box>
-      <Typography
-        variant="subtitle1"
-        fontWeight={600}
-        color="#FAFDF6"
-        noWrap
-      >
-        {speaker.name}
-      </Typography>
-      {speaker.bio && (
-        <Typography
-          variant="body2"
-          color="#A9A7B0"
-          sx={{
-            mt: 0.5,
-            display: "-webkit-box",
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            lineHeight: 1.4,
-          }}
-        >
-          {speaker.bio}
-        </Typography>
-      )}
-      {speaker.externalLinks && speaker.externalLinks.length > 0 && (
-        <Box sx={{ display: "flex", gap: "6px", justifyContent: "center", mt: 1.5, flexWrap: "wrap" }}>
-          {speaker.externalLinks.map((link, i) => (
-            <Typography
-              key={i}
-              component="span"
-              sx={{
-                backgroundColor: LINK_COLORS[link.type] || "#6B6973",
-                color: "#fff",
-                borderRadius: "4px",
-                px: "8px",
-                py: "2px",
-                fontSize: "0.7rem",
-                fontWeight: 500,
-                textTransform: "capitalize",
-              }}
-            >
-              {link.type === "x" ? "X" : link.type}
-            </Typography>
-          ))}
-        </Box>
-      )}
     </Box>
   );
 }
 
 function SpeakerGrid() {
   const { data, isLoading, total, filterValues, setFilters } =
-    useListContext<Speaker & RaRecord>();
+    useListContext<Speaker>();
   const navigate = useNavigate();
 
   if (isLoading) return null;
@@ -203,7 +221,7 @@ function SpeakerGrid() {
       </Box>
       <Grid container spacing={2.5}>
         {data?.map((record) => (
-          <Grid key={record.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+          <Grid key={record.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }} sx={{ display: "flex" }}>
             <SpeakerCard
               speaker={record}
               onClick={() => navigate(`/speakers/${record.id}/show`)}
