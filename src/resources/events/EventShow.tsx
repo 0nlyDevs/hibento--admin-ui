@@ -261,7 +261,7 @@ function DetailCards() {
 function SessionsTab() {
   const record = useRecordContext<Event>();
   const [open, setOpen] = useState(false);
-  const [form, setForm] = useState({ title: "", description: "", startTime: "", endTime: "", roomId: "", capacity: "" });
+  const [form, setForm] = useState({ title: "", description: "", startTime: "", endTime: "", roomId: "", capacity: "", speakerIds: [] as string[] });
   const [create, { isLoading: isCreating }] = useCreate();
   const { data, isLoading, refetch } = useGetList("sessions", {
     filter: { eventId: record?.id },
@@ -272,6 +272,10 @@ function SessionsTab() {
     target: "venueId",
     id: record?.venueId,
     pagination: { page: 1, perPage: 50 },
+    sort: { field: "name", order: "ASC" },
+  });
+  const { data: speakers } = useGetList("speakers", {
+    pagination: { page: 1, perPage: 200 },
     sort: { field: "name", order: "ASC" },
   });
   const listContext = useList({ data, isLoading, total: data?.length });
@@ -289,12 +293,12 @@ function SessionsTab() {
         endTime: new Date(form.endTime).toISOString(),
         roomId: form.roomId,
         capacity: form.capacity ? Number(form.capacity) : undefined,
-        speakerIds: [],
+        speakerIds: form.speakerIds,
       },
     }, {
       onSuccess: () => {
         setOpen(false);
-        setForm({ title: "", description: "", startTime: "", endTime: "", roomId: "", capacity: "" });
+        setForm({ title: "", description: "", startTime: "", endTime: "", roomId: "", capacity: "", speakerIds: [] });
         refetch();
       },
     });
@@ -338,6 +342,11 @@ function SessionsTab() {
           <MuiTextField label="Room" select fullWidth value={form.roomId} onChange={set("roomId")} sx={{ mb: 2 }}>
             {rooms?.map((r: any) => (
               <MenuItem key={r.id} value={r.id}>{r.name}</MenuItem>
+            ))}
+          </MuiTextField>
+          <MuiTextField label="Speakers" select fullWidth value={form.speakerIds} onChange={(e) => setForm((prev) => ({ ...prev, speakerIds: e.target.value as unknown as string[] }))} SelectProps={{ multiple: true }} sx={{ mb: 2 }}>
+            {speakers?.map((s: any) => (
+              <MenuItem key={s.id} value={s.id}>{s.name}</MenuItem>
             ))}
           </MuiTextField>
           <MuiTextField label="Capacity" type="number" fullWidth value={form.capacity} onChange={set("capacity")} />
