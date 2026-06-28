@@ -4,7 +4,7 @@ import {
   useListContext,
   type ListProps,
 } from "react-admin";
-import { Box, Grid, Typography, InputAdornment, TextField } from "@mui/material";
+import { Box, Typography, InputAdornment, TextField } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import type { Speaker } from "../../types";
@@ -105,11 +105,10 @@ function SpeakerCard({ speaker, onClick }: { speaker: Speaker; onClick: () => vo
               color: "#A9A7B0",
               lineHeight: 1.6,
               display: "-webkit-box",
-              WebkitLineClamp: 3,
+              WebkitLineClamp: 2,
               WebkitBoxOrient: "vertical",
               overflow: "hidden",
-              mb: 1.5,
-              flex: 1,
+              mb: "auto",
             }}
           >
             {speaker.bio}
@@ -117,7 +116,7 @@ function SpeakerCard({ speaker, onClick }: { speaker: Speaker; onClick: () => vo
         )}
 
         {links.length > 0 && (
-          <Box sx={{ display: "flex", gap: 0.75, flexWrap: "wrap", mt: "auto" }}>
+          <Box sx={{ display: "flex", gap: 0.75, flexWrap: "wrap", mt: 1.5 }}>
             {links.map((link, i) => {
               const cfg = LINK_CONFIG[link.type] || { label: link.type, color: "#6B6973" };
               return (
@@ -219,16 +218,22 @@ function SpeakerGrid() {
           }}
         />
       </Box>
-      <Grid container spacing={2.5}>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "1fr 1fr 1fr", lg: "1fr 1fr 1fr 1fr" },
+          gap: "20px",
+        }}
+      >
         {data?.map((record) => (
-          <Grid key={record.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }} sx={{ display: "flex" }}>
+          <Box key={record.id} sx={{ display: "flex", minWidth: 0 }}>
             <SpeakerCard
               speaker={record}
               onClick={() => navigate(`/speakers/${record.id}/show`)}
             />
-          </Grid>
+          </Box>
         ))}
-      </Grid>
+      </Box>
     </Box>
   );
 }
