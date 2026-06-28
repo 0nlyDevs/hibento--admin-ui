@@ -12,7 +12,13 @@ import type {
 import { publicApi, adminApi } from "../api";
 
 function normalizeSpeaker(s: Record<string, unknown>) {
-  return { ...s, avatarUrl: s.avatar };
+  const externalLinks = (s.externalLinks as Array<Record<string, unknown>> | undefined)?.map(
+    (link: Record<string, unknown>) => ({
+      ...link,
+      type: typeof link.type === "string" ? link.type.toLowerCase() : link.type,
+    }),
+  );
+  return { ...s, avatarUrl: s.avatar, externalLinks };
 }
 
 export const speakersResource = {
