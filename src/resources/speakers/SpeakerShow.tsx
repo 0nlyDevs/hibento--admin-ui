@@ -4,10 +4,13 @@ import {
   type ShowProps,
   TabbedShowLayout,
   Tab,
+  Datagrid,
+  TextField,
   DateField,
+  FunctionField,
 } from "react-admin";
-import { Box, Typography, Divider, Button } from "@mui/material";
-import { Language } from "@mui/icons-material";
+import { Box, Typography, Divider, Button, Chip } from "@mui/material";
+import { Language, Schedule } from "@mui/icons-material";
 import type { Speaker } from "../../types";
 import { dotGridBg, glowChipSx } from "../../components/venues/constants";
 
@@ -186,12 +189,96 @@ function SpeakerProfile() {
   );
 }
 
+function SessionsTab() {
+  const record = useRecordContext<Speaker>();
+  if (!record?.eventSessions?.length) {
+    return (
+      <Box
+        sx={{
+          borderRadius: "12px",
+          border: "1px solid rgba(255,255,255,0.06)",
+          bgcolor: "#2D2A32",
+          p: 4,
+          textAlign: "center",
+        }}
+      >
+        <Schedule sx={{ fontSize: 40, color: "#6B6973", mb: 1.5 }} />
+        <Typography variant="body1" color="#A9A7B0">
+          No sessions assigned to this speaker yet.
+        </Typography>
+        <Typography variant="caption" color="#6B6973">
+          Sessions can be assigned when creating or editing an event session.
+        </Typography>
+      </Box>
+    );
+  }
+
+  return (
+    <Box
+      sx={{
+        borderRadius: "12px",
+        border: "1px solid rgba(255,255,255,0.06)",
+        bgcolor: "#2D2A32",
+        overflow: "hidden",
+      }}
+    >
+      <Box sx={{ p: 3, pb: 0 }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
+          <Schedule sx={{ color: "primary.main", fontSize: 20 }} />
+          <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+            Sessions ({record.eventSessions.length})
+          </Typography>
+        </Box>
+        <Divider sx={{ mb: 2, borderColor: "rgba(255,255,255,0.06)" }} />
+      </Box>
+      <Datagrid
+        data={record.eventSessions}
+        bulkActionButtons={false}
+        sx={{
+          "& .RaDatagrid-headerCell": {
+            fontWeight: 600,
+            fontSize: "0.75rem",
+            textTransform: "uppercase",
+            letterSpacing: "0.05em",
+          },
+        }}
+      >
+        <TextField source="title" sx={{ fontWeight: 600 }} />
+        <TextField source="eventName" label="Event" />
+        <DateField source="startTime" label="Start" showTime />
+        <DateField source="endTime" label="End" showTime />
+        <TextField source="room" label="Room" />
+        <FunctionField
+          label="Status"
+          render={(r: { isLive?: boolean }) =>
+            r.isLive ? (
+              <Chip
+                label="Live"
+                size="small"
+                sx={{
+                  backgroundColor: "rgba(16, 185, 129, 0.2)",
+                  color: "#10B981",
+                  fontWeight: 600,
+                  fontSize: "0.7rem",
+                }}
+              />
+            ) : null
+          }
+        />
+      </Datagrid>
+    </Box>
+  );
+}
+
 export function SpeakerShow(props: ShowProps) {
   return (
     <Show {...props}>
       <TabbedShowLayout>
         <Tab label="Profile">
           <SpeakerProfile />
+        </Tab>
+        <Tab label="Sessions" path="sessions">
+          <SessionsTab />
         </Tab>
       </TabbedShowLayout>
     </Show>

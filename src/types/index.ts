@@ -40,8 +40,23 @@ export interface Speaker {
   avatarUrl?: string | null;
   bio?: string;
   externalLinks?: ExternalLink[];
+  eventSessions?: SpeakerSession[];
   createdAt?: string;
   updatedAt?: string;
+}
+
+export interface SpeakerSession {
+  id: string;
+  eventId: string;
+  title: string;
+  description?: string | null;
+  eventName?: string;
+  startTime?: string;
+  endTime?: string;
+  room?: string;
+  neighborhood?: string | null;
+  isLive?: boolean;
+  speakers?: Array<{ id?: string; name?: string }>;
 }
 
 export interface CreateSpeaker {
