@@ -8,6 +8,9 @@ import {
   useRecordContext,
   useGetManyReference,
   useCreate,
+  ReferenceManyField,
+  ListContextProvider,
+  useList,
   type ShowProps,
   DateField,
   Loading,
@@ -110,6 +113,7 @@ function RoomsTab() {
     pagination: { page: 1, perPage: 50 },
     sort: { field: "name", order: "ASC" },
   });
+  const listContext = useList({ data: rooms, isLoading: false, total: rooms?.length });
 
   const handleCreate = async () => {
     await create(
@@ -132,10 +136,12 @@ function RoomsTab() {
         </Button>
       </Box>
       {isLoading ? <Loading /> : (
-        <Datagrid data={rooms} sx={{ "& .RaDatagrid-rowCell": { py: 1.5 } }}>
-          <TextField source="name" sx={{ fontWeight: 600 }} />
-          <NumberField source="capacity" />
-        </Datagrid>
+        <ListContextProvider value={listContext}>
+          <Datagrid sx={{ "& .RaDatagrid-rowCell": { py: 1.5 } }}>
+            <TextField source="name" sx={{ fontWeight: 600 }} />
+            <NumberField source="capacity" />
+          </Datagrid>
+        </ListContextProvider>
       )}
       <Dialog open={open} onClose={() => setOpen(false)} maxWidth="sm" fullWidth>
         <DialogTitle>New Room</DialogTitle>

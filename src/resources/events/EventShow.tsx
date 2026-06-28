@@ -11,6 +11,8 @@ import {
   useRecordContext,
   useGetList,
   useGetManyReference,
+  ListContextProvider,
+  useList,
   Loading,
   type ShowProps,
 } from "react-admin";
@@ -42,18 +44,21 @@ function SessionsTab() {
     pagination: { page: 1, perPage: 100 },
     sort: { field: "startTime", order: "ASC" },
   });
+  const listContext = useList({ data, isLoading, total: data?.length });
 
   if (!record) return null;
   if (isLoading) return <Loading />;
 
   return (
-    <Datagrid data={data}>
-      <TextField source="title" />
-      <TextField source="roomName" label="Room" />
-      <DateField source="startTime" label="Start" showTime />
-      <DateField source="endTime" label="End" showTime />
-      <NumberField source="capacity" />
-    </Datagrid>
+    <ListContextProvider value={listContext}>
+      <Datagrid>
+        <TextField source="title" />
+        <TextField source="roomName" label="Room" />
+        <DateField source="startTime" label="Start" showTime />
+        <DateField source="endTime" label="End" showTime />
+        <NumberField source="capacity" />
+      </Datagrid>
+    </ListContextProvider>
   );
 }
 
@@ -65,15 +70,18 @@ function RoomsTab() {
     pagination: { page: 1, perPage: 50 },
     sort: { field: "name", order: "ASC" },
   });
+  const listContext = useList({ data, isLoading: false, total: data?.length });
 
   if (!record) return null;
   if (isLoading) return <Loading />;
 
   return (
-    <Datagrid data={data}>
-      <TextField source="name" />
-      <NumberField source="capacity" />
-    </Datagrid>
+    <ListContextProvider value={listContext}>
+      <Datagrid>
+        <TextField source="name" />
+        <NumberField source="capacity" />
+      </Datagrid>
+    </ListContextProvider>
   );
 }
 
