@@ -18,7 +18,7 @@ export const LoginPage = () => {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
-        backgroundImage: 'url("/background.jpg")',
+        backgroundImage: 'url("/background.png")',
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

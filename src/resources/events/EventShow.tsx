@@ -17,14 +17,15 @@ import {
   DeleteButton,
   type ShowProps,
 } from "react-admin";
+import { Box, Typography, Divider, Chip, Button } from "@mui/material";
 import {
-  Box,
-  Typography,
-  Divider,
-  Chip,
-  Button,
-} from "@mui/material";
-import { Schedule, Event as EventIcon, Language, Add, Public, People } from "@mui/icons-material";
+  Schedule,
+  Event as EventIcon,
+  Language,
+  Add,
+  Public,
+  People,
+} from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../../components/common/Loading";
 import { dotGridBg, glowChipSx } from "../../components/venues/constants";
@@ -87,7 +88,16 @@ function EventHero() {
             right: "20%",
           }}
         />
-        <Box sx={{ position: "absolute", top: 16, right: 16, zIndex: 3, display: "flex", gap: 1 }}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: 16,
+            right: 16,
+            zIndex: 3,
+            display: "flex",
+            gap: 1,
+          }}
+        >
           <EditButton
             sx={{
               color: "#FAFDF6",
@@ -112,13 +122,23 @@ function EventHero() {
           />
         </Box>
         <Box sx={{ textAlign: "center", position: "relative", zIndex: 2 }}>
-          <Box sx={{ ...glowChipSx, width: 56, height: 56, mx: "auto", mb: 1.5 }}>
+          <Box
+            sx={{ ...glowChipSx, width: 56, height: 56, mx: "auto", mb: 1.5 }}
+          >
             <EventIcon sx={{ fontSize: 24, color: "#2D2A32" }} />
           </Box>
           <Typography variant="h4" fontWeight={700} color="#FAFDF6">
             {record.title}
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 1, mt: 1 }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 1,
+              mt: 1,
+            }}
+          >
             <StatusBadge status={status} size="medium" />
             {record.online && (
               <Chip
@@ -154,10 +174,23 @@ function EventHero() {
           <Schedule sx={{ fontSize: 16, color: "primary.main" }} />
           <Box>
             <Typography variant="h6" fontWeight={700} color="#FAFDF6">
-              {startDate.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}
+              {startDate.toLocaleDateString("en-US", {
+                weekday: "long",
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })}
             </Typography>
             <Typography variant="body2" color="#A9A7B0">
-              {startDate.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })} — {endDate.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}
+              {startDate.toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}{" "}
+              —{" "}
+              {endDate.toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
             </Typography>
           </Box>
         </Box>
@@ -213,39 +246,92 @@ function DetailCards() {
         <Divider sx={{ mb: 2, borderColor: "rgba(255,255,255,0.06)" }} />
         <Box sx={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
           <Box>
-            <Typography variant="caption" sx={{ fontSize: "0.65rem", letterSpacing: 0.8, textTransform: "uppercase", display: "block", mb: 0.5, color: "#6B6973" }}>
+            <Typography
+              variant="caption"
+              sx={{
+                fontSize: "0.65rem",
+                letterSpacing: 0.8,
+                textTransform: "uppercase",
+                display: "block",
+                mb: 0.5,
+                color: "#6B6973",
+              }}
+            >
               Start Date
             </Typography>
             <DateField source="startDate" showTime />
           </Box>
           <Box>
-            <Typography variant="caption" sx={{ fontSize: "0.65rem", letterSpacing: 0.8, textTransform: "uppercase", display: "block", mb: 0.5, color: "#6B6973" }}>
+            <Typography
+              variant="caption"
+              sx={{
+                fontSize: "0.65rem",
+                letterSpacing: 0.8,
+                textTransform: "uppercase",
+                display: "block",
+                mb: 0.5,
+                color: "#6B6973",
+              }}
+            >
               End Date
             </Typography>
             <DateField source="endDate" showTime />
           </Box>
           <Box>
-            <Typography variant="caption" sx={{ fontSize: "0.65rem", letterSpacing: 0.8, textTransform: "uppercase", display: "block", mb: 0.5, color: "#6B6973" }}>
+            <Typography
+              variant="caption"
+              sx={{
+                fontSize: "0.65rem",
+                letterSpacing: 0.8,
+                textTransform: "uppercase",
+                display: "block",
+                mb: 0.5,
+                color: "#6B6973",
+              }}
+            >
               Online
             </Typography>
             <Chip
               label={record.online ? "Yes" : "No"}
               size="small"
               variant="outlined"
-              sx={{ fontWeight: 600, fontSize: "0.7rem", borderStyle: "dashed", borderColor: "rgba(255,255,255,0.12)", color: "#A9A7B0" }}
+              sx={{
+                fontWeight: 600,
+                fontSize: "0.7rem",
+                borderStyle: "dashed",
+                borderColor: "rgba(255,255,255,0.12)",
+                color: "#A9A7B0",
+              }}
             />
           </Box>
           {record.venueId && (
             <Box>
-              <Typography variant="caption" sx={{ fontSize: "0.65rem", letterSpacing: 0.8, textTransform: "uppercase", display: "block", mb: 0.5, color: "#6B6973" }}>
+              <Typography
+                variant="caption"
+                sx={{
+                  fontSize: "0.65rem",
+                  letterSpacing: 0.8,
+                  textTransform: "uppercase",
+                  display: "block",
+                  mb: 0.5,
+                  color: "#6B6973",
+                }}
+              >
                 Venue
               </Typography>
               <Box
                 component="a"
                 href={`#/venues/${record.venueId}/show`}
-                sx={{ color: "primary.main", textDecoration: "none", fontWeight: 600, "&:hover": { textDecoration: "underline" } }}
+                sx={{
+                  color: "primary.main",
+                  textDecoration: "none",
+                  fontWeight: 600,
+                  "&:hover": { textDecoration: "underline" },
+                }}
               >
-                <ReferenceField source="venueId" reference="venues"><TextField source="name" /></ReferenceField>
+                <ReferenceField source="venueId" reference="venues">
+                  <TextField source="name" />
+                </ReferenceField>
               </Box>
             </Box>
           )}
@@ -258,7 +344,7 @@ function DetailCards() {
             borderRadius: "12px",
             border: "1px solid rgba(255,255,255,0.06)",
             bgcolor: "rgba(255, 255, 255, 0.05)",
-          backdropFilter: "blur(12px)",
+            backdropFilter: "blur(12px)",
             p: 3,
           }}
         >
@@ -294,10 +380,21 @@ function SessionsTab() {
   return (
     <>
       <Box sx={{ p: 3, pb: 0 }}>
-        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            mb: 2,
+          }}
+        >
           <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
             <Schedule sx={{ color: "primary.main", fontSize: 20 }} />
-            <Typography variant="subtitle1" fontWeight={700} color="text.primary">
+            <Typography
+              variant="subtitle1"
+              fontWeight={700}
+              color="text.primary"
+            >
               Sessions ({data?.length ?? 0})
             </Typography>
           </Box>
@@ -305,7 +402,11 @@ function SessionsTab() {
             variant="contained"
             size="small"
             startIcon={<Add />}
-            onClick={() => navigate("/sessions/create", { state: { record: { eventId: record.id } } })}
+            onClick={() =>
+              navigate("/sessions/create", {
+                state: { record: { eventId: record.id } },
+              })
+            }
           >
             New Session
           </Button>
@@ -313,9 +414,33 @@ function SessionsTab() {
         <Divider sx={{ mb: 2, borderColor: "divider" }} />
       </Box>
       <ListContextProvider value={listContext}>
-        <Datagrid rowClick={(id) => `/sessions/${id}/show`} bulkActionButtons={false} sx={{ "& .RaDatagrid-headerCell": { fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em" } }}>
+        <Datagrid
+          rowClick={(id) => `/sessions/${id}/show`}
+          bulkActionButtons={false}
+          sx={{
+            "& .RaDatagrid-headerCell": {
+              fontWeight: 600,
+              fontSize: "0.75rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.05em",
+            },
+          }}
+        >
           <TextField source="title" sx={{ fontWeight: 600 }} />
-          <FunctionField label="Room" render={(r: any) => r.roomName || <Typography component="span" variant="body2" color="text.secondary">Online</Typography>} />
+          <FunctionField
+            label="Room"
+            render={(r: any) =>
+              r.roomName || (
+                <Typography
+                  component="span"
+                  variant="body2"
+                  color="text.secondary"
+                >
+                  Online
+                </Typography>
+              )
+            }
+          />
           <DateField source="startTime" label="Start" showTime />
           <DateField source="endTime" label="End" showTime />
           <NumberField source="capacity" />
@@ -327,19 +452,35 @@ function SessionsTab() {
 
 function RoomsTab() {
   const record = useRecordContext<Event>();
-  const { data, isLoading } = useGetManyReference("rooms", {
-    target: "venueId",
-    id: record?.venueId,
-    pagination: { page: 1, perPage: 50 },
-    sort: { field: "name", order: "ASC" },
-  }, { enabled: !!record?.venueId });
-  const listContext = useList({ data: data ?? [], isLoading: false, total: data?.length ?? 0 });
+  const { data, isLoading } = useGetManyReference(
+    "rooms",
+    {
+      target: "venueId",
+      id: record?.venueId,
+      pagination: { page: 1, perPage: 50 },
+      sort: { field: "name", order: "ASC" },
+    },
+    { enabled: !!record?.venueId },
+  );
+  const listContext = useList({
+    data: data ?? [],
+    isLoading: false,
+    total: data?.length ?? 0,
+  });
 
   if (!record) return null;
 
   if (!record.venueId) {
     return (
-      <Box sx={{ borderRadius: "12px", border: 1, borderColor: "divider", bgcolor: "background.paper", p: 3 }}>
+      <Box
+        sx={{
+          borderRadius: "12px",
+          border: 1,
+          borderColor: "divider",
+          bgcolor: "background.paper",
+          p: 3,
+        }}
+      >
         <Typography variant="body2" color="text.secondary" fontStyle="italic">
           Online event — no venue assigned
         </Typography>
@@ -361,7 +502,17 @@ function RoomsTab() {
         <Divider sx={{ mb: 2, borderColor: "divider" }} />
       </Box>
       <ListContextProvider value={listContext}>
-        <Datagrid bulkActionButtons={false} sx={{ "& .RaDatagrid-headerCell": { fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em" } }}>
+        <Datagrid
+          bulkActionButtons={false}
+          sx={{
+            "& .RaDatagrid-headerCell": {
+              fontWeight: 600,
+              fontSize: "0.75rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.05em",
+            },
+          }}
+        >
           <TextField source="name" />
           <NumberField source="capacity" />
         </Datagrid>
@@ -391,7 +542,15 @@ function SpeakersTab() {
 
   if (speakers.length === 0) {
     return (
-      <Box sx={{ borderRadius: "12px", border: 1, borderColor: "divider", bgcolor: "background.paper", p: 3 }}>
+      <Box
+        sx={{
+          borderRadius: "12px",
+          border: 1,
+          borderColor: "divider",
+          bgcolor: "background.paper",
+          p: 3,
+        }}
+      >
         <Typography variant="body2" color="text.secondary" fontStyle="italic">
           No speakers assigned to this event
         </Typography>
@@ -400,9 +559,20 @@ function SpeakersTab() {
   }
 
   return (
-    <Box sx={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 2 }}>
+    <Box
+      sx={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
+        gap: 2,
+      }}
+    >
       {speakers.map((speaker) => {
-        const initials = speaker.name?.split(" ").map((n: string) => n[0]).join("").toUpperCase().slice(0, 2);
+        const initials = speaker.name
+          ?.split(" ")
+          .map((n: string) => n[0])
+          .join("")
+          .toUpperCase()
+          .slice(0, 2);
         return (
           <Box
             key={speaker.id}
@@ -417,14 +587,57 @@ function SpeakersTab() {
             }}
             onClick={() => navigate(`/speakers/${speaker.id}/show`)}
           >
-            <Box sx={{ height: 100, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", bgcolor: "#1A1820", overflow: "hidden" }}>
+            <Box
+              sx={{
+                height: 100,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "relative",
+                bgcolor: "#1A1820",
+                overflow: "hidden",
+              }}
+            >
               <Box sx={dotGridBg()} />
-              <Box sx={{ ...glowChipSx, width: 56, height: 56, position: "relative", fontSize: 20, fontWeight: 700, color: "#2D2A32", overflow: "hidden" }}>
-                <Box sx={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Box
+                sx={{
+                  ...glowChipSx,
+                  width: 56,
+                  height: 56,
+                  position: "relative",
+                  fontSize: 20,
+                  fontWeight: 700,
+                  color: "#2D2A32",
+                  overflow: "hidden",
+                }}
+              >
+                <Box
+                  sx={{
+                    position: "absolute",
+                    inset: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
                   {initials}
                 </Box>
                 {speaker.avatar && (
-                  <Box component="img" src={speaker.avatar} alt={speaker.name} sx={{ width: "100%", height: "100%", objectFit: "cover", position: "relative", zIndex: 1 }} onError={(e: any) => { e.currentTarget.style.display = "none"; }} />
+                  <Box
+                    component="img"
+                    src={speaker.avatar}
+                    alt={speaker.name}
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      position: "relative",
+                      zIndex: 1,
+                    }}
+                    onError={(e: any) => {
+                      e.currentTarget.style.display = "none";
+                    }}
+                  />
                 )}
               </Box>
             </Box>
@@ -433,7 +646,17 @@ function SpeakersTab() {
                 {speaker.name}
               </Typography>
               {speaker.bio && (
-                <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{
+                    mt: 0.5,
+                    overflow: "hidden",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: "vertical",
+                  }}
+                >
                   {speaker.bio}
                 </Typography>
               )}
