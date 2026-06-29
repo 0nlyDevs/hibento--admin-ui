@@ -4,6 +4,7 @@ import { sessionsResource } from "./resources/sessions";
 import { speakersResource } from "./resources/speakers";
 import { roomsResource } from "./resources/rooms";
 import { venuesResource } from "./resources/venues";
+import { questionsResource } from "./resources/questions";
 
 const resourceMap: Record<string, typeof eventsResource> = {
   events: eventsResource,
@@ -11,6 +12,7 @@ const resourceMap: Record<string, typeof eventsResource> = {
   speakers: speakersResource,
   rooms: roomsResource,
   venues: venuesResource,
+  questions: questionsResource,
 };
 
 export const hibentoDataProvider: DataProvider = {
@@ -68,7 +70,7 @@ export const hibentoDataProvider: DataProvider = {
         provider!.update({
           id,
           data: params.data,
-          previousData: undefined as unknown as RaRecord,
+          previousData: {} as RaRecord,
           meta: undefined,
         }),
       ),
@@ -83,7 +85,7 @@ export const hibentoDataProvider: DataProvider = {
         provider!.delete({
           id,
           meta: undefined,
-          previousData: undefined as unknown as RaRecord,
+          previousData: {} as RaRecord,
         }),
       ),
     );

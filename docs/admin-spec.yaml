@@ -679,7 +679,6 @@ components:
         - title
         - startTime
         - endTime
-        - roomId
         - speakerIds
       properties:
         title:
@@ -710,7 +709,6 @@ components:
         - title
         - startTime
         - endTime
-        - roomId
         - speakerIds
       properties:
         title:

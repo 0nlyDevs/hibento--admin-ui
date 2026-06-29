@@ -9,7 +9,7 @@ import type {
   CreateSpeaker,
   UpdateSpeaker,
 } from "../../lib/admin-client/types.gen";
-import { publicApi, adminApi } from "../api";
+import { publicApi, adminApi, handleSdkError } from "../api";
 
 function normalizeSpeaker(s: Record<string, unknown>) {
   const externalLinks = (s.externalLinks as Array<Record<string, unknown>> | undefined)?.map(
@@ -22,9 +22,14 @@ function normalizeSpeaker(s: Record<string, unknown>) {
 }
 
 export const speakersResource = {
-  getList: async ({ pagination }: GetListParams) => {
+  getList: async ({ pagination, filter }: GetListParams) => {
+    const q = (filter as Record<string, string>)?.q;
     const { data } = await publicApi.getSpeakers({
-      query: { page: pagination.page, limit: pagination.perPage },
+      query: {
+        page: pagination.page,
+        limit: pagination.perPage,
+        ...(q ? { q } : {}),
+      } as any,
     });
     const items = data.data.map(normalizeSpeaker);
     return { data: items, total: data.pagination.total };
@@ -34,26 +39,35 @@ export const speakersResource = {
     const { data } = await publicApi.getSpeakersBySpeakerId({
       path: { speakerId: String(id) },
     });
-    return { data: normalizeSpeaker(data as unknown as Record<string, unknown>) as never };
+    return { data: normalizeSpeaker(data as any) };
   },
 
   create: async ({ data: body }: CreateParams) => {
-    const { data } = await adminApi.createSpeaker({
+    const res = await adminApi.createSpeaker({
       body: body as CreateSpeaker,
-    });
-    return { data };
+    }) as any;
+    handleSdkError(res);
+    return { data: res.data };
   },
 
   update: async ({ id, data: body }: UpdateParams) => {
-    const { data } = await adminApi.updateSpeaker({
+    const raw = body as Record<string, unknown>;
+    const res = await adminApi.updateSpeaker({
       path: { speakerId: String(id) },
-      body: body as UpdateSpeaker,
-    });
-    return { data };
+      body: {
+        name: raw.name,
+        avatarUrl: raw.avatarUrl,
+        bio: raw.bio,
+        externalLinks: raw.externalLinks,
+      } as UpdateSpeaker,
+    }) as any;
+    handleSdkError(res);
+    return { data: res.data };
   },
 
   delete: async ({ id }: DeleteParams) => {
-    await adminApi.deleteSpeaker({ path: { speakerId: String(id) } });
+    const res = await adminApi.deleteSpeaker({ path: { speakerId: String(id) } }) as any;
+    handleSdkError(res);
     return { data: { id } as Record<string, string> };
   },
 };

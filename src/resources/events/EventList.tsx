@@ -4,15 +4,14 @@ import {
   useListContext,
   type ListProps,
 } from "react-admin";
-import { Box, Typography, InputAdornment, TextField, Card } from "@mui/material";
-import Search from "@mui/icons-material/Search";
+import { Box, Typography, Card } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { EventCard } from "../../components/events/EventCard";
+import { SearchBar } from "../../components/common/SearchBar";
 import type { Event } from "../../types";
 
 function EventGrid() {
-  const { data, isLoading, total, filterValues, setFilters } =
-    useListContext<Event>();
+  const { data, isLoading, total } = useListContext<Event>();
   const navigate = useNavigate();
 
   if (isLoading) return null;
@@ -35,51 +34,24 @@ function EventGrid() {
           }}
         >
           <Box>
-            <Typography variant="h5" fontWeight={700} color="#FAFDF6">
+            <Typography variant="h5" fontWeight={700} color="text.primary">
               Events
             </Typography>
-            <Typography variant="body2" color="#A9A7B0">
+            <Typography variant="body2" color="text.secondary">
               {total} event{total !== 1 ? "s" : ""}
             </Typography>
           </Box>
           <CreateButton
             sx={{
-              backgroundColor: "#DDD92A",
-              color: "#2D2A32",
+              backgroundColor: "primary.main",
+              color: "secondary.main",
               fontWeight: 600,
               borderRadius: "8px",
-              "&:hover": { backgroundColor: "#C4C026" },
+              "&:hover": { backgroundColor: "primary.dark" },
             }}
           />
         </Box>
-        <TextField
-          value={filterValues?.q || ""}
-          onChange={(e) => setFilters({ q: e.target.value }, undefined, false)}
-          placeholder="Search events..."
-          variant="outlined"
-          fullWidth
-          slotProps={{
-            input: {
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search sx={{ color: "#6B6973" }} />
-                </InputAdornment>
-              ),
-            },
-          }}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              backgroundColor: "rgba(255, 255, 255, 0.06)",
-              borderRadius: "8px",
-              color: "#FAFDF6",
-              fontSize: "0.9rem",
-              "& fieldset": { borderColor: "#413E48" },
-              "&:hover fieldset": { borderColor: "#6B6973" },
-              "&.Mui-focused fieldset": { borderColor: "#DDD92A", borderWidth: "2px" },
-            },
-            "& .MuiInputBase-input::placeholder": { color: "#6B6973", opacity: 1 },
-          }}
-        />
+        <SearchBar placeholder="Search events..." />
       </Card>
       <Box
         sx={{

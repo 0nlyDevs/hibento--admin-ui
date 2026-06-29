@@ -25,3 +25,8 @@ const publicClient = createClient({
 
 export const adminApi = new AdminSdk({ client: adminClient });
 export const publicApi = new PublicSdk({ client: publicClient });
+
+export function handleSdkError(res: any) {
+  if (res.error) throw new Error(res.error.error || res.error.message || "Request failed");
+  if (!res.data) throw new Error("Request failed");
+}

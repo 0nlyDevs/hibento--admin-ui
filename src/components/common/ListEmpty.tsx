@@ -17,7 +17,7 @@ export const ListEmpty = () => (
         letterSpacing: "0.12em",
         textTransform: "uppercase",
         fontWeight: 500,
-        color: "#ddd92a",
+        color: "primary.main",
         mb: 1.5,
       }}
     >

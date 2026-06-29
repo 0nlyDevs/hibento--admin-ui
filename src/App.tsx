@@ -11,9 +11,16 @@ import { EventEdit } from "./resources/events/EventEdit";
 import { EventShow } from "./resources/events/EventShow";
 
 /* Sessions */
+import { SessionList } from "./resources/sessions/SessionList";
 import { SessionCreate } from "./resources/sessions/SessionCreate";
 import { SessionEdit } from "./resources/sessions/SessionEdit";
 import { SessionShow } from "./resources/sessions/SessionShow";
+
+/* Rooms */
+import { RoomList } from "./resources/rooms/RoomList";
+import { RoomCreate } from "./resources/rooms/RoomCreate";
+import { RoomEdit } from "./resources/rooms/RoomEdit";
+import { RoomShow } from "./resources/rooms/RoomShow";
 
 /* Speakers */
 import { SpeakerList } from "./resources/speakers/SpeakerList";
@@ -30,6 +37,8 @@ import { VenueShow } from "./resources/venues/VenueShow";
 import EventIcon from "@mui/icons-material/Event";
 import PeopleIcon from "@mui/icons-material/People";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
+import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
+import ScheduleIcon from "@mui/icons-material/Schedule";
 
 import { hibentoDataProvider } from "./providers";
 import { authProvider } from "./providers/authProvider";
@@ -61,8 +70,22 @@ export const App = () => (
       show={SpeakerShow}
       icon={PeopleIcon}
     />
-    <Resource name="rooms" />
-    <Resource name="sessions" create={SessionCreate} edit={SessionEdit} show={SessionShow} />
+    <Resource
+      name="rooms"
+      list={RoomList}
+      create={RoomCreate}
+      edit={RoomEdit}
+      show={RoomShow}
+      icon={MeetingRoomIcon}
+    />
+    <Resource
+      name="sessions"
+      list={SessionList}
+      create={SessionCreate}
+      edit={SessionEdit}
+      show={SessionShow}
+      icon={ScheduleIcon}
+    />
     <Resource
       name="venues"
       list={VenueList}

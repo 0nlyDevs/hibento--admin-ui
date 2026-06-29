@@ -3,7 +3,7 @@ import { Room, Business, Language } from "@mui/icons-material";
 import { dotGridBg, glowChipSx } from "./constants";
 import type { Venue } from "../../types";
 
-const heroBg = "#1A1820";
+const heroBg = "secondary.dark";
 
 interface VenueHeroProps {
   venue: Venue;
@@ -69,9 +69,9 @@ export function VenueHero({ venue, mapUrl }: VenueHeroProps) {
               mb: 1.5,
             }}
           >
-            <Room sx={{ fontSize: 24, color: "#2D2A32" }} />
+            <Room sx={{ fontSize: 24, color: "secondary.main" }} />
           </Box>
-          <Typography variant="h4" fontWeight={700} color="#FAFDF6">
+          <Typography variant="h4" fontWeight={700} color="text.primary">
             {venue.city}
           </Typography>
           <Typography
@@ -99,7 +99,7 @@ export function VenueHero({ venue, mapUrl }: VenueHeroProps) {
               justifyContent: "center",
               bgcolor: "rgba(0,0,0,0.3)",
               backdropFilter: "blur(8px)",
-              color: "#A9A7B0",
+              color: "text.secondary",
               transition: "all 0.2s",
               "&:hover": {
                 color: "primary.main",
@@ -125,10 +125,10 @@ export function VenueHero({ venue, mapUrl }: VenueHeroProps) {
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
           <Business sx={{ fontSize: 16, color: "primary.main" }} />
           <Box>
-            <Typography variant="h6" fontWeight={700} color="#FAFDF6">
+            <Typography variant="h6" fontWeight={700} color="text.primary">
               {venue.name}
             </Typography>
-            <Typography variant="body2" color="#A9A7B0">
+            <Typography variant="body2" color="text.secondary">
               {venue.neighborhood}, {venue.city}
             </Typography>
           </Box>
@@ -143,7 +143,7 @@ export function VenueHero({ venue, mapUrl }: VenueHeroProps) {
             textTransform: "uppercase",
             borderStyle: "dashed",
             borderColor: "rgba(255,255,255,0.12)",
-            color: "#A9A7B0",
+            color: "text.secondary",
           }}
         />
       </Box>

@@ -3,7 +3,7 @@ import { Room, Business } from "@mui/icons-material";
 import { dotGridBg, glowChipSx } from "./constants";
 import type { Venue } from "../../types";
 
-const heroBg = "#1A1820";
+const heroBg = "secondary.dark";
 
 interface VenueCardProps {
   venue: Venue;
@@ -41,9 +41,9 @@ export function VenueCard({ venue, onClick }: VenueCardProps) {
         <Box sx={dotGridBg()} />
         <Box sx={{ textAlign: "center", position: "relative", zIndex: 1 }}>
           <Box sx={{ ...glowChipSx, width: 38, height: 38, mx: "auto", mb: 1 }}>
-            <Room sx={{ fontSize: 16, color: "#2D2A32" }} />
+            <Room sx={{ fontSize: 16, color: "secondary.main" }} />
           </Box>
-          <Typography variant="body1" fontWeight={700} color="#FAFDF6">
+          <Typography variant="body1" fontWeight={700} color="text.primary">
             {venue.city}
           </Typography>
           <Typography
@@ -68,14 +68,14 @@ export function VenueCard({ venue, onClick }: VenueCardProps) {
             variant="subtitle2"
             fontWeight={600}
             noWrap
-            color="#FAFDF6"
+            color="text.primary"
           >
             {venue.name}
           </Typography>
         </Box>
         <Typography
           variant="caption"
-          sx={{ display: "block", mt: 0.75, color: "#A9A7B0" }}
+          sx={{ display: "block", mt: 0.75, color: "text.secondary" }}
         >
           {venue.neighborhood}, {venue.city}
         </Typography>
@@ -91,7 +91,7 @@ export function VenueCard({ venue, onClick }: VenueCardProps) {
               textTransform: "uppercase",
               borderStyle: "dashed",
               borderColor: "rgba(255,255,255,0.15)",
-              color: "#A9A7B0",
+              color: "text.secondary",
             }}
           />
         </Box>

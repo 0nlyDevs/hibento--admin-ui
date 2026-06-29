@@ -4,16 +4,10 @@ import {
   useListContext,
   type ListProps,
 } from "react-admin";
-import {
-  Box,
-  Typography,
-  InputAdornment,
-  TextField,
-  Card,
-} from "@mui/material";
-import Search from "@mui/icons-material/Search";
+import { Box, Typography, Card } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import type { Speaker } from "../../types";
+import { SearchBar } from "../../components/common/SearchBar";
 import { dotGridBg, glowChipSx } from "../../components/venues/constants";
 import Public from "@mui/icons-material/Public";
 import GitHub from "@mui/icons-material/GitHub";
@@ -30,7 +24,7 @@ const LINK_CONFIG: Record<
 > = {
   website: {
     label: "Website",
-    color: "#6B6973",
+    color: "text.disabled",
     icon: <Public sx={{ fontSize: 13 }} />,
   },
   github: {
@@ -56,7 +50,7 @@ const LINK_CONFIG: Record<
   },
   other: {
     label: "Other",
-    color: "#6B6973",
+    color: "text.disabled",
     icon: <Link sx={{ fontSize: 13 }} />,
   },
 };
@@ -102,7 +96,7 @@ function SpeakerCard({
           alignItems: "center",
           justifyContent: "center",
           position: "relative",
-          bgcolor: "#1A1820",
+          bgcolor: "secondary.dark",
           overflow: "hidden",
         }}
       >
@@ -117,7 +111,7 @@ function SpeakerCard({
               mb: 1,
               fontSize: 24,
               fontWeight: 700,
-              color: "#2D2A32",
+              color: "secondary.main",
               overflow: "hidden",
               position: "relative",
             }}
@@ -151,7 +145,7 @@ function SpeakerCard({
               />
             )}
           </Box>
-          <Typography variant="body1" fontWeight={700} color="#FAFDF6">
+          <Typography variant="body1" fontWeight={700} color="text.primary">
             {speaker.name}
           </Typography>
         </Box>
@@ -170,7 +164,7 @@ function SpeakerCard({
           <Typography
             variant="caption"
             sx={{
-              color: "#A9A7B0",
+              color: "text.secondary",
               lineHeight: 1.6,
               display: "-webkit-box",
               WebkitLineClamp: 2,
@@ -188,7 +182,7 @@ function SpeakerCard({
             {links.map((link, i) => {
               const cfg = LINK_CONFIG[link.type.toLowerCase()] || {
                 label: link.type,
-                color: "#6B6973",
+                color: "text.disabled",
                 icon: <Link sx={{ fontSize: 13 }} />,
               };
               return (
@@ -223,8 +217,7 @@ function SpeakerCard({
 }
 
 function SpeakerGrid() {
-  const { data, isLoading, total, filterValues, setFilters } =
-    useListContext<Speaker>();
+  const { data, isLoading, total } = useListContext<Speaker>();
   const navigate = useNavigate();
 
   if (isLoading) return null;
@@ -247,57 +240,24 @@ function SpeakerGrid() {
           }}
         >
           <Box>
-            <Typography variant="h5" fontWeight={700} color="#FAFDF6">
+            <Typography variant="h5" fontWeight={700} color="text.primary">
               Speakers
             </Typography>
-            <Typography variant="body2" color="#A9A7B0">
+            <Typography variant="body2" color="text.secondary">
               {total} speaker{total !== 1 ? "s" : ""}
             </Typography>
           </Box>
           <CreateButton
             sx={{
-              backgroundColor: "#DDD92A",
-              color: "#2D2A32",
+              backgroundColor: "primary.main",
+              color: "secondary.main",
               fontWeight: 600,
               borderRadius: "8px",
-              "&:hover": { backgroundColor: "#C4C026" },
+              "&:hover": { backgroundColor: "primary.dark" },
             }}
           />
         </Box>
-        <TextField
-          value={filterValues?.q || ""}
-          onChange={(e) => setFilters({ q: e.target.value }, undefined, false)}
-          placeholder="Search speakers..."
-          variant="outlined"
-          fullWidth
-          slotProps={{
-            input: {
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search sx={{ color: "#6B6973" }} />
-                </InputAdornment>
-              ),
-            },
-          }}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              backgroundColor: "rgba(255, 255, 255, 0.06)",
-              borderRadius: "8px",
-              color: "#FAFDF6",
-              fontSize: "0.9rem",
-              "& fieldset": { borderColor: "#413E48" },
-              "&:hover fieldset": { borderColor: "#6B6973" },
-              "&.Mui-focused fieldset": {
-                borderColor: "#DDD92A",
-                borderWidth: "2px",
-              },
-            },
-            "& .MuiInputBase-input::placeholder": {
-              color: "#6B6973",
-              opacity: 1,
-            },
-          }}
-        />
+        <SearchBar placeholder="Search speakers..." />
       </Card>
       <Box
         sx={{

@@ -38,16 +38,16 @@ export function EventCard({ event, onClick }: EventCardProps) {
           alignItems: "center",
           justifyContent: "center",
           position: "relative",
-          bgcolor: "#1A1820",
+          bgcolor: "secondary.dark",
           overflow: "hidden",
         }}
       >
         <Box sx={dotGridBg()} />
         <Box sx={{ textAlign: "center", position: "relative", zIndex: 1 }}>
           <Box sx={{ ...glowChipSx, width: 38, height: 38, mx: "auto", mb: 1 }}>
-            <Event sx={{ fontSize: 16, color: "#2D2A32" }} />
+            <Event sx={{ fontSize: 16, color: "secondary.main" }} />
           </Box>
-          <Typography variant="body1" fontWeight={700} color="#FAFDF6">
+          <Typography variant="body1" fontWeight={700} color="text.primary">
             {startDate.toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
@@ -79,7 +79,7 @@ export function EventCard({ event, onClick }: EventCardProps) {
             variant="subtitle2"
             fontWeight={600}
             noWrap
-            color="#FAFDF6"
+            color="text.primary"
           >
             {event.title}
           </Typography>
@@ -98,7 +98,7 @@ export function EventCard({ event, onClick }: EventCardProps) {
                 textTransform: "uppercase",
                 borderStyle: "dashed",
                 borderColor: "rgba(255,255,255,0.15)",
-                color: "#A9A7B0",
+                color: "text.secondary",
               }}
             />
           )}

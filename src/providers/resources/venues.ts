@@ -9,22 +9,18 @@ import type {
   CreateVenue,
   UpdateVenue,
 } from "../../lib/admin-client/types.gen";
-import { publicApi, adminApi } from "../api";
+import { publicApi, adminApi, handleSdkError } from "../api";
 
 export const venuesResource = {
-  getList: async ({ filter }: GetListParams) => {
-    const { data } = await publicApi.getVenues();
-    const items = data.data;
-    const q = (filter?.q as string)?.toLowerCase();
-    const filtered = q
-      ? items.filter(
-          (v) =>
-            v.name?.toLowerCase().includes(q) ||
-            v.city?.toLowerCase().includes(q) ||
-            v.neighborhood?.toLowerCase().includes(q),
-        )
-      : items;
-    return { data: filtered, total: filtered.length };
+  getList: async ({ pagination, filter }: GetListParams) => {
+    const q = (filter as Record<string, string>)?.q;
+    const { data } = await publicApi.getVenues({
+      query: {
+        ...(pagination ? { page: pagination.page, limit: pagination.perPage } : {}),
+        ...(q ? { q } : {}),
+      } as any,
+    });
+    return { data: data.data, total: (data as any).pagination?.total ?? data.data.length };
   },
 
   getOne: async ({ id }: GetOneParams) => {
@@ -35,20 +31,29 @@ export const venuesResource = {
   },
 
   create: async ({ data: body }: CreateParams) => {
-    const { data } = await adminApi.createVenue({ body: body as CreateVenue });
-    return { data };
+    const res = await adminApi.createVenue({ body: body as CreateVenue }) as any;
+    handleSdkError(res);
+    return { data: res.data };
   },
 
   update: async ({ id, data: body }: UpdateParams) => {
-    const { data } = await adminApi.updateVenue({
+    const raw = body as Record<string, unknown>;
+    const res = await adminApi.updateVenue({
       path: { venueId: String(id) },
-      body: body as UpdateVenue,
-    });
-    return { data };
+      body: {
+        name: raw.name,
+        city: raw.city,
+        neighborhood: raw.neighborhood,
+        totalRooms: raw.totalRooms,
+      } as UpdateVenue,
+    }) as any;
+    handleSdkError(res);
+    return { data: res.data };
   },
 
   delete: async ({ id }: DeleteParams) => {
-    await adminApi.deleteVenue({ path: { venueId: String(id) } });
+    const res = await adminApi.deleteVenue({ path: { venueId: String(id) } }) as any;
+    handleSdkError(res);
     return { data: { id } as Record<string, string> };
   },
 };

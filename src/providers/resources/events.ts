@@ -10,7 +10,7 @@ import type {
   CreateEvent,
   UpdateEvent,
 } from "../../lib/admin-client/types.gen";
-import { publicApi, adminApi } from "../api";
+import { publicApi, adminApi, handleSdkError } from "../api";
 
 function normalizeEvent(e: Record<string, unknown>) {
   return {
@@ -21,9 +21,14 @@ function normalizeEvent(e: Record<string, unknown>) {
 }
 
 export const eventsResource = {
-  getList: async ({ pagination }: GetListParams) => {
+  getList: async ({ pagination, filter }: GetListParams) => {
+    const q = (filter as Record<string, string>)?.q;
     const { data } = await publicApi.getEvents({
-      query: { page: pagination.page, limit: pagination.perPage },
+      query: {
+        page: pagination.page,
+        limit: pagination.perPage,
+        ...(q ? { q } : {}),
+      } as any,
     });
     return { data: data.data.map(normalizeEvent), total: data.pagination.total };
   },
@@ -45,24 +50,35 @@ export const eventsResource = {
     const { data } = await publicApi.getEventsByEventId({
       path: { eventId: String(id) },
     });
-    return { data: normalizeEvent(data as unknown as Record<string, unknown>) as never };
+    return { data: normalizeEvent(data as any) };
   },
 
   create: async ({ data: body }: CreateParams) => {
-    const { data } = await adminApi.createEvent({ body: body as CreateEvent });
-    return { data };
+    const res = await adminApi.createEvent({ body: body as CreateEvent }) as any;
+    handleSdkError(res);
+    return { data: res.data };
   },
 
   update: async ({ id, data: body }: UpdateParams) => {
-    const { data } = await adminApi.updateEvent({
+    const raw = body as Record<string, unknown>;
+    const res = await adminApi.updateEvent({
       path: { eventId: String(id) },
-      body: body as UpdateEvent,
-    });
-    return { data };
+      body: {
+        title: raw.title,
+        description: raw.description,
+        online: raw.online,
+        startDate: raw.startDate,
+        endDate: raw.endDate,
+        venueId: raw.venueId,
+      } as UpdateEvent,
+    }) as any;
+    handleSdkError(res);
+    return { data: res.data };
   },
 
   delete: async ({ id }: DeleteParams) => {
-    await adminApi.deleteEvent({ path: { eventId: String(id) } });
+    const res = await adminApi.deleteEvent({ path: { eventId: String(id) } }) as any;
+    handleSdkError(res);
     return { data: { id } as Record<string, string> };
   },
 };
