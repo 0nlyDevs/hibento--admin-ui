@@ -34,11 +34,16 @@ import { VenueCreate } from "./resources/venues/VenueCreate";
 import { VenueEdit } from "./resources/venues/VenueEdit";
 import { VenueShow } from "./resources/venues/VenueShow";
 
+/* Questions */
+import { QuestionList } from "./resources/questions/QuestionList";
+import { QuestionShow } from "./resources/questions/QuestionShow";
+
 import EventIcon from "@mui/icons-material/Event";
 import PeopleIcon from "@mui/icons-material/People";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import ScheduleIcon from "@mui/icons-material/Schedule";
+import ForumIcon from "@mui/icons-material/Forum";
 
 import { hibentoDataProvider } from "./providers";
 import { authProvider } from "./providers/authProvider";
@@ -93,6 +98,12 @@ export const App = () => (
       edit={VenueEdit}
       show={VenueShow}
       icon={LocationCityIcon}
+    />
+    <Resource
+      name="questions"
+      list={QuestionList}
+      show={QuestionShow}
+      icon={ForumIcon}
     />
   </Admin>
 );

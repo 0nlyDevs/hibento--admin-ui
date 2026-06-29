@@ -5,6 +5,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import ScheduleIcon from "@mui/icons-material/Schedule";
+import ForumIcon from "@mui/icons-material/Forum";
 
 export function Menu() {
   return (
@@ -34,6 +35,11 @@ export function Menu() {
         to="/venues"
         primaryText="Venues"
         leftIcon={<LocationCityIcon />}
+      />
+      <RAMenu.Item
+        to="/questions"
+        primaryText="Questions"
+        leftIcon={<ForumIcon />}
       />
     </RAMenu>
   );
