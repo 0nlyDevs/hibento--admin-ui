@@ -280,6 +280,12 @@ paths:
           maximum: 100
           default: 20
         description: Items per page
+      - name: venueId
+        in: query
+        schema:
+          type: string
+          format: uuid
+        description: Filter by venue ID
       - name: q
         in: query
         schema:

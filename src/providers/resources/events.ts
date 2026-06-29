@@ -27,7 +27,7 @@ export const eventsResource = {
       query: {
         page: pagination.page,
         limit: pagination.perPage,
-        ...(q ? { search: q } : {}),
+        ...(q ? { q } : {}),
       } as any,
     });
     return { data: data.data.map(normalizeEvent), total: data.pagination.total };

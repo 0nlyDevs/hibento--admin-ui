@@ -12,16 +12,15 @@ import {
   minValue,
   useGetOne,
   useGetList,
-  useFormContext,
   SelectInput,
   type CreateProps,
 } from "react-admin";
+import { useWatch } from "react-hook-form";
 import { FormSection } from "../../components/forms/FormSection";
 import { useLocation } from "react-router-dom";
 
 function RoomInput() {
-  const { watch } = useFormContext();
-  const eventId = watch("eventId");
+  const eventId = useWatch({ name: "eventId" });
   const { data: eventData } = useGetOne("events", { id: eventId }, { enabled: !!eventId });
   const venueId = (eventData as any)?.venueId;
   const { data: rooms } = useGetList("rooms", {
