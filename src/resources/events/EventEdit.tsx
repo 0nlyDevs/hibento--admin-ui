@@ -10,7 +10,20 @@ import {
   maxLength,
   type EditProps,
 } from "react-admin";
+import { useWatch } from "react-hook-form";
 import { FormSection } from "../../components/forms/FormSection";
+
+function VenueInput() {
+  const online = useWatch({ name: "online" });
+  if (online) return null;
+  return (
+    <FormSection title="Location">
+      <ReferenceInput source="venueId" reference="venues">
+        <AutocompleteInput label="Venue" fullWidth />
+      </ReferenceInput>
+    </FormSection>
+  );
+}
 
 export function EventEdit(props: EditProps) {
   return (
@@ -36,11 +49,7 @@ export function EventEdit(props: EditProps) {
           <BooleanInput source="online" label="Online Event" />
         </FormSection>
 
-        <FormSection title="Location">
-          <ReferenceInput source="venueId" reference="venues">
-            <AutocompleteInput label="Venue" fullWidth />
-          </ReferenceInput>
-        </FormSection>
+        <VenueInput />
 
         <FormSection title="Schedule">
           <DateTimeInput
