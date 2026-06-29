@@ -1,6 +1,7 @@
 import type {
   GetListParams,
   GetManyReferenceParams,
+  GetOneParams,
   CreateParams,
   UpdateParams,
   DeleteParams,
@@ -11,10 +12,12 @@ import { publicApi, adminApi } from "../api";
 export const roomsResource = {
   getList: async ({ filter }: GetListParams) => {
     const eventId = (filter as Record<string, string>)?.eventId;
+    const q = (filter as Record<string, string>)?.q;
     if (!eventId) return { data: [], total: 0 };
     const { data } = await publicApi.getEventsByEventIdRooms({
       path: { eventId },
-    });
+      query: q ? { q } as any : undefined,
+    } as any);
     return { data: data.data, total: data.data.length };
   },
 
@@ -29,8 +32,18 @@ export const roomsResource = {
     return { data: [], total: 0 };
   },
 
-  getOne: async () => {
-    throw new Error("getOne not implemented for rooms");
+  getOne: async ({ id }: GetOneParams) => {
+    const { data: venuesList } = await publicApi.getVenues();
+    for (const venue of (venuesList as any)?.data ?? []) {
+      const { data: venueDetail } = await publicApi.getVenuesByVenueId({
+        path: { venueId: venue.id },
+      });
+      const room = ((venueDetail as any)?.rooms ?? []).find(
+        (r: any) => r.id === id,
+      );
+      if (room) return { data: room };
+    }
+    throw new Error("Room not found");
   },
 
   create: async ({ data: body }: CreateParams) => {
