@@ -22,12 +22,14 @@ export const roomsResource = {
       } as any);
       return { data: data.data, total: data.data.length };
     }
+    const venueId = (filter as Record<string, string>)?.venueId;
     const params = new URLSearchParams();
     if (pagination) {
       params.set("page", String(pagination.page));
       params.set("limit", String(pagination.perPage));
     }
     if (q) params.set("q", q);
+    if (venueId) params.set("venueId", venueId);
     const res = await fetch(`${API_BASE}/rooms?${params}`);
     const body = await res.json();
     return { data: body.data ?? [], total: body.pagination?.total ?? 0 };

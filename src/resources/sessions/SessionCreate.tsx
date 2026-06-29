@@ -10,7 +10,9 @@ import {
   required,
   maxLength,
   minValue,
+  useGetOne,
   useGetList,
+  useFormContext,
   SelectInput,
   type CreateProps,
 } from "react-admin";
@@ -18,10 +20,15 @@ import { FormSection } from "../../components/forms/FormSection";
 import { useLocation } from "react-router-dom";
 
 function RoomInput() {
+  const { watch } = useFormContext();
+  const eventId = watch("eventId");
+  const { data: eventData } = useGetOne("events", { id: eventId }, { enabled: !!eventId });
+  const venueId = (eventData as any)?.venueId;
   const { data: rooms } = useGetList("rooms", {
+    filter: venueId ? { venueId } as any : {},
     pagination: { page: 1, perPage: 100 },
     sort: { field: "name", order: "ASC" },
-  });
+  }, { enabled: !!venueId });
 
   return (
     <SelectInput
