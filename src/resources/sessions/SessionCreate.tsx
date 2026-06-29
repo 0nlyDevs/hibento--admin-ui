@@ -74,7 +74,7 @@ export function SessionCreate(props: CreateProps) {
         </FormSection>
 
         <FormSection title="Speakers">
-          <ReferenceArrayInput source="speakerIds" reference="speakers" label="Speakers">
+          <ReferenceArrayInput source="speakerIds" reference="speakers" label="Speakers" validate={[required()]}>
             <AutocompleteInput label="Assign Speakers" fullWidth multiple optionText="name" />
           </ReferenceArrayInput>
           <NumberInput source="capacity" label="Capacity" fullWidth validate={minValue(0)} helperText="Maximum number of attendees" />
