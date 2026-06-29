@@ -24,10 +24,12 @@ function normalizeSession(raw: Record<string, unknown>) {
 export const sessionsResource = {
   getList: async ({ filter }: GetListParams) => {
     const eventId = (filter as Record<string, string>)?.eventId;
+    const q = (filter as Record<string, string>)?.q;
     if (!eventId) return { data: [], total: 0 };
     const { data } = await publicApi.getEventsByEventIdEventSessions({
       path: { eventId },
-    });
+      query: q ? { q } as any : undefined,
+    } as any);
     return { data: data.data.map(normalizeSession), total: data.data.length };
   },
 
