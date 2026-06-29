@@ -9,16 +9,28 @@ import type {
 import type { CreateRoom, UpdateRoom } from "../../lib/admin-client/types.gen";
 import { publicApi, adminApi } from "../api";
 
+const API_BASE = import.meta.env.VITE_PUBLIC_API_URL;
+
 export const roomsResource = {
-  getList: async ({ filter }: GetListParams) => {
+  getList: async ({ pagination, filter }: GetListParams) => {
     const eventId = (filter as Record<string, string>)?.eventId;
     const q = (filter as Record<string, string>)?.q;
-    if (!eventId) return { data: [], total: 0 };
-    const { data } = await publicApi.getEventsByEventIdRooms({
-      path: { eventId },
-      query: q ? { q } as any : undefined,
-    } as any);
-    return { data: data.data, total: data.data.length };
+    if (eventId) {
+      const { data } = await publicApi.getEventsByEventIdRooms({
+        path: { eventId },
+        query: q ? { q } as any : undefined,
+      } as any);
+      return { data: data.data, total: data.data.length };
+    }
+    const params = new URLSearchParams();
+    if (pagination) {
+      params.set("page", String(pagination.page));
+      params.set("limit", String(pagination.perPage));
+    }
+    if (q) params.set("q", q);
+    const res = await fetch(`${API_BASE}/rooms?${params}`);
+    const body = await res.json();
+    return { data: body.data ?? [], total: body.pagination?.total ?? 0 };
   },
 
   getManyReference: async ({ target, id }: GetManyReferenceParams) => {
@@ -33,17 +45,10 @@ export const roomsResource = {
   },
 
   getOne: async ({ id }: GetOneParams) => {
-    const { data: venuesList } = await publicApi.getVenues();
-    for (const venue of (venuesList as any)?.data ?? []) {
-      const { data: venueDetail } = await publicApi.getVenuesByVenueId({
-        path: { venueId: venue.id },
-      });
-      const room = ((venueDetail as any)?.rooms ?? []).find(
-        (r: any) => r.id === id,
-      );
-      if (room) return { data: room };
-    }
-    throw new Error("Room not found");
+    const res = await fetch(`${API_BASE}/rooms/${id}`);
+    if (!res.ok) throw new Error("Room not found");
+    const data = await res.json();
+    return { data };
   },
 
   create: async ({ data: body }: CreateParams) => {

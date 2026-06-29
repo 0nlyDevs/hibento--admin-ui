@@ -12,6 +12,8 @@ import type {
 } from "../../lib/admin-client/types.gen";
 import { publicApi, adminApi } from "../api";
 
+const API_BASE = import.meta.env.VITE_PUBLIC_API_URL;
+
 function normalizeSession(raw: Record<string, unknown>) {
   return {
     ...raw,
@@ -23,20 +25,37 @@ function normalizeSession(raw: Record<string, unknown>) {
 }
 
 export const sessionsResource = {
-  getList: async ({ filter }: GetListParams) => {
+  getList: async ({ pagination, filter }: GetListParams) => {
     const eventId = (filter as Record<string, string>)?.eventId;
     const q = (filter as Record<string, string>)?.q;
-    if (!eventId) return { data: [], total: 0 };
-    const { data } = await publicApi.getEventsByEventIdEventSessions({
-      path: { eventId },
-      query: q ? { q } as any : undefined,
-    } as any);
-    return { data: data.data.map(normalizeSession), total: data.data.length };
+    const roomId = (filter as Record<string, string>)?.roomId;
+    if (eventId) {
+      const { data } = await publicApi.getEventsByEventIdEventSessions({
+        path: { eventId },
+        query: q ? { q } as any : undefined,
+      } as any);
+      return { data: data.data.map(normalizeSession), total: data.data.length };
+    }
+    const params = new URLSearchParams();
+    if (pagination) {
+      params.set("page", String(pagination.page));
+      params.set("limit", String(pagination.perPage));
+    }
+    if (q) params.set("q", q);
+    if (roomId) params.set("roomId", roomId);
+    const res = await fetch(`${API_BASE}/event-sessions?${params}`);
+    const body = await res.json();
+    return { data: (body.data ?? []).map(normalizeSession), total: body.pagination?.total ?? 0 };
   },
 
   getManyReference: async ({ target, id }: GetManyReferenceParams) => {
     if (target === "roomId") {
-      return { data: [], total: 0 };
+      const params = new URLSearchParams();
+      params.set("roomId", String(id));
+      params.set("limit", "100");
+      const res = await fetch(`${API_BASE}/event-sessions?${params}`);
+      const body = await res.json();
+      return { data: (body.data ?? []).map(normalizeSession), total: body.pagination?.total ?? 0 };
     }
     return { data: [], total: 0 };
   },
