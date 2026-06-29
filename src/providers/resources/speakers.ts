@@ -39,7 +39,7 @@ export const speakersResource = {
     const { data } = await publicApi.getSpeakersBySpeakerId({
       path: { speakerId: String(id) },
     });
-    return { data: normalizeSpeaker(data as unknown as Record<string, unknown>) as never };
+    return { data: normalizeSpeaker(data as any) };
   },
 
   create: async ({ data: body }: CreateParams) => {

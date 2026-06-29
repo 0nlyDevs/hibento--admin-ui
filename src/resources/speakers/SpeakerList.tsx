@@ -24,7 +24,7 @@ const LINK_CONFIG: Record<
 > = {
   website: {
     label: "Website",
-    color: "#6B6973",
+    color: "text.disabled",
     icon: <Public sx={{ fontSize: 13 }} />,
   },
   github: {
@@ -50,7 +50,7 @@ const LINK_CONFIG: Record<
   },
   other: {
     label: "Other",
-    color: "#6B6973",
+    color: "text.disabled",
     icon: <Link sx={{ fontSize: 13 }} />,
   },
 };
@@ -96,7 +96,7 @@ function SpeakerCard({
           alignItems: "center",
           justifyContent: "center",
           position: "relative",
-          bgcolor: "#1A1820",
+          bgcolor: "secondary.dark",
           overflow: "hidden",
         }}
       >
@@ -111,7 +111,7 @@ function SpeakerCard({
               mb: 1,
               fontSize: 24,
               fontWeight: 700,
-              color: "#2D2A32",
+              color: "secondary.main",
               overflow: "hidden",
               position: "relative",
             }}
@@ -145,7 +145,7 @@ function SpeakerCard({
               />
             )}
           </Box>
-          <Typography variant="body1" fontWeight={700} color="#FAFDF6">
+          <Typography variant="body1" fontWeight={700} color="text.primary">
             {speaker.name}
           </Typography>
         </Box>
@@ -164,7 +164,7 @@ function SpeakerCard({
           <Typography
             variant="caption"
             sx={{
-              color: "#A9A7B0",
+              color: "text.secondary",
               lineHeight: 1.6,
               display: "-webkit-box",
               WebkitLineClamp: 2,
@@ -182,7 +182,7 @@ function SpeakerCard({
             {links.map((link, i) => {
               const cfg = LINK_CONFIG[link.type.toLowerCase()] || {
                 label: link.type,
-                color: "#6B6973",
+                color: "text.disabled",
                 icon: <Link sx={{ fontSize: 13 }} />,
               };
               return (
@@ -240,20 +240,20 @@ function SpeakerGrid() {
           }}
         >
           <Box>
-            <Typography variant="h5" fontWeight={700} color="#FAFDF6">
+            <Typography variant="h5" fontWeight={700} color="text.primary">
               Speakers
             </Typography>
-            <Typography variant="body2" color="#A9A7B0">
+            <Typography variant="body2" color="text.secondary">
               {total} speaker{total !== 1 ? "s" : ""}
             </Typography>
           </Box>
           <CreateButton
             sx={{
-              backgroundColor: "#DDD92A",
-              color: "#2D2A32",
+              backgroundColor: "primary.main",
+              color: "secondary.main",
               fontWeight: 600,
               borderRadius: "8px",
-              "&:hover": { backgroundColor: "#C4C026" },
+              "&:hover": { backgroundColor: "primary.dark" },
             }}
           />
         </Box>

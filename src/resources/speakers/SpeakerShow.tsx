@@ -16,13 +16,13 @@ import { dotGridBg, glowChipSx } from "../../components/venues/constants";
 import type { ReactNode } from "react";
 
 const LINK_CONFIG: Record<string, { label: string; color: string; icon: ReactNode }> = {
-  website: { label: "Website", color: "#6B6973", icon: <Public sx={{ fontSize: 16 }} /> },
+  website: { label: "Website", color: "text.disabled", icon: <Public sx={{ fontSize: 16 }} /> },
   github: { label: "GitHub", color: "#333", icon: <GitHub sx={{ fontSize: 16 }} /> },
   x: { label: "X", color: "#1DA1F2", icon: <X sx={{ fontSize: 16 }} /> },
   linkedin: { label: "LinkedIn", color: "#0A66C2", icon: <LinkedIn sx={{ fontSize: 16 }} /> },
   facebook: { label: "Facebook", color: "#1877F2", icon: <Facebook sx={{ fontSize: 16 }} /> },
   instagram: { label: "Instagram", color: "#E4405F", icon: <Instagram sx={{ fontSize: 16 }} /> },
-  other: { label: "Other", color: "#6B6973", icon: <Link sx={{ fontSize: 16 }} /> },
+  other: { label: "Other", color: "text.disabled", icon: <Link sx={{ fontSize: 16 }} /> },
 };
 
 function SpeakerProfile() {
@@ -56,7 +56,7 @@ function SpeakerProfile() {
             alignItems: "center",
             justifyContent: "center",
             position: "relative",
-            bgcolor: "#1A1820",
+            bgcolor: "secondary.dark",
             overflow: "hidden",
           }}
         >
@@ -95,7 +95,7 @@ function SpeakerProfile() {
                 mb: 1.5,
                 fontSize: 32,
                 fontWeight: 700,
-                color: "#2D2A32",
+                color: "secondary.main",
                 overflow: "hidden",
                 position: "relative",
               }}
@@ -115,7 +115,7 @@ function SpeakerProfile() {
                 />
               )}
             </Box>
-            <Typography variant="h5" fontWeight={700} color="#FAFDF6">
+            <Typography variant="h5" fontWeight={700} color="text.primary">
               {record.name}
             </Typography>
           </Box>
@@ -124,14 +124,14 @@ function SpeakerProfile() {
         <Box sx={{ p: 3 }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
             <Language sx={{ color: "primary.main", fontSize: 20 }} />
-            <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+            <Typography variant="subtitle1" fontWeight={700} color="text.primary">
               Bio
             </Typography>
           </Box>
           <Divider sx={{ mb: 2, borderColor: "rgba(255,255,255,0.06)" }} />
-          <Typography variant="body2" color="#A9A7B0" sx={{ lineHeight: 1.8 }}>
+          <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8 }}>
             {record.bio || (
-              <Typography component="span" fontStyle="italic" color="#6B6973">
+              <Typography component="span" fontStyle="italic" color="text.disabled">
                 No bio provided
               </Typography>
             )}
@@ -152,14 +152,14 @@ function SpeakerProfile() {
         >
           <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
             <Language sx={{ color: "primary.main", fontSize: 20 }} />
-            <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+            <Typography variant="subtitle1" fontWeight={700} color="text.primary">
               Social Links
             </Typography>
           </Box>
           <Divider sx={{ mb: 2, borderColor: "rgba(255,255,255,0.06)" }} />
           <Box sx={{ display: "flex", gap: 1.5, flexWrap: "wrap" }}>
             {record.externalLinks.map((link, i) => {
-              const cfg = LINK_CONFIG[link.type.toLowerCase()] || { label: link.type, color: "#6B6973", icon: <Link sx={{ fontSize: 16 }} /> };
+              const cfg = LINK_CONFIG[link.type.toLowerCase()] || { label: link.type, color: "text.disabled", icon: <Link sx={{ fontSize: 16 }} /> };
               return (
                 <Button
                   key={i}
@@ -208,11 +208,11 @@ function SessionsTab() {
           textAlign: "center",
         }}
       >
-        <Schedule sx={{ fontSize: 40, color: "#6B6973", mb: 1.5 }} />
-        <Typography variant="body1" color="#A9A7B0">
+        <Schedule sx={{ fontSize: 40, color: "text.disabled", mb: 1.5 }} />
+        <Typography variant="body1" color="text.secondary">
           No sessions assigned to this speaker yet.
         </Typography>
-        <Typography variant="caption" color="#6B6973">
+        <Typography variant="caption" color="text.disabled">
           Sessions can be assigned when creating or editing an event session.
         </Typography>
       </Box>
@@ -231,7 +231,7 @@ function SessionsTab() {
       <Box sx={{ p: 3, pb: 0 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
           <Schedule sx={{ color: "primary.main", fontSize: 20 }} />
-          <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+          <Typography variant="subtitle1" fontWeight={700} color="text.primary">
             Sessions ({record.eventSessions.length})
           </Typography>
         </Box>

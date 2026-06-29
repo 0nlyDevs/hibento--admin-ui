@@ -21,7 +21,7 @@ export function Loading({ size = 32 }: LoadingProps) {
           width: size,
           height: size,
           border: "2px solid rgba(250, 253, 246, 0.2)",
-          borderTopColor: "#ddd92a",
+          borderTopColor: "primary.main",
           borderRadius: "50%",
           animation: "hibento-spin 0.8s linear infinite",
           "@keyframes hibento-spin": {

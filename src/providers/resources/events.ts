@@ -50,7 +50,7 @@ export const eventsResource = {
     const { data } = await publicApi.getEventsByEventId({
       path: { eventId: String(id) },
     });
-    return { data: normalizeEvent(data as unknown as Record<string, unknown>) as never };
+    return { data: normalizeEvent(data as any) };
   },
 
   create: async ({ data: body }: CreateParams) => {

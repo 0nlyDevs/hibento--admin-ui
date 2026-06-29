@@ -14,6 +14,7 @@ import {
   type ShowProps,
   DateField,
 } from "react-admin";
+import { useTheme } from "@mui/material/styles";
 import { Loading } from "../../components/common/Loading";
 import {
   Box,
@@ -69,7 +70,7 @@ function DetailCards() {
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
           <LanguageIcon />
-          <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+          <Typography variant="subtitle1" fontWeight={700} color="text.primary">
             Location Details
           </Typography>
         </Box>
@@ -179,13 +180,14 @@ function RoomsTab() {
 }
 
 function LanguageIcon() {
+  const theme = useTheme();
   return (
     <svg
       width="20"
       height="20"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="#DDD92A"
+      stroke={theme.palette.primary.main}
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"

@@ -64,7 +64,7 @@ export const sessionsResource = {
     const { data } = await publicApi.getEventSessionsBySessionId({
       path: { sessionId: String(id) },
     });
-    return { data: normalizeSession(data as unknown as Record<string, unknown>) as never };
+    return { data: normalizeSession(data as any) };
   },
 
   create: async ({ data: body }: CreateParams) => {

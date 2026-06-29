@@ -57,7 +57,7 @@ function EventHero() {
           alignItems: "center",
           justifyContent: "center",
           position: "relative",
-          bgcolor: "#1A1820",
+          bgcolor: "secondary.dark",
           overflow: "hidden",
         }}
       >
@@ -100,7 +100,7 @@ function EventHero() {
         >
           <EditButton
             sx={{
-              color: "#FAFDF6",
+              color: "text.primary",
               bgcolor: "rgba(255,255,255,0.1)",
               "&:hover": { bgcolor: "rgba(255,255,255,0.2)" },
               backdropFilter: "blur(4px)",
@@ -111,7 +111,7 @@ function EventHero() {
           />
           <DeleteButton
             sx={{
-              color: "#FAFDF6",
+              color: "text.primary",
               bgcolor: "rgba(255,255,255,0.1)",
               "&:hover": { bgcolor: "rgba(255,255,255,0.2)" },
               backdropFilter: "blur(4px)",
@@ -125,9 +125,9 @@ function EventHero() {
           <Box
             sx={{ ...glowChipSx, width: 56, height: 56, mx: "auto", mb: 1.5 }}
           >
-            <EventIcon sx={{ fontSize: 24, color: "#2D2A32" }} />
+            <EventIcon sx={{ fontSize: 24, color: "secondary.main" }} />
           </Box>
-          <Typography variant="h4" fontWeight={700} color="#FAFDF6">
+          <Typography variant="h4" fontWeight={700} color="text.primary">
             {record.title}
           </Typography>
           <Box
@@ -152,7 +152,7 @@ function EventHero() {
                   textTransform: "uppercase",
                   borderStyle: "dashed",
                   borderColor: "rgba(255,255,255,0.12)",
-                  color: "#A9A7B0",
+                  color: "text.secondary",
                 }}
               />
             )}
@@ -173,7 +173,7 @@ function EventHero() {
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
           <Schedule sx={{ fontSize: 16, color: "primary.main" }} />
           <Box>
-            <Typography variant="h6" fontWeight={700} color="#FAFDF6">
+            <Typography variant="h6" fontWeight={700} color="text.primary">
               {startDate.toLocaleDateString("en-US", {
                 weekday: "long",
                 month: "long",
@@ -181,7 +181,7 @@ function EventHero() {
                 year: "numeric",
               })}
             </Typography>
-            <Typography variant="body2" color="#A9A7B0">
+            <Typography variant="body2" color="text.secondary">
               {startDate.toLocaleTimeString("en-US", {
                 hour: "2-digit",
                 minute: "2-digit",
@@ -208,7 +208,7 @@ function EventHero() {
               textTransform: "uppercase",
               borderStyle: "dashed",
               borderColor: "rgba(255,255,255,0.12)",
-              color: "#A9A7B0",
+              color: "text.secondary",
               "&:hover": { color: "primary.main", borderColor: "primary.main" },
             }}
           />
@@ -239,7 +239,7 @@ function DetailCards() {
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
           <Language sx={{ color: "primary.main", fontSize: 20 }} />
-          <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+          <Typography variant="subtitle1" fontWeight={700} color="text.primary">
             Event Details
           </Typography>
         </Box>
@@ -254,7 +254,7 @@ function DetailCards() {
                 textTransform: "uppercase",
                 display: "block",
                 mb: 0.5,
-                color: "#6B6973",
+                color: "text.disabled",
               }}
             >
               Start Date
@@ -270,7 +270,7 @@ function DetailCards() {
                 textTransform: "uppercase",
                 display: "block",
                 mb: 0.5,
-                color: "#6B6973",
+                color: "text.disabled",
               }}
             >
               End Date
@@ -286,7 +286,7 @@ function DetailCards() {
                 textTransform: "uppercase",
                 display: "block",
                 mb: 0.5,
-                color: "#6B6973",
+                color: "text.disabled",
               }}
             >
               Online
@@ -300,7 +300,7 @@ function DetailCards() {
                 fontSize: "0.7rem",
                 borderStyle: "dashed",
                 borderColor: "rgba(255,255,255,0.12)",
-                color: "#A9A7B0",
+                color: "text.secondary",
               }}
             />
           </Box>
@@ -314,7 +314,7 @@ function DetailCards() {
                   textTransform: "uppercase",
                   display: "block",
                   mb: 0.5,
-                  color: "#6B6973",
+                  color: "text.disabled",
                 }}
               >
                 Venue
@@ -350,12 +350,12 @@ function DetailCards() {
         >
           <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
             <Language sx={{ color: "primary.main", fontSize: 20 }} />
-            <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+            <Typography variant="subtitle1" fontWeight={700} color="text.primary">
               Description
             </Typography>
           </Box>
           <Divider sx={{ mb: 2, borderColor: "rgba(255,255,255,0.06)" }} />
-          <Typography variant="body2" color="#A9A7B0" sx={{ lineHeight: 1.8 }}>
+          <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8 }}>
             {record.description}
           </Typography>
         </Box>
@@ -594,7 +594,7 @@ function SpeakersTab() {
                 alignItems: "center",
                 justifyContent: "center",
                 position: "relative",
-                bgcolor: "#1A1820",
+                bgcolor: "secondary.dark",
                 overflow: "hidden",
               }}
             >
@@ -607,7 +607,7 @@ function SpeakersTab() {
                   position: "relative",
                   fontSize: 20,
                   fontWeight: 700,
-                  color: "#2D2A32",
+                  color: "secondary.main",
                   overflow: "hidden",
                 }}
               >

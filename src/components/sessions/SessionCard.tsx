@@ -38,16 +38,16 @@ export function SessionCard({ session, onClick }: SessionCardProps) {
           alignItems: "center",
           justifyContent: "center",
           position: "relative",
-          bgcolor: "#1A1820",
+          bgcolor: "secondary.dark",
           overflow: "hidden",
         }}
       >
         <Box sx={dotGridBg()} />
         <Box sx={{ textAlign: "center", position: "relative", zIndex: 1 }}>
           <Box sx={{ ...glowChipSx, width: 38, height: 38, mx: "auto", mb: 1 }}>
-            <Schedule sx={{ fontSize: 16, color: "#2D2A32" }} />
+            <Schedule sx={{ fontSize: 16, color: "secondary.main" }} />
           </Box>
-          <Typography variant="body1" fontWeight={700} color="#FAFDF6">
+          <Typography variant="body1" fontWeight={700} color="text.primary">
             {startTime.toLocaleTimeString("en-US", {
               hour: "2-digit",
               minute: "2-digit",
@@ -88,7 +88,7 @@ export function SessionCard({ session, onClick }: SessionCardProps) {
             variant="subtitle2"
             fontWeight={600}
             noWrap
-            color="#FAFDF6"
+            color="text.primary"
           >
             {session.title}
           </Typography>
@@ -97,16 +97,16 @@ export function SessionCard({ session, onClick }: SessionCardProps) {
         <Box sx={{ display: "flex", gap: 1.5, mt: 1.5, flexWrap: "wrap" }}>
           {session.roomName && (
             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-              <MeetingRoom sx={{ fontSize: 13, color: "#6B6973" }} />
-              <Typography variant="caption" color="#A9A7B0">
+              <MeetingRoom sx={{ fontSize: 13, color: "text.disabled" }} />
+              <Typography variant="caption" color="text.secondary">
                 {session.roomName}
               </Typography>
             </Box>
           )}
           {session.speakers?.length > 0 && (
             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-              <People sx={{ fontSize: 13, color: "#6B6973" }} />
-              <Typography variant="caption" color="#A9A7B0">
+              <People sx={{ fontSize: 13, color: "text.disabled" }} />
+              <Typography variant="caption" color="text.secondary">
                 {session.speakers.length} speaker{session.speakers.length !== 1 ? "s" : ""}
               </Typography>
             </Box>
@@ -123,7 +123,7 @@ export function SessionCard({ session, onClick }: SessionCardProps) {
                 textTransform: "uppercase",
                 borderStyle: "dashed",
                 borderColor: "rgba(255,255,255,0.15)",
-                color: "#A9A7B0",
+                color: "text.secondary",
                 height: 20,
               }}
             />

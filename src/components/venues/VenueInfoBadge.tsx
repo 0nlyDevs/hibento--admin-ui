@@ -18,14 +18,14 @@ export function VenueInfoBadge({ icon, label, value }: VenueInfoBadgeProps) {
           textTransform: "uppercase",
           display: "block",
           mb: 0.5,
-          color: "#6B6973",
+          color: "text.disabled",
         }}
       >
         {label}
       </Typography>
       <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
         {icon}
-        <Typography variant="body2" fontWeight={600} color="#FAFDF6">
+        <Typography variant="body2" fontWeight={600} color="text.primary">
           {value}
         </Typography>
       </Box>

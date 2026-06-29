@@ -23,7 +23,7 @@ const sharedSidebar = {
 const sharedComponents = {
   MuiCard: {
     styleOverrides: {
-      root: ({ theme }: any) => ({
+      root: ({ theme }) => ({
         borderRadius: 16,
         border: glassBorder,
         boxShadow: "0 4px 30px rgba(0, 0, 0, 0.3)",
@@ -61,13 +61,13 @@ const sharedComponents = {
         borderRadius: 8,
         padding: "8px 16px",
       },
-      containedPrimary: ({ theme }: any) => ({
+      containedPrimary: ({ theme }) => ({
         color: theme.palette.primary.contrastText,
         "&:hover": {
           backgroundColor: theme.palette.primary.dark,
         },
       }),
-      outlinedPrimary: ({ theme }: any) => ({
+      outlinedPrimary: ({ theme }) => ({
         borderColor: theme.palette.primary.main,
         color: theme.palette.primary.main,
         "&:hover": {
@@ -75,7 +75,7 @@ const sharedComponents = {
           borderColor: theme.palette.primary.main,
         },
       }),
-      textPrimary: ({ theme }: any) => ({
+      textPrimary: ({ theme }) => ({
         color: theme.palette.primary.main,
         "&:hover": {
           backgroundColor: "rgba(221, 217, 42, 0.12)",
@@ -85,7 +85,7 @@ const sharedComponents = {
   },
   MuiTable: {
     styleOverrides: {
-      root: ({ theme }: any) => ({
+      root: ({ theme }) => ({
         "& .RaDatagrid-headerCell": {
           fontWeight: 600,
           fontSize: "0.75rem",
@@ -99,7 +99,7 @@ const sharedComponents = {
   },
   MuiTableCell: {
     styleOverrides: {
-      head: ({ theme }: any) => ({
+      head: ({ theme }) => ({
         fontWeight: 600,
         fontSize: "0.75rem",
         textTransform: "uppercase",
@@ -108,7 +108,7 @@ const sharedComponents = {
         backgroundColor: "transparent",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
       }),
-      root: ({ theme }: any) => ({
+      root: ({ theme }) => ({
         padding: "12px 16px",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
         color: theme.palette.text.primary,
@@ -117,7 +117,7 @@ const sharedComponents = {
   },
   MuiTableRow: {
     styleOverrides: {
-      root: ({ theme }: any) => ({
+      root: ({ theme }) => ({
         "&:hover": {
           backgroundColor: "rgba(255, 255, 255, 0.03)",
         },
@@ -133,25 +133,25 @@ const sharedComponents = {
         fontWeight: 500,
         fontSize: "0.75rem",
       },
-      filledSuccess: ({ theme }: any) => ({
+      filledSuccess: ({ theme }) => ({
         backgroundColor: "rgba(16, 185, 129, 0.15)",
-        color: "#34d399",
+        color: theme.palette.success.light,
         fontWeight: 600,
         border: "1px solid rgba(16, 185, 129, 0.2)",
       }),
-      filledWarning: ({ theme }: any) => ({
+      filledWarning: ({ theme }) => ({
         backgroundColor: "rgba(245, 158, 11, 0.15)",
-        color: "#fbbf24",
+        color: theme.palette.warning.light,
         fontWeight: 600,
         border: "1px solid rgba(245, 158, 11, 0.2)",
       }),
-      filledError: ({ theme }: any) => ({
+      filledError: ({ theme }) => ({
         backgroundColor: "rgba(239, 68, 68, 0.15)",
-        color: "#f87171",
+        color: theme.palette.error.light,
         fontWeight: 600,
         border: "1px solid rgba(239, 68, 68, 0.2)",
       }),
-      filledDefault: ({ theme }: any) => ({
+      filledDefault: ({ theme }) => ({
         backgroundColor: "rgba(255, 255, 255, 0.06)",
         color: theme.palette.text.secondary,
         fontWeight: 600,
@@ -183,7 +183,7 @@ const sharedComponents = {
         backgroundColor: "rgba(255,255,255,0.04)",
         "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
           borderWidth: 2,
-          borderColor: "#ddd92a",
+          borderColor: "primary.main",
         },
         "&:hover .MuiOutlinedInput-notchedOutline": {
           borderColor: "rgba(255,255,255,0.2)",
@@ -196,7 +196,7 @@ const sharedComponents = {
   },
   MuiAppBar: {
     styleOverrides: {
-      root: ({ theme }: any) => ({
+      root: ({ theme }) => ({
         boxShadow: "none",
         border: "none",
         borderBottom: "1px dashed rgba(255,255,255,0.18)",
@@ -218,7 +218,7 @@ const sharedComponents = {
   },
   MuiDrawer: {
     styleOverrides: {
-      paper: ({ theme }: any) => ({
+      paper: ({ theme }) => ({
         borderRight: "1px dashed rgba(255,255,255,0.18)",
         background: "rgba(34, 34, 34, 0.9)",
       }),
@@ -226,7 +226,7 @@ const sharedComponents = {
   },
   MuiTab: {
     styleOverrides: {
-      root: ({ theme }: any) => ({
+      root: ({ theme }) => ({
         textTransform: "none",
         fontWeight: 500,
         fontSize: "0.9rem",
@@ -239,7 +239,7 @@ const sharedComponents = {
   },
   MuiTabs: {
     styleOverrides: {
-      indicator: ({ theme }: any) => ({
+      indicator: ({ theme }) => ({
         backgroundColor: theme.palette.primary.main,
         height: 3,
         borderRadius: "3px 3px 0 0",
@@ -248,55 +248,55 @@ const sharedComponents = {
   },
   MuiLinearProgress: {
     styleOverrides: {
-      root: ({ theme }: any) => ({
-        backgroundColor: "rgba(221, 217, 42, 0.15)",
+      root: ({ theme }) => ({
+        backgroundColor: `${theme.palette.primary.main}26`,
       }),
       bar: {
-        backgroundColor: "#ddd92a",
+        backgroundColor: "primary.main",
       },
     },
   },
   MuiSkeleton: {
     styleOverrides: {
-      root: ({ theme }: any) => ({
+      root: ({ theme }) => ({
         backgroundColor: "rgba(255, 255, 255, 0.06)",
       }),
     },
   },
   MuiDivider: {
     styleOverrides: {
-      root: ({ theme }: any) => ({
+      root: ({ theme }) => ({
         borderColor: "rgba(255,255,255,0.08)",
       }),
     },
   },
   MuiAlert: {
     styleOverrides: {
-      root: ({ theme }: any) => ({
+      root: ({ theme }) => ({
         borderRadius: 10,
         border: "1px solid rgba(255,255,255,0.08)",
       }),
-      standardSuccess: ({ theme }: any) => ({
-        backgroundColor: "rgba(16, 185, 129, 0.1)",
-        color: "#34d399",
+      standardSuccess: ({ theme }) => ({
+        backgroundColor: `${theme.palette.success.main}1A`,
+        color: theme.palette.success.light,
       }),
-      standardWarning: ({ theme }: any) => ({
-        backgroundColor: "rgba(245, 158, 11, 0.1)",
-        color: "#fbbf24",
+      standardWarning: ({ theme }) => ({
+        backgroundColor: `${theme.palette.warning.main}1A`,
+        color: theme.palette.warning.light,
       }),
-      standardError: ({ theme }: any) => ({
-        backgroundColor: "rgba(239, 68, 68, 0.1)",
-        color: "#f87171",
+      standardError: ({ theme }) => ({
+        backgroundColor: `${theme.palette.error.main}1A`,
+        color: theme.palette.error.light,
       }),
-      standardInfo: ({ theme }: any) => ({
-        backgroundColor: "rgba(99, 102, 241, 0.1)",
-        color: "#818cf8",
+      standardInfo: ({ theme }) => ({
+        backgroundColor: `${theme.palette.info.main}1A`,
+        color: theme.palette.info.light,
       }),
     },
   },
   MuiSwitch: {
     styleOverrides: {
-      switchBase: ({ theme }: any) => ({
+      switchBase: ({ theme }) => ({
         "&.Mui-checked": {
           color: theme.palette.primary.main,
         },
@@ -308,7 +308,7 @@ const sharedComponents = {
   },
   MuiCheckbox: {
     styleOverrides: {
-      root: ({ theme }: any) => ({
+      root: ({ theme }) => ({
         "&.Mui-checked": {
           color: theme.palette.primary.main,
         },
@@ -317,7 +317,7 @@ const sharedComponents = {
   },
   MuiRadio: {
     styleOverrides: {
-      root: ({ theme }: any) => ({
+      root: ({ theme }) => ({
         "&.Mui-checked": {
           color: theme.palette.primary.main,
         },
@@ -326,7 +326,7 @@ const sharedComponents = {
   },
   MuiPagination: {
     styleOverrides: {
-      root: ({ theme }: any) => ({
+      root: ({ theme }) => ({
         "& .Mui-selected": {
           backgroundColor: `${theme.palette.primary.main} !important`,
           color: theme.palette.primary.contrastText,
@@ -339,14 +339,14 @@ const sharedComponents = {
   },
   MuiBreadcrumbs: {
     styleOverrides: {
-      separator: ({ theme }: any) => ({
+      separator: ({ theme }) => ({
         color: "rgba(255,255,255,0.2)",
       }),
     },
   },
   MuiTooltip: {
     styleOverrides: {
-      tooltip: ({ theme }: any) => ({
+      tooltip: ({ theme }) => ({
         backgroundColor: "#2d2a32",
         color: "#fafdf6",
         borderRadius: 6,
@@ -357,7 +357,7 @@ const sharedComponents = {
   },
   MuiAvatar: {
     styleOverrides: {
-      root: ({ theme }: any) => ({
+      root: ({ theme }) => ({
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.primary.contrastText,
         fontWeight: 600,
@@ -366,7 +366,7 @@ const sharedComponents = {
   },
   MuiMenu: {
     styleOverrides: {
-      list: ({ theme }: any) => ({
+      list: ({ theme }) => ({
         "& .MuiMenuItem-root.Mui-selected": {
           backgroundColor: "rgba(221, 217, 42, 0.15)",
           "& .MuiListItemIcon-root": {

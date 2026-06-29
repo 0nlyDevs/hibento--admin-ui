@@ -34,20 +34,20 @@ function RoomGrid() {
           }}
         >
           <Box>
-            <Typography variant="h5" fontWeight={700} color="#FAFDF6">
+            <Typography variant="h5" fontWeight={700} color="text.primary">
               Rooms
             </Typography>
-            <Typography variant="body2" color="#A9A7B0">
+            <Typography variant="body2" color="text.secondary">
               {total} room{total !== 1 ? "s" : ""}
             </Typography>
           </Box>
           <CreateButton
             sx={{
-              backgroundColor: "#DDD92A",
-              color: "#2D2A32",
+              backgroundColor: "primary.main",
+              color: "secondary.main",
               fontWeight: 600,
               borderRadius: "8px",
-              "&:hover": { backgroundColor: "#C4C026" },
+              "&:hover": { backgroundColor: "primary.dark" },
             }}
           />
         </Box>

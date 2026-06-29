@@ -70,7 +70,7 @@ export const hibentoDataProvider: DataProvider = {
         provider!.update({
           id,
           data: params.data,
-          previousData: undefined as unknown as RaRecord,
+          previousData: {} as RaRecord,
           meta: undefined,
         }),
       ),
@@ -85,7 +85,7 @@ export const hibentoDataProvider: DataProvider = {
         provider!.delete({
           id,
           meta: undefined,
-          previousData: undefined as unknown as RaRecord,
+          previousData: {} as RaRecord,
         }),
       ),
     );

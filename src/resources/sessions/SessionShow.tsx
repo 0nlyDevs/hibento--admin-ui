@@ -28,14 +28,14 @@ function SessionHero() {
 
   return (
     <Box sx={{ borderRadius: "12px", border: 1, borderColor: "divider", overflow: "hidden", mb: 3 }}>
-      <Box sx={{ height: 180, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", bgcolor: "#1A1820", overflow: "hidden" }}>
+      <Box sx={{ height: 180, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", bgcolor: "secondary.dark", overflow: "hidden" }}>
         <Box sx={dotGridBg()} />
         <Box sx={{ position: "absolute", width: 200, height: 200, borderRadius: "50%", filter: "blur(80px)", opacity: 0.15, background: "radial-gradient(circle, #DDD92A, transparent 70%)", top: "10%", left: "20%" }} />
         <Box sx={{ position: "absolute", width: 160, height: 160, borderRadius: "50%", filter: "blur(80px)", opacity: 0.08, background: "radial-gradient(circle, #6366F1, transparent 70%)", bottom: "10%", right: "20%" }} />
         <Box sx={{ position: "absolute", top: 16, right: 16, zIndex: 3, display: "flex", gap: 1 }}>
           <EditButton
             sx={{
-              color: "#FAFDF6",
+              color: "text.primary",
               bgcolor: "rgba(255,255,255,0.1)",
               "&:hover": { bgcolor: "rgba(255,255,255,0.2)" },
               backdropFilter: "blur(4px)",
@@ -46,7 +46,7 @@ function SessionHero() {
           />
           <DeleteButton
             sx={{
-              color: "#FAFDF6",
+              color: "text.primary",
               bgcolor: "rgba(255,255,255,0.1)",
               "&:hover": { bgcolor: "rgba(255,255,255,0.2)" },
               backdropFilter: "blur(4px)",
@@ -58,9 +58,9 @@ function SessionHero() {
         </Box>
         <Box sx={{ textAlign: "center", position: "relative", zIndex: 2 }}>
           <Box sx={{ ...glowChipSx, width: 56, height: 56, mx: "auto", mb: 1.5 }}>
-            <Schedule sx={{ fontSize: 24, color: "#2D2A32" }} />
+            <Schedule sx={{ fontSize: 24, color: "secondary.main" }} />
           </Box>
-          <Typography variant="h4" fontWeight={700} color="#FAFDF6">
+          <Typography variant="h4" fontWeight={700} color="text.primary">
             {record.title}
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 1, mt: 1 }}>
@@ -83,20 +83,20 @@ function DetailCards() {
       <Box sx={{ borderRadius: "12px", border: 1, borderColor: "rgba(255,255,255,0.06)", bgcolor: "rgba(255, 255, 255, 0.05)", backdropFilter: "blur(12px)", p: 3, mb: 3 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
           <Schedule sx={{ color: "primary.main", fontSize: 20 }} />
-          <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+          <Typography variant="subtitle1" fontWeight={700} color="text.primary">
             Schedule
           </Typography>
         </Box>
         <Divider sx={{ mb: 2, borderColor: "rgba(255,255,255,0.06)" }} />
         <Box sx={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
           <Box>
-            <Typography variant="caption" sx={{ fontSize: "0.65rem", letterSpacing: 0.8, textTransform: "uppercase", display: "block", mb: 0.5, color: "#6B6973" }}>
+            <Typography variant="caption" sx={{ fontSize: "0.65rem", letterSpacing: 0.8, textTransform: "uppercase", display: "block", mb: 0.5, color: "text.disabled" }}>
               Start Time
             </Typography>
             <DateField source="startTime" showTime />
           </Box>
           <Box>
-            <Typography variant="caption" sx={{ fontSize: "0.65rem", letterSpacing: 0.8, textTransform: "uppercase", display: "block", mb: 0.5, color: "#6B6973" }}>
+            <Typography variant="caption" sx={{ fontSize: "0.65rem", letterSpacing: 0.8, textTransform: "uppercase", display: "block", mb: 0.5, color: "text.disabled" }}>
               End Time
             </Typography>
             <DateField source="endTime" showTime />
@@ -108,31 +108,31 @@ function DetailCards() {
       <Box sx={{ borderRadius: "12px", border: 1, borderColor: "rgba(255,255,255,0.06)", bgcolor: "rgba(255, 255, 255, 0.05)", backdropFilter: "blur(12px)", p: 3, mb: 3 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
           <Language sx={{ color: "primary.main", fontSize: 20 }} />
-          <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+          <Typography variant="subtitle1" fontWeight={700} color="text.primary">
             Details
           </Typography>
         </Box>
         <Divider sx={{ mb: 2, borderColor: "rgba(255,255,255,0.06)" }} />
         {record.description && (
-          <Typography variant="body2" color="#A9A7B0" sx={{ lineHeight: 1.8, mb: 2 }}>
+          <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8, mb: 2 }}>
             {record.description}
           </Typography>
         )}
         <Box sx={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
           <Box>
-            <Typography variant="caption" sx={{ fontSize: "0.65rem", letterSpacing: 0.8, textTransform: "uppercase", display: "block", mb: 0.5, color: "#6B6973" }}>
+            <Typography variant="caption" sx={{ fontSize: "0.65rem", letterSpacing: 0.8, textTransform: "uppercase", display: "block", mb: 0.5, color: "text.disabled" }}>
               Room
             </Typography>
             {record.roomName ? (
-              <Typography variant="body2" color="#A9A7B0">
+              <Typography variant="body2" color="text.secondary">
                 {record.roomName}
               </Typography>
             ) : (
-              <Typography variant="body2" color="#A9A7B0" fontStyle="italic">Online</Typography>
+              <Typography variant="body2" color="text.secondary" fontStyle="italic">Online</Typography>
             )}
           </Box>
           <Box>
-            <Typography variant="caption" sx={{ fontSize: "0.65rem", letterSpacing: 0.8, textTransform: "uppercase", display: "block", mb: 0.5, color: "#6B6973" }}>
+            <Typography variant="caption" sx={{ fontSize: "0.65rem", letterSpacing: 0.8, textTransform: "uppercase", display: "block", mb: 0.5, color: "text.disabled" }}>
               Capacity
             </Typography>
             <NumberField source="capacity" />
@@ -158,7 +158,7 @@ function EventCard({ eventId }: { eventId: string }) {
     <Box sx={{ borderRadius: "12px", border: 1, borderColor: "rgba(255,255,255,0.06)", bgcolor: "rgba(255, 255, 255, 0.05)", backdropFilter: "blur(12px)", p: 3, mb: 3 }}>
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
         <Event sx={{ color: "primary.main", fontSize: 20 }} />
-        <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+        <Typography variant="subtitle1" fontWeight={700} color="text.primary">
           Event
         </Typography>
       </Box>
@@ -187,7 +187,7 @@ function SpeakersCard({ speakers: inlineSpeakers, speakerIds }: { speakers?: Spe
     <Box sx={{ borderRadius: "12px", border: 1, borderColor: "rgba(255,255,255,0.06)", bgcolor: "rgba(255, 255, 255, 0.05)", backdropFilter: "blur(12px)", p: 3, mb: 3 }}>
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
         <People sx={{ color: "primary.main", fontSize: 20 }} />
-        <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+        <Typography variant="subtitle1" fontWeight={700} color="text.primary">
           Speakers ({sessionSpeakers?.length ?? 0})
         </Typography>
       </Box>
@@ -201,7 +201,7 @@ function SpeakersCard({ speakers: inlineSpeakers, speakerIds }: { speakers?: Spe
             href={`#/speakers/${sp.id}/show`}
             clickable
             variant="outlined"
-            sx={{ fontWeight: 600, borderStyle: "dashed", borderColor: "rgba(255,255,255,0.15)", color: "#A9A7B0", "&:hover": { borderColor: "primary.main", color: "primary.main" } }}
+            sx={{ fontWeight: 600, borderStyle: "dashed", borderColor: "rgba(255,255,255,0.15)", color: "text.secondary", "&:hover": { borderColor: "primary.main", color: "primary.main" } }}
           />
         ))}
       </Box>
@@ -218,7 +218,7 @@ function QuestionsTab() {
     <Box sx={{ p: 3 }}>
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
         <Forum sx={{ color: "primary.main", fontSize: 20 }} />
-        <Typography variant="subtitle1" fontWeight={700} color="#FAFDF6">
+        <Typography variant="subtitle1" fontWeight={700} color="text.primary">
           Questions
         </Typography>
       </Box>

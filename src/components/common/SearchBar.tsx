@@ -35,13 +35,13 @@ export function SearchBar({ placeholder = "Search..." }: SearchBarProps) {
         input: {
           startAdornment: (
             <InputAdornment position="start">
-              <Search sx={{ color: "#6B6973" }} />
+              <Search sx={{ color: "text.disabled" }} />
             </InputAdornment>
           ),
           endAdornment: value ? (
             <InputAdornment position="end">
               <IconButton size="small" onClick={() => setValue("")}>
-                <Close sx={{ color: "#6B6973", fontSize: 18 }} />
+                <Close sx={{ color: "text.disabled", fontSize: 18 }} />
               </IconButton>
             </InputAdornment>
           ) : null,
@@ -51,13 +51,13 @@ export function SearchBar({ placeholder = "Search..." }: SearchBarProps) {
         "& .MuiOutlinedInput-root": {
           backgroundColor: "rgba(255, 255, 255, 0.06)",
           borderRadius: "8px",
-          color: "#FAFDF6",
+          color: "text.primary",
           fontSize: "0.9rem",
           "& fieldset": { borderColor: "#413E48" },
-          "&:hover fieldset": { borderColor: "#6B6973" },
-          "&.Mui-focused fieldset": { borderColor: "#DDD92A", borderWidth: "2px" },
+          "&:hover fieldset": { borderColor: "text.disabled" },
+          "&.Mui-focused fieldset": { borderColor: "primary.main", borderWidth: "2px" },
         },
-        "& .MuiInputBase-input::placeholder": { color: "#6B6973", opacity: 1 },
+        "& .MuiInputBase-input::placeholder": { color: "text.disabled", opacity: 1 },
       }}
     />
   );

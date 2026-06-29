@@ -22,7 +22,7 @@ export const questionsResource = {
     const res = await fetch(`${API_BASE}/questions/${id}`);
     if (!res.ok) throw new Error("Question not found");
     const body = await res.json();
-    return { data: body.data as never };
+    return { data: body.data as any };
   },
 
   getManyReference: async ({ target, id }: GetManyReferenceParams) => {
@@ -31,7 +31,7 @@ export const questionsResource = {
         path: { sessionId: String(id) },
       });
       const items = (data.data ?? []).map((q) => ({ ...q, eventSessionId: id } as Record<string, unknown>));
-      return { data: items as never[], total: items.length };
+      return { data: items as any[], total: items.length };
     }
     return { data: [], total: 0 };
   },

@@ -37,25 +37,25 @@ function VenueGrid() {
             <Typography
               variant="h5"
               fontWeight={700}
-              color="#FAFDF6"
+              color="text.primary"
             >
               Venues
             </Typography>
             <Typography
               variant="body2"
-              color="#A9A7B0"
+              color="text.secondary"
             >
               {total} venue{total !== 1 ? "s" : ""}
             </Typography>
           </Box>
           <CreateButton
             sx={{
-              backgroundColor: "#DDD92A",
-              color: "#2D2A32",
+              backgroundColor: "primary.main",
+              color: "secondary.main",
               fontWeight: 600,
               borderRadius: "8px",
               "&:hover": {
-                backgroundColor: "#C4C026",
+                backgroundColor: "primary.dark",
               },
             }}
           />
