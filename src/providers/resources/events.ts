@@ -60,9 +60,17 @@ export const eventsResource = {
   },
 
   update: async ({ id, data: body }: UpdateParams) => {
+    const raw = body as Record<string, unknown>;
     const res = await adminApi.updateEvent({
       path: { eventId: String(id) },
-      body: body as UpdateEvent,
+      body: {
+        title: raw.title,
+        description: raw.description,
+        online: raw.online,
+        startDate: raw.startDate,
+        endDate: raw.endDate,
+        venueId: raw.venueId,
+      } as UpdateEvent,
     }) as any;
     handleSdkError(res);
     return { data: res.data };

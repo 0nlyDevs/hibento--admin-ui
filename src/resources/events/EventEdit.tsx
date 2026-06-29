@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+import { useParams } from "react-router-dom";
 import {
   Edit,
   SimpleForm,
@@ -6,6 +8,7 @@ import {
   BooleanInput,
   ReferenceInput,
   AutocompleteInput,
+  useGetOne,
   required,
   maxLength,
   type EditProps,
@@ -26,8 +29,23 @@ function VenueInput() {
 }
 
 export function EventEdit(props: EditProps) {
+  const { id } = useParams();
+  const { data: record } = useGetOne("events", { id });
+
+  const transform = useCallback(
+    (data: Record<string, unknown>) => ({
+      title: data.title,
+      description: data.description,
+      online: record?.online,
+      startDate: record?.startDate,
+      endDate: record?.endDate,
+      venueId: record?.venueId,
+    }),
+    [record],
+  );
+
   return (
-    <Edit {...props} redirect="show">
+    <Edit {...props} redirect="show" transform={transform}>
       <SimpleForm>
         <FormSection
           title="Basic Information"
@@ -46,7 +64,7 @@ export function EventEdit(props: EditProps) {
             multiline
             rows={4}
           />
-          <BooleanInput source="online" label="Online Event" />
+          <BooleanInput source="online" label="Online Event" disabled helperText="Cannot be changed after creation" />
         </FormSection>
 
         <VenueInput />
@@ -56,14 +74,16 @@ export function EventEdit(props: EditProps) {
             source="startDate"
             label="Start Date"
             fullWidth
-            validate={required()}
+            disabled
+            helperText="Cannot be changed after creation"
             parse={(value: string) => (value ? new Date(value).toISOString() : value)}
           />
           <DateTimeInput
             source="endDate"
             label="End Date"
             fullWidth
-            validate={required()}
+            disabled
+            helperText="Cannot be changed after creation"
             parse={(value: string) => (value ? new Date(value).toISOString() : value)}
           />
         </FormSection>
