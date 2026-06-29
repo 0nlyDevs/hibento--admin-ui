@@ -9,7 +9,7 @@ import type {
   CreateVenue,
   UpdateVenue,
 } from "../../lib/admin-client/types.gen";
-import { publicApi, adminApi } from "../api";
+import { publicApi, adminApi, handleSdkError } from "../api";
 
 export const venuesResource = {
   getList: async ({ pagination, filter }: GetListParams) => {
@@ -31,20 +31,23 @@ export const venuesResource = {
   },
 
   create: async ({ data: body }: CreateParams) => {
-    const { data } = await adminApi.createVenue({ body: body as CreateVenue });
-    return { data };
+    const res = await adminApi.createVenue({ body: body as CreateVenue }) as any;
+    handleSdkError(res);
+    return { data: res.data };
   },
 
   update: async ({ id, data: body }: UpdateParams) => {
-    const { data } = await adminApi.updateVenue({
+    const res = await adminApi.updateVenue({
       path: { venueId: String(id) },
       body: body as UpdateVenue,
-    });
-    return { data };
+    }) as any;
+    handleSdkError(res);
+    return { data: res.data };
   },
 
   delete: async ({ id }: DeleteParams) => {
-    await adminApi.deleteVenue({ path: { venueId: String(id) } });
+    const res = await adminApi.deleteVenue({ path: { venueId: String(id) } }) as any;
+    handleSdkError(res);
     return { data: { id } as Record<string, string> };
   },
 };

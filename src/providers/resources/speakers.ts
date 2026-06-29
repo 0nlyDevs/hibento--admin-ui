@@ -9,7 +9,7 @@ import type {
   CreateSpeaker,
   UpdateSpeaker,
 } from "../../lib/admin-client/types.gen";
-import { publicApi, adminApi } from "../api";
+import { publicApi, adminApi, handleSdkError } from "../api";
 
 function normalizeSpeaker(s: Record<string, unknown>) {
   const externalLinks = (s.externalLinks as Array<Record<string, unknown>> | undefined)?.map(
@@ -43,22 +43,25 @@ export const speakersResource = {
   },
 
   create: async ({ data: body }: CreateParams) => {
-    const { data } = await adminApi.createSpeaker({
+    const res = await adminApi.createSpeaker({
       body: body as CreateSpeaker,
-    });
-    return { data };
+    }) as any;
+    handleSdkError(res);
+    return { data: res.data };
   },
 
   update: async ({ id, data: body }: UpdateParams) => {
-    const { data } = await adminApi.updateSpeaker({
+    const res = await adminApi.updateSpeaker({
       path: { speakerId: String(id) },
       body: body as UpdateSpeaker,
-    });
-    return { data };
+    }) as any;
+    handleSdkError(res);
+    return { data: res.data };
   },
 
   delete: async ({ id }: DeleteParams) => {
-    await adminApi.deleteSpeaker({ path: { speakerId: String(id) } });
+    const res = await adminApi.deleteSpeaker({ path: { speakerId: String(id) } }) as any;
+    handleSdkError(res);
     return { data: { id } as Record<string, string> };
   },
 };

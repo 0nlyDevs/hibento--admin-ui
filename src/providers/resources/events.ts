@@ -10,7 +10,7 @@ import type {
   CreateEvent,
   UpdateEvent,
 } from "../../lib/admin-client/types.gen";
-import { publicApi, adminApi } from "../api";
+import { publicApi, adminApi, handleSdkError } from "../api";
 
 function normalizeEvent(e: Record<string, unknown>) {
   return {
@@ -54,20 +54,23 @@ export const eventsResource = {
   },
 
   create: async ({ data: body }: CreateParams) => {
-    const { data } = await adminApi.createEvent({ body: body as CreateEvent });
-    return { data };
+    const res = await adminApi.createEvent({ body: body as CreateEvent }) as any;
+    handleSdkError(res);
+    return { data: res.data };
   },
 
   update: async ({ id, data: body }: UpdateParams) => {
-    const { data } = await adminApi.updateEvent({
+    const res = await adminApi.updateEvent({
       path: { eventId: String(id) },
       body: body as UpdateEvent,
-    });
-    return { data };
+    }) as any;
+    handleSdkError(res);
+    return { data: res.data };
   },
 
   delete: async ({ id }: DeleteParams) => {
-    await adminApi.deleteEvent({ path: { eventId: String(id) } });
+    const res = await adminApi.deleteEvent({ path: { eventId: String(id) } }) as any;
+    handleSdkError(res);
     return { data: { id } as Record<string, string> };
   },
 };

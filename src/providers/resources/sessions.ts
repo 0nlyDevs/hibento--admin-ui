@@ -10,7 +10,7 @@ import type {
   CreateSession,
   UpdateSession,
 } from "../../lib/admin-client/types.gen";
-import { publicApi, adminApi } from "../api";
+import { publicApi, adminApi, handleSdkError } from "../api";
 
 const API_BASE = import.meta.env.VITE_PUBLIC_API_URL;
 
@@ -70,29 +70,26 @@ export const sessionsResource = {
   create: async ({ data: body }: CreateParams) => {
     const bodyRecord = body as Record<string, unknown>;
     const { eventId, ...rest } = bodyRecord;
-    const { data, error } = await adminApi.createSession({
+    const res = await adminApi.createSession({
       path: { eventId: String(eventId) },
       body: rest as CreateSession,
     }) as any;
-    if (error) {
-      throw new Error(error?.error || error?.message || "Conflict");
-    }
-    if (!data) {
-      throw new Error("Failed to create session");
-    }
-    return { data };
+    handleSdkError(res);
+    return { data: res.data };
   },
 
   update: async ({ id, data: body }: UpdateParams) => {
-    const { data } = await adminApi.updateSession({
+    const res = await adminApi.updateSession({
       path: { sessionId: String(id) },
       body: body as UpdateSession,
-    });
-    return { data };
+    }) as any;
+    handleSdkError(res);
+    return { data: res.data };
   },
 
   delete: async ({ id }: DeleteParams) => {
-    await adminApi.deleteSession({ path: { sessionId: String(id) } });
+    const res = await adminApi.deleteSession({ path: { sessionId: String(id) } }) as any;
+    handleSdkError(res);
     return { data: { id } as Record<string, string> };
   },
 };

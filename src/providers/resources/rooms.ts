@@ -7,7 +7,7 @@ import type {
   DeleteParams,
 } from "react-admin";
 import type { CreateRoom, UpdateRoom } from "../../lib/admin-client/types.gen";
-import { publicApi, adminApi } from "../api";
+import { publicApi, adminApi, handleSdkError } from "../api";
 
 const API_BASE = import.meta.env.VITE_PUBLIC_API_URL;
 
@@ -54,20 +54,23 @@ export const roomsResource = {
   },
 
   create: async ({ data: body }: CreateParams) => {
-    const { data } = await adminApi.createRoom({ body: body as CreateRoom });
-    return { data };
+    const res = await adminApi.createRoom({ body: body as CreateRoom }) as any;
+    handleSdkError(res);
+    return { data: res.data };
   },
 
   update: async ({ id, data: body }: UpdateParams) => {
-    const { data } = await adminApi.updateRoom({
+    const res = await adminApi.updateRoom({
       path: { roomId: String(id) },
       body: body as UpdateRoom,
-    });
-    return { data };
+    }) as any;
+    handleSdkError(res);
+    return { data: res.data };
   },
 
   delete: async ({ id }: DeleteParams) => {
-    await adminApi.deleteRoom({ path: { roomId: String(id) } });
+    const res = await adminApi.deleteRoom({ path: { roomId: String(id) } }) as any;
+    handleSdkError(res);
     return { data: { id } as Record<string, string> };
   },
 };
