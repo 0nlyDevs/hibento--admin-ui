@@ -2,13 +2,16 @@ import {
   Show,
   DateField,
   NumberField,
+  TextField,
+  ReferenceManyField,
+  Datagrid,
   useRecordContext,
   useGetList,
   useGetOne,
   type ShowProps,
 } from "react-admin";
 import { Box, Typography, Divider, Chip } from "@mui/material";
-import { Schedule, Event, Room, People, Language } from "@mui/icons-material";
+import { Schedule, Event, Room, People, Language, Forum } from "@mui/icons-material";
 import { LiveBadge } from "../../components/common/StatusBadge";
 import { isSessionLive } from "../../utils";
 import { dotGridBg, glowChipSx } from "../../components/venues/constants";
@@ -116,6 +119,9 @@ function DetailCards() {
       {(record.speakers?.length > 0 || record.speakerIds?.length > 0) && (
         <SpeakersCard speakers={record.speakers} speakerIds={record.speakerIds} />
       )}
+
+      {/* Questions card */}
+      {record.id && <QuestionsCard sessionId={record.id} />}
     </Box>
   );
 }
@@ -140,6 +146,31 @@ function EventCard({ eventId }: { eventId: string }) {
       >
         {eventData?.title || eventId}
       </Typography>
+    </Box>
+  );
+}
+
+function QuestionsCard({ sessionId }: { sessionId: string }) {
+  return (
+    <Box sx={{ borderRadius: "12px", border: 1, borderColor: "divider", bgcolor: "background.paper", p: 3, mb: 3 }}>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
+        <Forum sx={{ color: "primary.main", fontSize: 20 }} />
+        <Typography variant="subtitle1" fontWeight={700} color="text.primary">
+          Questions
+        </Typography>
+      </Box>
+      <Divider sx={{ mb: 2, borderColor: "divider" }} />
+      <ReferenceManyField
+        reference="questions"
+        target="eventSessionId"
+        filter={{ eventSessionId: sessionId }}
+      >
+        <Datagrid bulkActionButtons={false}>
+          <TextField source="content" label="Question" />
+          <TextField source="authorName" label="Author" />
+          <NumberField source="upvotes" label="Upvotes" />
+        </Datagrid>
+      </ReferenceManyField>
     </Box>
   );
 }
