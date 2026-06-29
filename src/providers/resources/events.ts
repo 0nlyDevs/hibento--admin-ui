@@ -21,9 +21,14 @@ function normalizeEvent(e: Record<string, unknown>) {
 }
 
 export const eventsResource = {
-  getList: async ({ pagination }: GetListParams) => {
+  getList: async ({ pagination, filter }: GetListParams) => {
+    const q = (filter as Record<string, string>)?.q;
     const { data } = await publicApi.getEvents({
-      query: { page: pagination.page, limit: pagination.perPage },
+      query: {
+        page: pagination.page,
+        limit: pagination.perPage,
+        ...(q ? { search: q } : {}),
+      } as any,
     });
     return { data: data.data.map(normalizeEvent), total: data.pagination.total };
   },

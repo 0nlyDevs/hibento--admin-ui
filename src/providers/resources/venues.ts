@@ -13,18 +13,11 @@ import { publicApi, adminApi } from "../api";
 
 export const venuesResource = {
   getList: async ({ filter }: GetListParams) => {
-    const { data } = await publicApi.getVenues();
-    const items = data.data;
-    const q = (filter?.q as string)?.toLowerCase();
-    const filtered = q
-      ? items.filter(
-          (v) =>
-            v.name?.toLowerCase().includes(q) ||
-            v.city?.toLowerCase().includes(q) ||
-            v.neighborhood?.toLowerCase().includes(q),
-        )
-      : items;
-    return { data: filtered, total: filtered.length };
+    const q = (filter as Record<string, string>)?.q;
+    const { data } = await publicApi.getVenues({
+      query: q ? { q } as any : undefined,
+    } as any);
+    return { data: data.data, total: data.data.length };
   },
 
   getOne: async ({ id }: GetOneParams) => {
