@@ -1,5 +1,6 @@
 import type {
   GetListParams,
+  GetManyReferenceParams,
   GetOneParams,
   CreateParams,
   UpdateParams,
@@ -31,6 +32,13 @@ export const sessionsResource = {
       query: q ? { q } as any : undefined,
     } as any);
     return { data: data.data.map(normalizeSession), total: data.data.length };
+  },
+
+  getManyReference: async ({ target, id }: GetManyReferenceParams) => {
+    if (target === "roomId") {
+      return { data: [], total: 0 };
+    }
+    return { data: [], total: 0 };
   },
 
   getOne: async ({ id }: GetOneParams) => {
