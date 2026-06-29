@@ -73,9 +73,9 @@ export const sessionsResource = {
     const { data, error } = await adminApi.createSession({
       path: { eventId: String(eventId) },
       body: rest as CreateSession,
-    });
+    }) as any;
     if (error) {
-      throw new Error((error as any)?.body?.error || (error as any)?.message || "Failed to create session");
+      throw new Error(error?.error || error?.message || "Conflict");
     }
     if (!data) {
       throw new Error("Failed to create session");
