@@ -139,7 +139,7 @@ function RoomsTab() {
       </Box>
       {isLoading ? <Loading /> : (
         <ListContextProvider value={listContext}>
-          <Datagrid rowClick="show" bulkActionButtons={false} sx={{ "& .RaDatagrid-rowCell": { py: 1.5 } }}>
+          <Datagrid rowClick={(id) => `/rooms/${id}/show`} bulkActionButtons={false} sx={{ "& .RaDatagrid-rowCell": { py: 1.5 } }}>
             <TextField source="name" sx={{ fontWeight: 600 }} />
             <NumberField source="capacity" />
           </Datagrid>
