@@ -10,6 +10,7 @@ import {
   InputAdornment,
   TextField,
   Card,
+  IconButton,
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +19,7 @@ import { dotGridBg, glowChipSx } from "../../components/venues/constants";
 import Public from "@mui/icons-material/Public";
 import GitHub from "@mui/icons-material/GitHub";
 import X from "@mui/icons-material/X";
+import Close from "@mui/icons-material/Close";
 import LinkedIn from "@mui/icons-material/LinkedIn";
 import Facebook from "@mui/icons-material/Facebook";
 import Instagram from "@mui/icons-material/Instagram";
@@ -266,19 +268,26 @@ function SpeakerGrid() {
         </Box>
         <TextField
           value={filterValues?.q || ""}
-          onChange={(e) => setFilters({ q: e.target.value }, undefined, false)}
+          onChange={(e) => setFilters({ q: e.target.value }, undefined, 300)}
           placeholder="Search speakers..."
           variant="outlined"
           fullWidth
           slotProps={{
             input: {
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search sx={{ color: "#6B6973" }} />
-                </InputAdornment>
-              ),
-            },
-          }}
+          startAdornment: (
+            <InputAdornment position="start">
+              <Search sx={{ color: "#6B6973" }} />
+            </InputAdornment>
+          ),
+          endAdornment: filterValues?.q ? (
+            <InputAdornment position="end">
+              <IconButton size="small" onClick={() => setFilters({}, undefined, 300)}>
+                <Close sx={{ color: "#6B6973", fontSize: 18 }} />
+              </IconButton>
+            </InputAdornment>
+          ) : null,
+        },
+      }}
           sx={{
             "& .MuiOutlinedInput-root": {
               backgroundColor: "rgba(255, 255, 255, 0.06)",

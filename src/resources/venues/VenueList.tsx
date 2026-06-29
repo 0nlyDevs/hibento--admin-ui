@@ -4,8 +4,9 @@ import {
   useListContext,
   type ListProps,
 } from "react-admin";
-import { Box, Grid, Typography, InputAdornment, TextField, Card } from "@mui/material";
+import { Box, Grid, Typography, InputAdornment, TextField, Card, IconButton } from "@mui/material";
 import Search from "@mui/icons-material/Search";
+import Close from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 import { VenueCard } from "../../components/venues/VenueCard";
 import type { Venue } from "../../types";
@@ -63,19 +64,26 @@ function VenueGrid() {
         </Box>
         <TextField
           value={filterValues?.q || ""}
-          onChange={(e) => setFilters({ q: e.target.value }, undefined, false)}
+          onChange={(e) => setFilters({ q: e.target.value }, undefined, 300)}
           placeholder="Search venues..."
           variant="outlined"
           fullWidth
           slotProps={{
             input: {
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search sx={{ color: "#6B6973" }} />
-                </InputAdornment>
-              ),
-            },
-          }}
+          startAdornment: (
+            <InputAdornment position="start">
+              <Search sx={{ color: "#6B6973" }} />
+            </InputAdornment>
+          ),
+          endAdornment: filterValues?.q ? (
+            <InputAdornment position="end">
+              <IconButton size="small" onClick={() => setFilters({}, undefined, 300)}>
+                <Close sx={{ color: "#6B6973", fontSize: 18 }} />
+              </IconButton>
+            </InputAdornment>
+          ) : null,
+        },
+      }}
           sx={{
             "& .MuiOutlinedInput-root": {
               backgroundColor: "rgba(255, 255, 255, 0.06)",

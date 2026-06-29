@@ -4,6 +4,7 @@ import { sessionsResource } from "./resources/sessions";
 import { speakersResource } from "./resources/speakers";
 import { roomsResource } from "./resources/rooms";
 import { venuesResource } from "./resources/venues";
+import { questionsResource } from "./resources/questions";
 
 const resourceMap: Record<string, typeof eventsResource> = {
   events: eventsResource,
@@ -11,6 +12,7 @@ const resourceMap: Record<string, typeof eventsResource> = {
   speakers: speakersResource,
   rooms: roomsResource,
   venues: venuesResource,
+  questions: questionsResource,
 };
 
 export const hibentoDataProvider: DataProvider = {

@@ -12,19 +12,15 @@ import type {
 import { publicApi, adminApi } from "../api";
 
 export const venuesResource = {
-  getList: async ({ filter }: GetListParams) => {
-    const { data } = await publicApi.getVenues();
-    const items = data.data;
-    const q = (filter?.q as string)?.toLowerCase();
-    const filtered = q
-      ? items.filter(
-          (v) =>
-            v.name?.toLowerCase().includes(q) ||
-            v.city?.toLowerCase().includes(q) ||
-            v.neighborhood?.toLowerCase().includes(q),
-        )
-      : items;
-    return { data: filtered, total: filtered.length };
+  getList: async ({ pagination, filter }: GetListParams) => {
+    const q = (filter as Record<string, string>)?.q;
+    const { data } = await publicApi.getVenues({
+      query: {
+        ...(pagination ? { page: pagination.page, limit: pagination.perPage } : {}),
+        ...(q ? { q } : {}),
+      } as any,
+    });
+    return { data: data.data, total: (data as any).pagination?.total ?? data.data.length };
   },
 
   getOne: async ({ id }: GetOneParams) => {

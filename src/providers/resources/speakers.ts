@@ -22,9 +22,14 @@ function normalizeSpeaker(s: Record<string, unknown>) {
 }
 
 export const speakersResource = {
-  getList: async ({ pagination }: GetListParams) => {
+  getList: async ({ pagination, filter }: GetListParams) => {
+    const q = (filter as Record<string, string>)?.q;
     const { data } = await publicApi.getSpeakers({
-      query: { page: pagination.page, limit: pagination.perPage },
+      query: {
+        page: pagination.page,
+        limit: pagination.perPage,
+        ...(q ? { q } : {}),
+      } as any,
     });
     const items = data.data.map(normalizeSpeaker);
     return { data: items, total: data.pagination.total };
