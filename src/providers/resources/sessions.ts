@@ -70,11 +70,15 @@ export const sessionsResource = {
   create: async ({ data: body }: CreateParams) => {
     const bodyRecord = body as Record<string, unknown>;
     const { eventId, ...rest } = bodyRecord;
-    const { data } = await adminApi.createSession({
-      path: { eventId: String(eventId) },
-      body: rest as CreateSession,
-    });
-    return { data };
+    try {
+      const { data } = await adminApi.createSession({
+        path: { eventId: String(eventId) },
+        body: rest as CreateSession,
+      });
+      return { data };
+    } catch (error: any) {
+      throw new Error(error?.body?.error || error?.message || "Failed to create session");
+    }
   },
 
   update: async ({ id, data: body }: UpdateParams) => {
