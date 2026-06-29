@@ -24,14 +24,13 @@ function RoomInput() {
   const { data: eventData } = useGetOne("events", { id: eventId }, { enabled: !!eventId });
   const isOnline = (eventData as any)?.online;
   const venueId = (eventData as any)?.venueId;
-
-  if (isOnline) return null;
-
   const { data: rooms } = useGetList("rooms", {
     filter: venueId ? { venueId } as any : {},
     pagination: { page: 1, perPage: 100 },
     sort: { field: "name", order: "ASC" },
-  }, { enabled: !!venueId });
+  }, { enabled: !!venueId && !isOnline });
+
+  if (isOnline) return null;
 
   return (
     <SelectInput
