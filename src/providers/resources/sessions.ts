@@ -79,9 +79,18 @@ export const sessionsResource = {
   },
 
   update: async ({ id, data: body }: UpdateParams) => {
+    const raw = body as Record<string, unknown>;
     const res = await adminApi.updateSession({
       path: { sessionId: String(id) },
-      body: body as UpdateSession,
+      body: {
+        title: raw.title,
+        description: raw.description,
+        startTime: raw.startTime,
+        endTime: raw.endTime,
+        roomId: raw.roomId,
+        capacity: raw.capacity,
+        speakerIds: raw.speakerIds,
+      } as UpdateSession,
     }) as any;
     handleSdkError(res);
     return { data: res.data };
