@@ -7,8 +7,6 @@ import {
   SearchInput,
   TextInput,
   ShowButton,
-  TopToolbar,
-  CreateButton,
   type ListProps,
 } from "react-admin";
 
@@ -23,11 +21,6 @@ export function QuestionList(props: ListProps) {
       {...props}
       filters={questionFilters}
       sort={{ field: "upvotes", order: "DESC" }}
-      actions={
-        <TopToolbar>
-          <CreateButton />
-        </TopToolbar>
-      }
     >
       <Datagrid rowClick="show" bulkActionButtons={false}>
         <TextField source="content" label="Question" sx={{ fontWeight: 600, maxWidth: 300 }} />
