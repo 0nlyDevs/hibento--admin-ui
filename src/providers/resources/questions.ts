@@ -5,8 +5,6 @@ import type {
 } from "react-admin";
 import { publicApi } from "../api";
 
-const API_BASE = import.meta.env.VITE_PUBLIC_API_URL;
-
 export const questionsResource = {
   getList: async ({ filter }: GetListParams) => {
     const eventSessionId = (filter as Record<string, string>)?.eventSessionId;
@@ -19,10 +17,10 @@ export const questionsResource = {
   },
 
   getOne: async ({ id }: GetOneParams) => {
-    const res = await fetch(`${API_BASE}/questions/${id}`);
-    if (!res.ok) throw new Error("Question not found");
-    const body = await res.json();
-    return { data: body.data as any };
+    const { data } = await publicApi.getQuestionsByQuestionId({
+      path: { questionId: String(id) },
+    });
+    return { data: (data as any)?.data ?? data };
   },
 
   getManyReference: async ({ target, id }: GetManyReferenceParams) => {

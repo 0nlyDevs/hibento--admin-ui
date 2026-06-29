@@ -9,8 +9,6 @@ import type {
 import type { CreateRoom, UpdateRoom } from "../../lib/admin-client/types.gen";
 import { publicApi, adminApi, handleSdkError } from "../api";
 
-const API_BASE = import.meta.env.VITE_PUBLIC_API_URL;
-
 export const roomsResource = {
   getList: async ({ pagination, filter }: GetListParams) => {
     const eventId = (filter as Record<string, string>)?.eventId;
@@ -23,16 +21,15 @@ export const roomsResource = {
       return { data: data.data, total: data.data.length };
     }
     const venueId = (filter as Record<string, string>)?.venueId;
-    const params = new URLSearchParams();
-    if (pagination) {
-      params.set("page", String(pagination.page));
-      params.set("limit", String(pagination.perPage));
-    }
-    if (q) params.set("q", q);
-    if (venueId) params.set("venueId", venueId);
-    const res = await fetch(`${API_BASE}/rooms?${params}`);
-    const body = await res.json();
-    return { data: body.data ?? [], total: body.pagination?.total ?? 0 };
+    const { data } = await publicApi.getRooms({
+      query: {
+        page: pagination.page,
+        limit: pagination.perPage,
+        ...(q ? { q } : {}),
+        ...(venueId ? { venueId } : {}),
+      },
+    } as any);
+    return { data: data.data ?? [], total: data.pagination?.total ?? 0 };
   },
 
   getManyReference: async ({ target, id }: GetManyReferenceParams) => {
@@ -47,9 +44,9 @@ export const roomsResource = {
   },
 
   getOne: async ({ id }: GetOneParams) => {
-    const res = await fetch(`${API_BASE}/rooms/${id}`);
-    if (!res.ok) throw new Error("Room not found");
-    const data = await res.json();
+    const { data } = await publicApi.getRoomsByRoomId({
+      path: { roomId: String(id) },
+    });
     return { data };
   },
 

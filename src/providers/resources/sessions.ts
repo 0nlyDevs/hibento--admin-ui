@@ -12,8 +12,6 @@ import type {
 } from "../../lib/admin-client/types.gen";
 import { publicApi, adminApi, handleSdkError } from "../api";
 
-const API_BASE = import.meta.env.VITE_PUBLIC_API_URL;
-
 function normalizeSession(raw: Record<string, unknown>) {
   return {
     ...raw,
@@ -36,26 +34,23 @@ export const sessionsResource = {
       } as any);
       return { data: data.data.map(normalizeSession), total: data.data.length };
     }
-    const params = new URLSearchParams();
-    if (pagination) {
-      params.set("page", String(pagination.page));
-      params.set("limit", String(pagination.perPage));
-    }
-    if (q) params.set("q", q);
-    if (roomId) params.set("roomId", roomId);
-    const res = await fetch(`${API_BASE}/event-sessions?${params}`);
-    const body = await res.json();
-    return { data: (body.data ?? []).map(normalizeSession), total: body.pagination?.total ?? 0 };
+    const { data } = await publicApi.getEventSessions({
+      query: {
+        page: pagination.page,
+        limit: pagination.perPage,
+        ...(q ? { q } : {}),
+        ...(roomId ? { roomId } : {}),
+      },
+    } as any);
+    return { data: (data.data ?? []).map(normalizeSession), total: data.pagination?.total ?? 0 };
   },
 
   getManyReference: async ({ target, id }: GetManyReferenceParams) => {
     if (target === "roomId") {
-      const params = new URLSearchParams();
-      params.set("roomId", String(id));
-      params.set("limit", "100");
-      const res = await fetch(`${API_BASE}/event-sessions?${params}`);
-      const body = await res.json();
-      return { data: (body.data ?? []).map(normalizeSession), total: body.pagination?.total ?? 0 };
+      const { data } = await publicApi.getEventSessions({
+        query: { roomId: String(id), limit: 100 },
+      } as any);
+      return { data: (data.data ?? []).map(normalizeSession), total: data.pagination?.total ?? 0 };
     }
     return { data: [], total: 0 };
   },
