@@ -60,9 +60,14 @@ export const roomsResource = {
   },
 
   update: async ({ id, data: body }: UpdateParams) => {
+    const raw = body as Record<string, unknown>;
     const res = await adminApi.updateRoom({
       path: { roomId: String(id) },
-      body: body as UpdateRoom,
+      body: {
+        name: raw.name,
+        capacity: raw.capacity,
+        venueId: raw.venueId,
+      } as UpdateRoom,
     }) as any;
     handleSdkError(res);
     return { data: res.data };

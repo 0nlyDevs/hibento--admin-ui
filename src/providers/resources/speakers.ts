@@ -51,9 +51,15 @@ export const speakersResource = {
   },
 
   update: async ({ id, data: body }: UpdateParams) => {
+    const raw = body as Record<string, unknown>;
     const res = await adminApi.updateSpeaker({
       path: { speakerId: String(id) },
-      body: body as UpdateSpeaker,
+      body: {
+        name: raw.name,
+        avatarUrl: raw.avatarUrl,
+        bio: raw.bio,
+        externalLinks: raw.externalLinks,
+      } as UpdateSpeaker,
     }) as any;
     handleSdkError(res);
     return { data: res.data };

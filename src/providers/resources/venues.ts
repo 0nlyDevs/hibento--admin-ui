@@ -37,9 +37,15 @@ export const venuesResource = {
   },
 
   update: async ({ id, data: body }: UpdateParams) => {
+    const raw = body as Record<string, unknown>;
     const res = await adminApi.updateVenue({
       path: { venueId: String(id) },
-      body: body as UpdateVenue,
+      body: {
+        name: raw.name,
+        city: raw.city,
+        neighborhood: raw.neighborhood,
+        totalRooms: raw.totalRooms,
+      } as UpdateVenue,
     }) as any;
     handleSdkError(res);
     return { data: res.data };
